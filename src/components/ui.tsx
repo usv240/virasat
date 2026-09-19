@@ -42,7 +42,7 @@ export function Card({ className, children, tone = "raised" }: { className?: str
         "rounded-card border border-border p-5",
         tone === "raised" && "bg-raised shadow-[var(--shadow)]",
         tone === "surface" && "bg-surface",
-        tone === "brand" && "bg-brand text-brand-contrast border-brand dark:bg-[#0c2a2b] dark:text-white dark:border-[#1f5152]",
+        tone === "brand" && "brand-scope bg-brand text-brand-contrast border-brand dark:bg-[#0c2a2b] dark:border-[#1f5152]",
         tone === "accent" && "bg-accent-soft border-accent-soft",
         className,
       )}

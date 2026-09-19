@@ -7,7 +7,7 @@ import { InfoButton, Listen } from "@/components/ui";
 export function Hero() {
   const { t } = usePrefs();
   return (
-    <section className="bg-brand text-brand-contrast dark:bg-[#0c2a2b] dark:text-white">
+    <section className="brand-scope bg-brand text-brand-contrast dark:bg-[#0c2a2b]">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wider text-accent">Virasat <span className="font-normal normal-case tracking-normal text-brand-contrast/70">means inheritance</span></p>
