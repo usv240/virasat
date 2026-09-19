@@ -1,26 +1,127 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Design tokens: see projects/00-shared/DESIGN-SYSTEM.md */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #f5f8f7;
+  --surface-raised: #ffffff;
+  --text: #16201f;
+  --text-muted: #51605e;
+  --border: #d6dfdd;
+  --success: #1e7f4f;
+  --warning: #8a5a00;
+  --danger: #b42318;
+  --info: #1d5fa8;
+  --brand: #0f3d3e;
+  --brand-strong: #0a2c2d;
+  --brand-soft: #e6f0ee;
+  --brand-contrast: #ffffff;
+  --accent: #b9791a;
+  --accent-soft: #fbf1df;
+  --shadow: 0 1px 2px rgb(16 32 31 / 0.06), 0 8px 24px rgb(16 32 31 / 0.08);
+  --radius: 12px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1413;
+  --surface: #161d1c;
+  --surface-raised: #1d2625;
+  --text: #e7eeec;
+  --text-muted: #a7b5b2;
+  --border: #2c3836;
+  --success: #5cc98e;
+  --warning: #e8b64c;
+  --danger: #f2837a;
+  --info: #7fb2f0;
+  --brand: #4fa39e;
+  --brand-strong: #7cc4bf;
+  --brand-soft: #173231;
+  --brand-contrast: #0f1413;
+  --accent: #e3a33b;
+  --accent-soft: #3a2e14;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--surface-raised);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-border: var(--border);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-contrast: var(--brand-contrast);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-inter), var(--font-devanagari), system-ui, sans-serif;
+  --radius-card: var(--radius);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  font-size: 17px;
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Glossary term: dotted underline, works without color */
+.term {
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  cursor: help;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 8px;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
