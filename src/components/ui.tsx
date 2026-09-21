@@ -203,7 +203,10 @@ export function Listen({ text, className }: { text: string; className?: string }
 export function Section({ id, eyebrow, title, children, className, tone, h1 }: { id?: string; eyebrow?: string; title: React.ReactNode; children: React.ReactNode; className?: string; tone?: "surface"; h1?: boolean }) {
   const Heading = h1 ? "h1" : "h2";
   return (
-    <section id={id} className={clsx("scroll-mt-20 py-16 lg:py-24", tone === "surface" && "bg-surface", className)}>
+    // The root font is 18px, so py-24 is 108px top and bottom. Across sixteen
+    // sections that was 3,456px of nothing, about a quarter of the landing
+    // page. Still generous, just no longer the largest thing on the page.
+    <section id={id} className={clsx("scroll-mt-20 py-12 lg:py-16", tone === "surface" && "bg-surface", className)}>
       <div className="mx-auto w-full max-w-6xl px-4">
         {eyebrow && <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">{eyebrow}</p>}
         <Heading className="text-3xl lg:text-4xl">{title}</Heading>

@@ -296,25 +296,31 @@ export default function Home() {
         <Faq />
       </Section>
 
-      <Section id="glossary" eyebrow="Glossary" title="Words we use" tone="surface">
-        <dl className="grid gap-4 md:grid-cols-2">
-          {GLOSSARY.slice(0, 8).map((g) => (
-            <div key={g.term} className="rounded-card border border-border bg-raised p-4">
-              <dt className="font-semibold text-brand">{g.term}</dt>
-              <dd className="mt-1 text-sm">{g.def}</dd>
-            </div>
+      {/* One band instead of two half previews of pages that already exist in
+          full. The glossary and sources sections were reprinting 8 terms and 6
+          citations here, 1.7 screens of scroll to say "there is more over
+          there". A row of links says the same thing and gets a reader to the
+          real page faster. */}
+      <Section id="more" eyebrow="Go deeper" title="Everything else, in full" tone="surface">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            ["/glossary", "Glossary", `Every term we use, explained in plain words. ${GLOSSARY.length} of them.`],
+            ["/references", "Sources", `Where every number comes from. ${REFERENCES.length} citations, plus who we credit.`],
+            ["/proof", "Proof", "What one family costs, and how to check every claim on this site yourself."],
+            ["/how-ai-works", "Transparency", "What the AI does, what it never decides, and our own test results."],
+            ["/developers", "For developers", "The public API, the open rule corpus, and how to add an institution."],
+            ["/judges", "For judges", "Each judging criterion mapped to something you can open."],
+          ].map(([href, title, note]) => (
+            <Link
+              key={href}
+              href={href}
+              className="rounded-card border border-border bg-raised p-4 [transition:border-color_160ms_var(--ease-out)] hover:border-brand"
+            >
+              <span className="font-semibold text-brand underline">{title}</span>
+              <span className="mt-1 block text-sm text-muted">{note}</span>
+            </Link>
           ))}
-        </dl>
-        <Link href="/glossary" className="mt-4 inline-block font-semibold text-brand underline">See all terms</Link>
-      </Section>
-
-      <Section id="references" eyebrow="Sources" title="Where the numbers come from">
-        <ol className="list-decimal space-y-2 pl-6 text-sm">
-          {REFERENCES.slice(0, 6).map((r) => (
-            <li key={r.id}><a className="underline" href={r.url} target="_blank" rel="noreferrer">{r.title}</a></li>
-          ))}
-        </ol>
-        <Link href="/references" className="mt-4 inline-block font-semibold text-brand underline">All sources</Link>
+        </div>
       </Section>
     </>
   );
