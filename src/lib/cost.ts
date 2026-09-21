@@ -43,7 +43,7 @@ export const BATCH_MULTIPLIER = 0.5;
 export const USD_TO_INR = { rate: 88, note: "Rate used for the figures on this page", checkedOn: "2026-09-21" };
 
 /** The day `npm run measure:cost` last replaced the estimates with real usage. Empty until it has run. */
-export const MEASURED_ON = "";
+export const MEASURED_ON = "2026-09-21";
 
 export type Usage = {
   /** Fresh input tokens, billed at the full input price. */
@@ -95,8 +95,8 @@ export const JOURNEY: Step[] = [
     label: "Reading a photographed document",
     what: "The family photographs a passbook, a policy bond or a share certificate.",
     times: 3,
-    usage: { input: 1_900, cacheRead: 160, cacheWrite: 0, output: 400 },
-    source: "estimated",
+    usage: { input: 2, cacheRead: 1029, cacheWrite: 1309, output: 456 },
+    source: "measured",
     note: "Mostly the image itself. The system prompt is cached, so it is paid for once and read back cheaply after that.",
   },
   {
@@ -122,8 +122,8 @@ export const JOURNEY: Step[] = [
     label: "Two AI reviewers checking the route",
     what: "A Supporter, a Challenger and a Referee argue the route before the family sees it.",
     times: 3,
-    usage: { input: 2_600, cacheRead: 1_300, cacheWrite: 0, output: 1_700 },
-    source: "estimated",
+    usage: { input: 2922, cacheRead: 0, cacheWrite: 2221, output: 3124 },
+    source: "measured",
     note: "Three calls. The Supporter and Challenger run at the same time, then the Referee reads both.",
   },
   {
@@ -175,9 +175,14 @@ export const LEVERS: { id: string; label: string; effect: string; factor: number
     factor: 0.5,
   },
   {
+    // Measured, not assumed. An earlier version of this lever proposed moving
+    // document reading to a smaller model, which npm run eval then contradicted:
+    // Haiku read 10 of 12 fields against Opus reading 12 of 12, and reading is
+    // only 16 percent of the bill in any case. The debate is 84 percent of it,
+    // and there Haiku matched Opus exactly, so that is the lever we publish.
     id: "smaller-model",
-    label: "Routine reading moved to a smaller model",
-    effect: "A clear printed passbook does not need the largest model. Hard and low confidence pages still escalate.",
-    factor: 0.2,
+    label: "The debate moved to a smaller model, reading left on the largest",
+    effect: "The debate is 84 percent of the cost, and a smaller model caught the same 3 of 3 planted problems. Reading a faded passbook stays on the largest model, where the same test showed a smaller one drops from 12 of 12 fields to 10 of 12. Measured by npm run eval, not assumed.",
+    factor: 0.327,
   },
 ];

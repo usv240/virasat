@@ -49,7 +49,7 @@ Next.js 16 and React 19 with TypeScript, Tailwind CSS 4. Claude Opus 5 through t
 
 - Returning even **0.1 percent** of the unclaimed pool puts **₹184 crore** back with families. Gujarat's manual claim camps returned ₹104 crore across 26,874 claims, an average of **₹38,700 per family**.
 - A family like our example keeps **up to ₹63,000** that a recovery agent would have taken on a ₹4.2 lakh claim, plus about 20 days of office visits.
-- Running cost is about **₹20 of AI per family**, worked out from real token counts at published prices, so a service centre can charge a small fixed fee instead of a percentage. The full arithmetic is on the Proof page.
+- Running cost is about **₹33 of AI per family**, measured from real token counts at published prices rather than estimated, so a service centre can charge a small fixed fee instead of a percentage. That is roughly **1,150 rupees recovered per rupee of compute**. The full arithmetic is on the Proof page, and `npm run measure:cost` reproduces it.
 - It scales a national mission: the Aapki Poonji Aapka Adhikar campaign, RBI UDGAM, SEBI MITRA and IRDAI Bima Bharosa all exist, but reach few people. Virasat is the layer that gets families to them.
 
 ## What is built and measured

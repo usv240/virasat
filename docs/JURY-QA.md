@@ -171,22 +171,40 @@ problems in evidence packets, a name spelled differently across documents, an
 amount sitting just above the court threshold, a lapsed policy, and we measure
 whether the Challenger finds them, against a single reviewer with no debate.
 
-Those numbers are on the Transparency page and reproduced by `npm run eval`.
-If the measurement is not filled in by the 27th, say that it is measured by a
-script in the repository that the panel can run, and do not overclaim the result.
+We ran it, and the result does not flatter us. Say the result before they ask
+for it: the Challenger caught 3 of 3 planted problems, and so did a single
+reviewer with no debate. On those three cases the debate added nothing to
+accuracy. That is on the Transparency page in those words, and `npm run eval`
+reproduces it.
 
-Also be ready to concede the limit: research on whether debate improves accuracy
-is genuinely mixed. The strong claim is transparency, not accuracy. The family
-can read why the system thinks what it thinks, and disagree with it.
+This is the strongest thing you can say all day, so do not bury it. We measured
+our own headline feature, it did not beat the baseline, and we published it
+anyway. Most teams do not measure, and none of them publish a null result.
+
+Then give the honest reading. Three planted problems is a small and probably
+too-easy test set: the problems were obvious enough that one reviewer found them
+all, so the test has a ceiling and cannot show a difference. The next version
+needs harder cases and more of them. And the reason we still ship the debate is
+not accuracy, it is that the family can read the disagreement and judge it, and
+that the Referee is prevented in code from lowering a caution. Research on
+whether debate improves accuracy is genuinely mixed, and our own measurement now
+sits on the unflattering side of that.
 
 ### 13. What does one user cost you?
 
-About twenty rupees of AI for a family with three documents and three claim
-routes. That is arithmetic on token counts at published prices, not an estimate,
-and the working is on the Proof page.
+About thirty three rupees of AI for a family with three documents and three
+claim routes. That is not an estimate: the documents were actually read and the
+debate was actually run, the token counts came back from the API, and the
+working is on the Proof page.
 
 Against an average of ₹38,700 returned per family at Gujarat's camps, that is
-roughly nineteen hundred rupees recovered per rupee of compute.
+roughly eleven hundred and fifty rupees recovered per rupee of compute.
+
+If asked why it is not lower: our first published figure was an estimate of
+about twenty rupees, and measuring it moved it up by two thirds, mostly because
+the debate writes more than we guessed. We changed the number rather than the
+claim. That is the answer to give, and it is a better answer than a smaller
+number would have been.
 
 And it goes down, not up, with volume: overnight work moves to the Batch API at
 half price, and routine reading of a clear printed passbook does not need the

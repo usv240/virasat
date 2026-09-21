@@ -17,7 +17,7 @@ const SHOTS = __dirname + "/shots";
 const TESTS = fs.readdirSync(__dirname + "/../../tests")
   .filter((f) => f.endsWith(".test.ts"))
   .reduce((n, f) => n + (fs.readFileSync(`${__dirname}/../../tests/${f}`, "utf8").match(/^ {2}it\(/gm) || []).length, 0);
-const COST_PER_FAMILY = "about ₹20";
+const COST_PER_FAMILY = "about ₹33";
 
 const TEAL = "0F3D3E", TEAL2 = "1F6F6B", TINT = "E6F0EE", GOLD = "E3A33B",
   GOLD_T = "FBF1DF", INK = "1B2424", MUTED = "5B6B6A", WHITE = "FFFFFF", LINE = "D5E2DF", GREEN = "1E7F4F";
@@ -159,7 +159,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
   {
     const s = pres.addSlide(); s.background = { color: TINT };
     tag(s, "03", "Innovation: the Two AI Debate");
-    title(s, "The Challenger caught what a single answer missed", INK, 0.58, 24);
+    title(s, "Two AIs argue, and you can read the argument", INK, 0.58, 24);
     card(s, 0.5, 1.5, 4.5, 1.5, WHITE);
     txt(s, "Supporter", { x: 0.7, y: 1.62, w: 4, h: 0.25, fontSize: 11, bold: true, color: GREEN });
     txt(s, "The nominee route is correct: the passbook names a nominee and the amount is below the bank's threshold.", { x: 0.7, y: 1.9, w: 4.1, h: 1, fontSize: 10.5 });
@@ -170,7 +170,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     txt(s, "Referee", { x: 0.75, y: 3.28, w: 3, h: 0.25, fontSize: 11, bold: true, color: GOLD });
     txt(s, "Nominee route. High confidence. Next step: carry an ID that matches the nominee name exactly, or an affidavit for the name variation.",
       { x: 0.75, y: 3.56, w: 8.5, h: 0.8, fontSize: 13, color: WHITE });
-    foot(s, "Research: multi-agent debate improves factual accuracy (Du and others, ICML 2024). Newer work warns it is not always better, so we measure it: npm run eval reports how often the Challenger catches a planted problem, with and without the debate. Both numbers are published on the site.");
+    foot(s, "We measured it rather than assuming it. On 3 planted problems the Challenger caught 3 of 3, and so did a single reviewer with no debate: on cases this clear the debate added nothing to accuracy, and we publish that. The case for it is that the family can read the disagreement, and that the Referee is prevented in code from lowering a caution. Reproduce with npm run eval.");
   }
 
   /* 6. Technical implementation (point 4) */
@@ -243,7 +243,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     s.addTable([head, ...rows], { x: 0.5, y: 1.55, w: 5.5, colW: [1.9, 1.7, 1.9], fontFace: BF, fontSize: 10.5, border: { type: "solid", pt: 0.5, color: LINE }, rowH: 0.6, margin: [0.05, 0.08, 0.05, 0.08], valign: "middle" });
     const big = [["₹184 crore", "back to families if just 0.1 percent of the pool is claimed", GOLD, INK],
       ["₹38.7 crore", "saved in agent fees if we help 1 lakh families", TEAL, WHITE],
-      ["about ₹20", "of AI per family, against ₹38,700 returned on average. Roughly 1,900 rupees recovered per rupee spent.", WHITE, INK]];
+      ["about ₹33", "of AI per family, measured from real token counts, against ₹38,700 returned on average. Roughly 1,150 rupees recovered per rupee spent.", WHITE, INK]];
     big.forEach(([n, l, fill, tc], i) => {
       const y = 1.55 + i * 1.18;
       card(s, 6.3, y, 3.2, 1.03, fill);
@@ -278,9 +278,9 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
   {
     const s = pres.addSlide(); s.background = { color: WHITE };
     tag(s, "07", "Feasibility: the arithmetic, in public");
-    title(s, "₹20 a family, open rules, and every number checkable", INK, 0.58, 24);
+    title(s, "₹33 a family, open rules, and every number checkable", INK, 0.58, 24);
 
-    // Left: where the twenty rupees goes, and why most of the journey is free.
+    // Left: where the thirty three rupees goes, and why most of the journey is free.
     card(s, 0.5, 1.5, 4.4, 3.2, "F2F8F6");
     txt(s, "What one family costs", { x: 0.75, y: 1.68, w: 4.0, h: 0.3, fontSize: 12, bold: true, color: TEAL });
     const steps = [["Reading 3 photographed papers", "₹5.17"],

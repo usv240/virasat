@@ -97,7 +97,7 @@ section, then /proof showing the cost table.
 **Say:** "For scale, all of this is a public API, and the claim rules themselves
 are open, MIT licensed, served with no key at all. If a bank or a government
 portal serves families better by taking them, that is the point. We would rather
-be the standard than the site. One family costs about twenty rupees of AI,
+be the standard than the site. One family costs about thirty three rupees of AI,
 arithmetic on real token counts, against an average of thirty eight thousand
 seven hundred returned per family. And every number on this site sits next to the
 command that would prove us wrong. Aapki poonji, aapka adhikar. Your money, your

@@ -28,7 +28,11 @@ if (!process.env.ANTHROPIC_API_KEY) {
 
 const { default: Anthropic } = await import("@anthropic-ai/sdk");
 const client = new Anthropic();
-const MODEL = "claude-opus-5";
+// Overridable so we can measure whether a cheaper model holds the same accuracy
+// before putting one in the product:
+//   npm run eval -- --keep --model=claude-haiku-4-5-20251001
+// Defaults to what the product actually ships.
+const MODEL = process.argv.find((a) => a.startsWith("--model="))?.split("=")[1] ?? "claude-opus-5";
 
 /* ---------------- 1. Document reading ---------------- */
 
@@ -107,13 +111,28 @@ List anything the family should check before acting on this route. Plain words. 
 async function argue(system, evidence) {
   const r = await client.messages.create({
     model: MODEL,
-    max_tokens: 1500,
+    // src/lib/debate.ts allows 2000. This asks for a broader list than the
+    // product does, so it gets headroom: a reply cut off mid-string is a
+    // measurement failure, not a finding about the model.
+    max_tokens: 6000,
     system,
     messages: [{ role: "user", content: `Evidence packet:\n${JSON.stringify(evidence, null, 2)}` }],
     output_config: { format: { type: "json_schema", schema: ARGUMENT_SCHEMA } },
   });
-  const text = r.content.find((b) => b.type === "text")?.text ?? "{}";
-  const parsed = JSON.parse(text);
+  // parsed_output is only filled in when the format carries a parser, which is
+  // the zodOutputFormat the product uses; a raw json_schema leaves it empty, so
+  // fall back to the text. Either way a truncated reply is reported as a
+  // measurement failure rather than parsed into a wrong answer.
+  let parsed = r.parsed_output;
+  if (!parsed) {
+    if (r.stop_reason === "max_tokens") throw new Error("No structured output: the reply hit the token ceiling before the JSON closed.");
+    const text = r.content.find((b) => b.type === "text")?.text ?? "";
+    try {
+      parsed = JSON.parse(text);
+    } catch {
+      throw new Error(`No structured output: the reply was not valid JSON (stop_reason ${r.stop_reason}, ${text.length} chars).`);
+    }
+  }
   return [parsed.position, ...(parsed.points ?? []).map((p) => `${p.claim} ${p.evidence}`)].join(" ");
 }
 
@@ -142,8 +161,19 @@ for (const d of DOCS) {
 console.log("Running the debate on planted problems...");
 let caughtWith = 0;
 let caughtWithout = 0;
+const failures = [];
 for (const p of PLANTED) {
-  const [withDebate, without] = await Promise.all([argue(CHALLENGER, p.evidence), argue(SOLO, p.evidence)]);
+  // A case that errors counts as not caught. That makes the published number
+  // the conservative one, and the failure is printed rather than swallowed.
+  let withDebate = "";
+  let without = "";
+  try {
+    [withDebate, without] = await Promise.all([argue(CHALLENGER, p.evidence), argue(SOLO, p.evidence)]);
+  } catch (e) {
+    failures.push(`${p.name}: ${e.message}`);
+    console.log(`  ${p.name}: FAILED, counted as not caught. ${e.message}`);
+    continue;
+  }
   const a = p.findIf.test(withDebate);
   const b = p.findIf.test(without);
   if (a) caughtWith += 1;
@@ -157,6 +187,7 @@ console.log(`\nDocument fields correct: ${docFields} of ${docTotal}`);
 console.log(`Challenger found the planted problem: ${caughtWith} of ${PLANTED.length}`);
 console.log(`A single reviewer found it: ${caughtWithout} of ${PLANTED.length}`);
 console.log(`Took ${seconds} s`);
+if (failures.length) console.log(`\n${failures.length} case(s) did not complete:\n  ${failures.join("\n  ")}`);
 
 if (keep) process.exit(0);
 
@@ -167,13 +198,25 @@ if (!existsSync(target)) {
 }
 let src = readFileSync(target, "utf8");
 src = src.replace(/lastRun: "[^"]*"/, `lastRun: "${today}"`);
+// Matches on the stable prefix, not the full title. The first version of this
+// matched the title it was replacing, so once it had rewritten the row it never
+// matched again and every later run silently left a stale number on the site.
 src = src.replace(
-  /\{ test: "Document reading: institution and number",[^}]*\}/,
+  /\{ test: "Document reading:[^}]*\}/,
   `{ test: "Document reading: institution, number, holder, nominee", cases: "${DOCS.length} sample documents, ${docTotal} fields", result: "${docFields} of ${docTotal}", note: "Measured with npm run eval on ${today}." }`,
 );
+// Says out loud when the debate did not beat the baseline. The whole point of
+// running this is that it can come back unflattering, and a reader should not
+// have to compare two numbers themselves to notice.
+const verdict =
+  caughtWith > caughtWithout
+    ? `The Challenger caught ${caughtWith - caughtWithout} that a single reviewer missed.`
+    : caughtWith === caughtWithout
+      ? "On these cases the debate found no more than a single reviewer did. We publish that because it is the result. The case for the debate is that a family can read the disagreement and that the Referee can only raise caution, not accuracy on cases this clear."
+      : "A single reviewer did better on these cases.";
 src = src.replace(
-  /\{ test: "Debate: Challenger finds the planted issue",[^}]*\}/,
-  `{ test: "Debate: Challenger finds the planted problem", cases: "${PLANTED.length} scenarios with a known problem", result: "${caughtWith} of ${PLANTED.length} (a single reviewer found ${caughtWithout} of ${PLANTED.length})", note: "Name mismatch, amount at the threshold, lapsed policy. Measured on ${today}." }`,
+  /\{ test: "Debate: Challenger finds[^}]*\}/,
+  `{ test: "Debate: Challenger finds the planted problem", cases: "${PLANTED.length} scenarios with a known problem", result: "${caughtWith} of ${PLANTED.length} (a single reviewer found ${caughtWithout} of ${PLANTED.length})", note: "Name mismatch, amount at the threshold, lapsed policy. ${verdict} Measured on ${today}." }`,
 );
 writeFileSync(target, src);
 console.log(`\nWrote ${target}. The Transparency page now shows these numbers.`);
