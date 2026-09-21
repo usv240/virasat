@@ -17,7 +17,7 @@ const SHOTS = __dirname + "/shots";
 const TESTS = fs.readdirSync(__dirname + "/../../tests")
   .filter((f) => f.endsWith(".test.ts"))
   .reduce((n, f) => n + (fs.readFileSync(`${__dirname}/../../tests/${f}`, "utf8").match(/^ {2}it\(/gm) || []).length, 0);
-const COST_PER_FAMILY = "about ₹33";
+const COST_PER_FAMILY = "about ₹36";
 
 const TEAL = "0F3D3E", TEAL2 = "1F6F6B", TINT = "E6F0EE", GOLD = "E3A33B",
   GOLD_T = "FBF1DF", INK = "1B2424", MUTED = "5B6B6A", WHITE = "FFFFFF", LINE = "D5E2DF", GREEN = "1E7F4F";
@@ -243,7 +243,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     s.addTable([head, ...rows], { x: 0.5, y: 1.55, w: 5.5, colW: [1.9, 1.7, 1.9], fontFace: BF, fontSize: 10.5, border: { type: "solid", pt: 0.5, color: LINE }, rowH: 0.6, margin: [0.05, 0.08, 0.05, 0.08], valign: "middle" });
     const big = [["₹184 crore", "back to families if just 0.1 percent of the pool is claimed", GOLD, INK],
       ["₹38.7 crore", "saved in agent fees if we help 1 lakh families", TEAL, WHITE],
-      ["about ₹33", "of AI per family, measured from real token counts, against ₹38,700 returned on average. Roughly 1,150 rupees recovered per rupee spent.", WHITE, INK]];
+      ["about ₹36", "of AI per family, measured from real token counts against the live API, versus ₹38,700 returned on average. Roughly 1,060 rupees recovered per rupee spent.", WHITE, INK]];
     big.forEach(([n, l, fill, tc], i) => {
       const y = 1.55 + i * 1.18;
       card(s, 6.3, y, 3.2, 1.03, fill);
@@ -278,9 +278,9 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
   {
     const s = pres.addSlide(); s.background = { color: WHITE };
     tag(s, "07", "Feasibility: the arithmetic, in public");
-    title(s, "₹33 a family, open rules, and every number checkable", INK, 0.58, 24);
+    title(s, "₹36 a family, open rules, and every number checkable", INK, 0.58, 24);
 
-    // Left: where the thirty three rupees goes, and why most of the journey is free.
+    // Left: where the thirty six rupees goes, and why most of the journey is free.
     card(s, 0.5, 1.5, 4.4, 3.2, "F2F8F6");
     txt(s, "What one family costs", { x: 0.75, y: 1.68, w: 4.0, h: 0.3, fontSize: 12, bold: true, color: TEAL });
     const steps = [["Reading 3 photographed papers", "₹5.17"],

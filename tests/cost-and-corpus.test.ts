@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
-import { JOURNEY, LEVERS, PRICES, journeyTotal, rupees, usd } from "../src/lib/cost";
+import { JOURNEY, LEVERS, PRICES, PUBLISHED_INR, journeyTotal, rupees, usd } from "../src/lib/cost";
 import { CORPUS_VERSION, RULES, RuleSchema } from "../src/lib/rules";
 import { CLAIMS } from "../src/lib/proof";
 import { GLOSSARY } from "../src/lib/glossary";
@@ -155,10 +155,13 @@ describe("credits", () => {
 describe("pitch deck", () => {
   const deck = readFileSync(new URL("../scripts/deck/build.js", import.meta.url), "utf8");
 
-  it("quotes the same cost per family as the cost model", () => {
+  it("quotes the published cost per family, and never a cheaper one", () => {
     const shown = deck.match(/const COST_PER_FAMILY = "about ₹(\d+)"/);
     expect(shown).toBeTruthy();
-    expect(Number(shown![1])).toBe(Math.round(journeyTotal().inr));
+    expect(Number(shown![1])).toBe(Math.round(PUBLISHED_INR));
+    // The published figure is the cold-cache one, so it must sit at or above
+    // the warm measurement. Quoting the cheaper number is the failure mode.
+    expect(PUBLISHED_INR).toBeGreaterThanOrEqual(journeyTotal().inr);
   });
 
   it("never prints a Lighthouse figure without saying which profile it is", () => {

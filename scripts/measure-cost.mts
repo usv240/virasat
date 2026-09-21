@@ -45,6 +45,18 @@ const average = (parts: Usage[]): Usage => {
   };
 };
 
+// Production talks to Anthropic directly. A local proxy in front of the API,
+// such as a token-saving cache, changes the token accounting, so measuring
+// through one publishes a number the deployment will never actually spend.
+// This cost us a 9 percent understatement once, so it refuses now.
+const base = process.env.ANTHROPIC_BASE_URL;
+if (base && !/^https:\/\/api\.anthropic\.com\/?$/.test(base)) {
+  console.error(`ANTHROPIC_BASE_URL is ${base}, not the real API.`);
+  console.error("Numbers measured through a proxy do not match what the deployment spends. Re-run as:");
+  console.error("  ANTHROPIC_BASE_URL=https://api.anthropic.com npm run measure:cost");
+  process.exit(1);
+}
+
 console.log("Reading the sample documents with the app's own extractor...");
 const extractRuns: Usage[] = [];
 for (const file of DOCS) {
@@ -84,7 +96,11 @@ if (keep) process.exit(0);
 const target = join(root, "src", "lib", "cost.ts");
 let src = readFileSync(target, "utf8");
 for (const [id, u] of Object.entries(measured)) {
-  const block = new RegExp(`(id: "${id}",[\\s\\S]*?)usage: \\{[^}]*\\},([\\s\\S]*?)source: "estimated",`);
+  // Matches a step that has already been measured as well as one that has not.
+  // Requiring "estimated" here meant this could only ever write once: the first
+  // run flipped the flag and every re-measurement after that failed with
+  // "could not find the step", which is exactly how a stale number survives.
+  const block = new RegExp(`(id: "${id}",[\\s\\S]*?)usage: \\{[^}]*\\},([\\s\\S]*?)source: "(?:estimated|measured)",`);
   if (!block.test(src)) {
     console.error(`Could not find the ${id} step in cost.ts. Nothing written.`);
     process.exit(1);

@@ -192,13 +192,13 @@ sits on the unflattering side of that.
 
 ### 13. What does one user cost you?
 
-About thirty three rupees of AI for a family with three documents and three
+About thirty six rupees of AI for a family with three documents and three
 claim routes. That is not an estimate: the documents were actually read and the
 debate was actually run, the token counts came back from the API, and the
 working is on the Proof page.
 
 Against an average of ₹38,700 returned per family at Gujarat's camps, that is
-roughly eleven hundred and fifty rupees recovered per rupee of compute.
+roughly one thousand and sixty rupees recovered per rupee of compute.
 
 If asked why it is not lower: our first published figure was an estimate of
 about twenty rupees, and measuring it moved it up by two thirds, mostly because

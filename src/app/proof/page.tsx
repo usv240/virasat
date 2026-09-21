@@ -3,7 +3,7 @@ import { Card, Section } from "@/components/ui";
 import { Explain } from "@/components/explain";
 import { CLAIMS, NOT_CLAIMED } from "@/lib/proof";
 import { EVAL_RESULTS } from "@/lib/eval-results";
-import { JOURNEY, LEVERS, MEASURED_ON, PRICE_SOURCE, USD_TO_INR, journeyTotal, inrFromUsd, rupees, usd } from "@/lib/cost";
+import { JOURNEY, LEVERS, MEASURED_ON, PRICE_SOURCE, PUBLISHED_INR, USD_TO_INR, journeyTotal, inrFromUsd, rupees, usd } from "@/lib/cost";
 
 export const metadata = {
   title: "Proof",
@@ -16,7 +16,7 @@ const AVERAGE_RECOVERED = 38_700;
 
 /** A working figure for how many Indian families this money belongs to. */
 const FAMILIES = 10_000_000;
-const CHEAPEST = total.inr * Math.min(...LEVERS.map((l) => l.factor));
+const CHEAPEST = PUBLISHED_INR * Math.min(...LEVERS.map((l) => l.factor));
 const nationalCostCrore = Math.round((CHEAPEST * FAMILIES) / 10_000_000).toLocaleString("en-IN");
 
 export default function Proof() {
@@ -66,7 +66,7 @@ export default function Proof() {
 
       <Section
         eyebrow="Unit economics"
-        title={`One family costs about ${rupees(total.inr)} of AI`}
+        title={`One family costs about ${rupees(PUBLISHED_INR)} of AI`}
         tone="surface"
       >
         <p className="max-w-3xl">
@@ -101,8 +101,10 @@ export default function Proof() {
                 <td className="p-2" />
                 <td className="p-2 tabular text-lg font-semibold text-brand">{rupees(total.inr)}</td>
                 <td className="p-2">
-                  Against an average of {rupees(AVERAGE_RECOVERED).replace(".00", "")} returned per family at
-                  Gujarat&apos;s camps, that is about {Math.round(AVERAGE_RECOVERED / total.inr).toLocaleString("en-IN")} rupees
+                  That run had a warm prompt cache. A family arriving on their own is a cache miss, which the same
+                  script measured at {rupees(PUBLISHED_INR)}, so {rupees(PUBLISHED_INR)} is the figure we publish
+                  everywhere. Against an average of {rupees(AVERAGE_RECOVERED).replace(".00", "")} returned per family
+                  at Gujarat&apos;s camps, that is about {Math.round(AVERAGE_RECOVERED / PUBLISHED_INR).toLocaleString("en-IN")} rupees
                   recovered for every rupee of AI spent.
                 </td>
               </tr>
@@ -124,7 +126,7 @@ export default function Proof() {
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           {LEVERS.map((l, i) => (
             <Card key={l.id} tone={i === 0 ? "raised" : "brand"}>
-              <p className="text-2xl font-semibold tabular text-brand">{rupees(total.inr * l.factor)}</p>
+              <p className="text-2xl font-semibold tabular text-brand">{rupees(PUBLISHED_INR * l.factor)}</p>
               <h4 className="mt-1 text-base">{l.label}</h4>
               <p className="mt-2 text-sm"><Explain text={l.effect} /></p>
             </Card>
