@@ -5,6 +5,7 @@ import { JOURNEY, LEVERS, PRICES, PUBLISHED_INR, journeyTotal, rupees, usd } fro
 import { CORPUS_VERSION, RULES, RuleSchema } from "../src/lib/rules";
 import { CLAIMS } from "../src/lib/proof";
 import { GLOSSARY } from "../src/lib/glossary";
+import { INPUTS, SCENARIOS, outcome } from "../src/lib/impact";
 import { HOW_IT_WAS_BUILT, RUNTIME, SERVICES, TOOLING } from "../src/lib/credits";
 
 /**
@@ -208,5 +209,30 @@ describe("published test count", () => {
       expect(quoted, `${file} never says how many tests there are`).toBeTruthy();
       expect(Number(quoted![1]), file).toBe(actual);
     }
+  });
+});
+
+/**
+ * The impact figures are published as potential, not achieved, and the only
+ * defence of a potential figure is that it is arithmetic on named inputs.
+ */
+describe("impact model", () => {
+  it("derives every scenario from the cited inputs and nothing else", () => {
+    for (const s of SCENARIOS) {
+      const o = outcome(s);
+      const success = INPUTS.find((i) => i.id === "success")!.value;
+      const recovered = INPUTS.find((i) => i.id === "recovered")!.value;
+      expect(o.successful).toBe(Math.round(s.families * success));
+      expect(o.recoveredInr).toBe(o.successful * recovered);
+      expect(o.aiCostInr).toBe(Math.round(s.families * PUBLISHED_INR));
+    }
+  });
+
+  it("names a source for every input", () => {
+    for (const i of INPUTS) expect(i.source.length, i.id).toBeGreaterThan(10);
+  });
+
+  it("keeps the success rate below what the camps saw, since camps started with a match in hand", () => {
+    expect(INPUTS.find((i) => i.id === "success")!.value).toBeLessThan(1);
   });
 });

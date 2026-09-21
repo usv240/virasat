@@ -55,7 +55,7 @@ Next.js 16 and React 19 with TypeScript, Tailwind CSS 4. Claude Opus 5 through t
 ## What is built and measured
 
 - 12 pages and 9 API routes, deployed as a production build; `/try` runs the whole journey on sample data in one click.
-- **49 automated tests** covering the rule engine for five institutions, the AIS parser, claim pack generation and the dividend search.
+- **52 automated tests** covering the rule engine for five institutions, the AIS parser, claim pack generation and the dividend search.
 - **Accessibility: zero serious or critical axe violations** across 11 pages in both light and dark themes.
 - **Lighthouse on the live deployment, three runs of each profile: desktop 99 to 100 performance with a 0.8 s largest paint, mobile on a throttled connection never below 90, having ranged from 90 to 96 across runs, with a 3.5 s largest paint. Both profiles 100 accessibility, 100 best practices and 100 SEO, with layout shift between 0 and 0.024 against a 0.1 threshold.** The range is published rather than the best run, and `npm run audit` reproduces it.
 - An evaluation script (`npm run eval`) measures document reading accuracy and how often the Challenger catches a planted problem, and publishes the numbers on the Transparency page.

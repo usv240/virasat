@@ -17,7 +17,7 @@ export const PAYERS: { who: string; what: string; why: string; status: string }[
   {
     who: "Common Service Centres",
     what: "Virasat listed as one more service the operator can offer, earning the usual per service fee.",
-    why: "More than four lakh of these centres already sit in villages doing exactly this kind of paperwork for a small fee. They are how rural India actually reaches a government service. We do not need families to find an app; we need operators to have one more thing on their screen.",
+    why: "More than five lakh of these centres already sit in villages doing exactly this kind of paperwork for a small fee. They are how rural India actually reaches a government service. We do not need families to find an app; we need operators to have one more thing on their screen.",
     status: "The obvious distribution path, and the one we would test first.",
   },
   {

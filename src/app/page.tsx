@@ -8,6 +8,7 @@ import { DebateExample } from "@/components/landing/debate-example";
 import { Faq } from "@/components/landing/faq";
 import { Explain } from "@/components/explain";
 import { Term } from "@/components/term";
+import { INPUTS, SCENARIOS, crore, outcome } from "@/lib/impact";
 import { Reveal } from "@/components/reveal";
 import { GLOSSARY } from "@/lib/glossary";
 import { REFERENCES } from "@/lib/references";
@@ -155,16 +156,23 @@ export default function Home() {
       <Section id="impact" eyebrow="Impact" title="Even a small share of ₹1.84 lakh crore changes lives">
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
-            <h3 className="text-lg">Money back to families (₹ crore)</h3>
-            <div className="mt-4 space-y-3" role="img" aria-label="Bar chart: if 0.1 percent of the unclaimed pool is claimed, 184 crore rupees return to families; 0.5 percent, 920 crore; 1 percent, 1,840 crore.">
-              {[["If 0.1% is claimed", 184], ["If 0.5% is claimed", 920], ["If 1% is claimed", 1840]].map(([l, v]) => (
-                <div key={l as string}>
-                  <div className="flex justify-between text-sm"><span>{l as string}</span><span className="tabular font-semibold">₹{(v as number).toLocaleString("en-IN")} cr</span></div>
-                  <div className="mt-1 h-3 rounded-full bg-surface"><div className="h-3 rounded-full bg-brand" style={{ width: `${((v as number) / 1840) * 100}%` }} /></div>
-                </div>
-              ))}
+            <h3 className="text-lg">What reaches families, worked from the bottom up <InfoButton label="How this is worked out">Not a share of the pool. Families served through Common Service Centres that already exist, a success rate set below what Gujarat&apos;s camps saw, the average a camp actually returned per family, the agent fee that is not taken, and the measured AI cost. Every input and its source is listed under the table, and a test checks the arithmetic.</InfoButton></h3>
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full min-w-[520px] text-sm">
+                <thead><tr className="bg-brand text-left text-brand-contrast"><th className="p-2">If</th><th className="p-2 text-right">Families a year</th><th className="p-2 text-right">Back to families</th><th className="p-2 text-right">Agent fees avoided</th><th className="p-2 text-right">AI cost</th></tr></thead>
+                <tbody>
+                  {SCENARIOS.map((sc) => { const o = outcome(sc); return (
+                    <tr key={sc.id} className="border-b border-border odd:bg-raised">
+                      <td className="p-2"><span className="font-semibold">{sc.label}</span><span className="block text-xs text-muted">{sc.reach}</span></td>
+                      <td className="p-2 text-right tabular">{o.families.toLocaleString("en-IN")}</td>
+                      <td className="p-2 text-right tabular font-semibold text-brand">{crore(o.recoveredInr)}</td>
+                      <td className="p-2 text-right tabular">{crore(o.feesAvoidedInr)}</td>
+                      <td className="p-2 text-right tabular">{crore(o.aiCostInr)}</td>
+                    </tr>); })}
+                </tbody>
+              </table>
             </div>
-            <p className="mt-3 text-sm text-muted">Example scenarios based on the ₹1.84 lakh crore total. For scale, Gujarat&apos;s claim camps alone returned ₹104 crore in a few months.</p>
+            <p className="mt-3 text-sm text-muted">Potential, not achieved: nobody has used Virasat yet. About {outcome(SCENARIOS[0]).perRupee.toLocaleString("en-IN")} rupees reach families for every rupee of AI in every case. Inputs: {INPUTS.map((i, k) => <span key={i.id}>{k > 0 ? "; " : ""}{i.label.toLowerCase()} {i.unit === "rupees" ? `₹${i.value.toLocaleString("en-IN")}` : i.unit.startsWith("of") ? `${Math.round(i.value * 100)}%` : i.value.toLocaleString("en-IN")} <Link href={i.ref === "proof" ? "/proof" : `/references#${i.ref}`} className="underline">({i.ref === "proof" ? "measured" : "source"})</Link></span>)}.</p>
             <div className="mt-6 flex flex-wrap gap-2 text-xs">
               {["Aapki Poonji Aapka Adhikar", "RBI UDGAM", "SEBI MITRA", "IRDAI Bima Bharosa", "Digital India"].map((b) => (
                 <span key={b} className="rounded-full border border-border px-3 py-1">Aligned with {b}</span>
