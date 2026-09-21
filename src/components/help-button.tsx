@@ -26,7 +26,7 @@ export function HelpButton() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={t("app.help")}
-        className={`fixed right-4 z-30 ${path.startsWith("/app") || path.startsWith("/try") ? "bottom-20 lg:bottom-4" : "bottom-4"} inline-flex h-14 w-14 items-center justify-center rounded-full bg-brand text-brand-contrast shadow-[var(--shadow)]`}
+        className={`fixed right-4 z-30 ${path.startsWith("/app") || path.startsWith("/try") ? "bottom-20 lg:bottom-4" : "bottom-4"} press inline-flex h-14 w-14 items-center justify-center rounded-full bg-brand text-brand-contrast shadow-[var(--shadow-2)] [transition:box-shadow_180ms_var(--ease-out),filter_120ms_var(--ease-out)] hover:shadow-[var(--shadow-3)] hover:brightness-110`}
       >
         <HelpCircle aria-hidden />
       </button>

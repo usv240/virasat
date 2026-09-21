@@ -8,7 +8,7 @@ export function Hero() {
   const { t } = usePrefs();
   return (
     <section className="brand-scope bg-brand text-brand-contrast dark:bg-[#0c2a2b]">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
+      <div className="mx-auto grid max-w-6xl items-start gap-10 px-4 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-20">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wider text-accent">Virasat <span className="font-normal normal-case tracking-normal text-brand-contrast/70">means inheritance</span></p>
           <h1 className="mt-3 text-4xl leading-tight lg:text-6xl">
@@ -24,7 +24,7 @@ export function Hero() {
             <Listen text={`${t("hero.title")} ${t("hero.sub")}`} className="text-brand-contrast hover:bg-white/10" />
           </div>
         </div>
-        <div className="rounded-2xl border border-brand-contrast/20 bg-white/5 p-6">
+        <div className="rounded-2xl border border-brand-contrast/20 bg-white/5 p-6 shadow-[var(--shadow-2)] lg:mt-6">
           <p className="text-3xl font-semibold text-accent lg:text-4xl">₹1.84 lakh crore</p>
           <p className="mt-2 text-brand-contrast/90">
             of Indians&apos; own money is lying unclaimed in banks, insurance, provident fund and shares.

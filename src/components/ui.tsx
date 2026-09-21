@@ -18,10 +18,10 @@ export function Button({ variant = "primary", size = "md", loading, className, c
       {...rest}
       disabled={rest.disabled || loading}
       className={clsx(
-        "inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-colors min-h-11 px-4",
+        "press inline-flex items-center justify-center gap-2 rounded-lg font-semibold min-h-11 px-4 [transition:background-color_160ms_var(--ease-out),color_160ms_var(--ease-out),filter_120ms_var(--ease-out),box-shadow_160ms_var(--ease-out)]",
         size === "lg" && "min-h-13 px-6 text-lg",
-        variant === "primary" && "bg-brand text-brand-contrast hover:opacity-90",
-        variant === "secondary" && "border border-border bg-raised text-text hover:bg-surface",
+        variant === "primary" && "bg-brand text-brand-contrast shadow-[var(--shadow-1)] hover:brightness-110 hover:shadow-[var(--shadow-2)]",
+        variant === "secondary" && "border border-border bg-raised text-text hover:border-brand/40 hover:bg-surface",
         variant === "quiet" && "text-brand hover:bg-brand-soft",
         variant === "danger" && "bg-danger text-white hover:opacity-90",
         (rest.disabled || loading) && "opacity-60 cursor-not-allowed",
@@ -35,15 +35,16 @@ export function Button({ variant = "primary", size = "md", loading, className, c
 }
 
 /* ---------- Card ---------- */
-export function Card({ className, children, tone = "raised" }: { className?: string; children: React.ReactNode; tone?: "raised" | "surface" | "brand" | "accent" }) {
+export function Card({ className, children, tone = "raised", interactive }: { className?: string; children: React.ReactNode; tone?: "raised" | "surface" | "brand" | "accent"; interactive?: boolean }) {
   return (
     <div
       className={clsx(
-        "rounded-card border border-border p-5",
-        tone === "raised" && "bg-raised shadow-[var(--shadow)]",
+        "rounded-card border border-border p-5 surface-raised",
+        tone === "raised" && "bg-raised",
         tone === "surface" && "bg-surface",
         tone === "brand" && "brand-scope bg-brand text-brand-contrast border-brand dark:bg-[#0c2a2b] dark:border-[#1f5152]",
         tone === "accent" && "bg-accent-soft border-accent-soft",
+        interactive && "surface-interactive",
         className,
       )}
     >
@@ -84,7 +85,7 @@ export function InfoButton({ label, children }: { label: string; children: React
         id={id}
         role="status"
         className={clsx(
-          "absolute left-1/2 z-40 mt-2 w-72 max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-lg border border-border bg-raised p-3 text-sm text-text shadow-[var(--shadow)]",
+          "absolute left-1/2 z-40 mt-2 w-72 max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-lg border border-border bg-raised p-3 text-sm text-text shadow-[var(--shadow-3)]",
           !open && "hidden",
         )}
       >
@@ -140,7 +141,7 @@ export function Confidence({ level }: { level: "high" | "medium" | "low" }) {
 export function Stat({ value, label, source, sourceHref, tone }: { value: string; label: string; source?: string; sourceHref?: string; tone?: "brand" }) {
   return (
     <Card tone={tone === "brand" ? "brand" : "raised"} className="flex flex-col gap-2">
-      <div className={clsx("text-3xl font-semibold tabular", tone === "brand" ? "text-accent" : "text-brand")}>{value}</div>
+      <div className={clsx("text-3xl font-semibold tabular tracking-[-0.02em]", tone === "brand" ? "text-accent" : "text-brand")}>{value}</div>
       <div className={clsx("text-sm", tone === "brand" ? "text-brand-contrast/90" : "text-text")}>{label}</div>
       {source && (
         <a href={sourceHref ?? "/references"} className={clsx("text-xs underline", tone === "brand" ? "text-brand-contrast/70" : "text-muted")}>

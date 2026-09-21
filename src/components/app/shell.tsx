@@ -69,7 +69,13 @@ export function AppShell({ sample = false }: { sample?: boolean }) {
           {ai === "live" ? t("ai.live") : ai === "sample" ? t("ai.sample") : t("ai.checking")}
         </div>
         {!family.ready ? (
-          <div className="skeleton h-40" />
+          <div className="space-y-4">
+            <div className="skeleton h-8 w-64" />
+            <div className="skeleton h-4 w-96 max-w-full" />
+            <div className="grid gap-4 md:grid-cols-3">
+              {[0, 1, 2].map((i) => <div key={i} className="skeleton h-48" />)}
+            </div>
+          </div>
         ) : tab === "find" ? (
           <Find family={family} ai={ai} onClaim={() => setTab("claim")} />
         ) : tab === "claim" ? (

@@ -21,7 +21,7 @@
   --brand-contrast: #ffffff;
   --accent: #8a5a00;
   --accent-soft: #fbf1df;
-  --shadow: 0 1px 2px rgb(16 32 31 / 0.06), 0 8px 24px rgb(16 32 31 / 0.08);
+  --shadow: 0 2px 4px rgb(16 32 31 / 0.05), 0 6px 16px rgb(16 32 31 / 0.08);
   --radius: 12px;
 }
 
@@ -43,7 +43,7 @@
   --brand-contrast: #0f1413;
   --accent: #e3a33b;
   --accent-soft: #3a2e14;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
+  --shadow: 0 2px 4px rgb(0 0 0 / 0.45), 0 6px 16px rgb(0 0 0 / 0.45);
 }
 
 /* Inside a brand-colored surface in dark mode, contrast text is light. */
@@ -101,16 +101,6 @@ h1, h2, h3, h4 {
   letter-spacing: -0.01em;
 }
 
-:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-.tabular {
-  font-variant-numeric: tabular-nums;
-}
-
 /* Glossary term: dotted underline, works without color */
 .term {
   text-decoration: underline dotted;
@@ -119,20 +109,111 @@ h1, h2, h3, h4 {
   cursor: help;
 }
 
+/* ---------------------------------------------------------------------------
+   Craft layer.
+   Rules followed here, from published design-engineering practice:
+   - Shadows carry elevation, borders carry structure. Never both for the same job.
+   - Nested radius must equal the parent radius minus the padding, or corners
+     look wrong.
+   - Hover makes an affordance clearer. It never moves the target.
+   - Never transition "all". Name the properties, keep it under 300 ms.
+   - Motion is decorative. It never blocks input, and it respects reduce-motion.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Two-layer elevation: a tight contact shadow plus a soft ambient one. */
+  --shadow-1: 0 1px 2px rgb(16 32 31 / 0.05), 0 1px 3px rgb(16 32 31 / 0.06);
+  --shadow-2: 0 2px 4px rgb(16 32 31 / 0.05), 0 6px 16px rgb(16 32 31 / 0.08);
+  --shadow-3: 0 4px 8px rgb(16 32 31 / 0.06), 0 16px 32px rgb(16 32 31 / 0.10);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-outer: 12px;
+  --radius-inner: 8px;
+}
+:root[data-theme="dark"] {
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
+  --shadow-2: 0 2px 4px rgb(0 0 0 / 0.45), 0 6px 16px rgb(0 0 0 / 0.45);
+  --shadow-3: 0 4px 8px rgb(0 0 0 / 0.5), 0 16px 32px rgb(0 0 0 / 0.55);
+}
+
+/* Display sizes need tighter tracking to look set rather than typed. */
+h1 { letter-spacing: -0.022em; }
+h2 { letter-spacing: -0.018em; }
+h3 { letter-spacing: -0.012em; }
+
+/* Numbers line up in columns and never jitter while they change. */
+.tabular, table td, table th, input[type="number"] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Focus follows the corner radius instead of cutting across it. */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: inherit;
+}
+
+::selection {
+  background: var(--brand-soft);
+  color: var(--text);
+}
+
+/* A raised surface. Hover lifts it by one step of elevation and warms the
+   border. The element does not move, so the pointer target stays still. */
+.surface-raised {
+  box-shadow: var(--shadow-1);
+  transition: box-shadow 180ms var(--ease-out), border-color 180ms var(--ease-out);
+}
+.surface-interactive:hover {
+  box-shadow: var(--shadow-2);
+  border-color: color-mix(in oklab, var(--brand) 35%, var(--border));
+}
+
+/* Pressed state changes tone, not scale: fractional scaling blurs text. */
+.press:active {
+  filter: brightness(0.94);
+}
+
+/* Content-shaped loading. A skeleton that matches the shape it replaces reads
+   as faster than a spinner. */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 25%, color-mix(in oklab, var(--border) 70%, var(--surface)) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: var(--radius-inner);
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Reveal on scroll. Decorative only: content is present and readable before
+   the class lands, so nothing depends on JavaScript or on the animation. */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
 }
 
-.skeleton {
-  background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.4s infinite;
-  border-radius: 8px;
-}
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+/* Touch devices flash :hover on press. Keep hover for pointers only. */
+@media (hover: none) {
+  .surface-interactive:hover {
+    box-shadow: var(--shadow-1);
+    border-color: var(--border);
+  }
 }

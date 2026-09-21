@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "./logo";
 
 export function Footer() {
   const links = [
@@ -14,7 +15,7 @@ export function Footer() {
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-md">
-          <p className="text-lg font-semibold text-brand">Virasat</p>
+          <p className="flex items-center gap-2 text-lg font-semibold text-brand"><Logo className="h-6 w-6" />Virasat</p>
           <p className="mt-1 text-sm text-muted">Your money, your right. Built by Team USV for the Global Innovation Hackathon 2026: Build for a Better Future.</p>
           <p className="mt-3 text-xs text-muted">
             Virasat prepares. You decide. Nothing is submitted to any bank or government portal without you. This is guidance, not legal advice.

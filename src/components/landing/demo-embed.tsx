@@ -37,9 +37,25 @@ export function DemoEmbed() {
         <Button onClick={run} loading={loading} className="mt-4 w-full">Use these papers</Button>
         <p className="mt-2 text-xs text-muted">Sample data. Nothing is sent anywhere.</p>
       </Card>
-      <Card className="min-h-64">
+      <Card className="min-h-64" interactive>
         {!assets && !loading && <p className="text-muted">Press the button and Virasat will list every place the family has money.</p>}
-        {loading && <div className="space-y-3">{[0, 1, 2].map((i) => <div key={i} className="skeleton h-14" />)}</div>}
+        {loading && (
+          <div>
+            <div className="skeleton h-9 w-40" />
+            <div className="skeleton mt-2 h-4 w-28" />
+            <div className="mt-4 space-y-3">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="flex items-center justify-between gap-3">
+                  <div className="flex-1">
+                    <div className="skeleton h-4 w-44" />
+                    <div className="skeleton mt-2 h-3 w-64" />
+                  </div>
+                  <div className="skeleton h-4 w-20" />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         {assets && (
           <>
             <p className="text-3xl font-semibold text-brand tabular">{inr(total)}</p>

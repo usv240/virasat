@@ -6,6 +6,7 @@ import { Menu, X, Sun, Moon, Laptop } from "lucide-react";
 import { clsx } from "clsx";
 import { usePrefs } from "./providers";
 import { LANGS } from "@/lib/i18n";
+import { Logo } from "./logo";
 
 export function TopBar() {
   const { t, theme, setTheme, mode, setMode, lang, setLang } = usePrefs();
@@ -70,9 +71,10 @@ export function TopBar() {
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-bg/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2">
-        <Link href="/" className="flex items-center gap-2 text-xl font-semibold text-brand">
-          <span aria-hidden className="inline-block h-6 w-6 rounded-md bg-brand" />
-          Virasat
+        <Link href="/" className="flex items-center gap-2 text-xl font-semibold tracking-tight text-brand [transition:opacity_160ms_var(--ease-out)] hover:opacity-80">
+          <Logo className="h-7 w-7 shrink-0" />
+          <span>Virasat</span>
+          <span className="sr-only">home</span>
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {nav.map(([href, label]) => (

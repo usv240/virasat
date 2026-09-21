@@ -6,6 +6,7 @@ import { SavingsCalculator } from "@/components/landing/savings-calculator";
 import { DemoEmbed } from "@/components/landing/demo-embed";
 import { DebateExample } from "@/components/landing/debate-example";
 import { Faq } from "@/components/landing/faq";
+import { Reveal } from "@/components/reveal";
 import { GLOSSARY } from "@/lib/glossary";
 import { REFERENCES } from "@/lib/references";
 
@@ -24,10 +25,10 @@ export default function Home() {
       {/* Problem */}
       <Section id="problem" eyebrow="The problem" title={<>Lakhs of families have money waiting for them. They just do not know it.</>}>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Stat tone="brand" value="₹1.84 lakh crore" label="lying unclaimed across banks, insurance, provident fund and shares" source="Finance Minister, Oct 2025" sourceHref="/references#r1" />
-          <Stat value="₹72,454 crore" label="in old bank accounts alone, now parked with RBI (Jan 2026)" source="Govt and RBI data" sourceHref="/references#r3" />
-          <Stat value="8.5 lakh" label="people have used RBI's search portal so far, in a country of 140 crore" source="RBI UDGAM, Jul 2025" sourceHref="/references#r4" />
-          <Stat value="₹38,700" label="average returned per family in Gujarat's recent claim camps" source="All India Radio" sourceHref="/references#r5" />
+          <Reveal><Stat tone="brand" value="₹1.84 lakh crore" label="lying unclaimed across banks, insurance, provident fund and shares" source="Finance Minister, Oct 2025" sourceHref="/references#r1" /></Reveal>
+          <Reveal delay={60}><Stat value="₹72,454 crore" label="in old bank accounts alone, now parked with RBI (Jan 2026)" source="Govt and RBI data" sourceHref="/references#r3" /></Reveal>
+          <Reveal delay={120}><Stat value="8.5 lakh" label="people have used RBI's search portal so far, in a country of 140 crore" source="RBI UDGAM, Jul 2025" sourceHref="/references#r4" /></Reveal>
+          <Reveal delay={180}><Stat value="₹38,700" label="average returned per family in Gujarat's recent claim camps" source="All India Radio" sourceHref="/references#r5" /></Reveal>
         </div>
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px]">
           <div className="space-y-5">
@@ -75,7 +76,7 @@ export default function Home() {
           ].map(([Icon, h, d, il, it]) => {
             const I = Icon as typeof Camera;
             return (
-              <Card key={h as string} className="flex flex-col gap-3">
+              <Card key={h as string} interactive className="flex flex-col gap-3">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand text-brand-contrast"><I className="h-5 w-5" aria-hidden /></span>
                 <h3 className="text-xl">{h as string} <InfoButton label={il as string}>{it as string}</InfoButton></h3>
                 <p>{d as string}</p>
