@@ -34,8 +34,18 @@ Without a key the app runs in Sample mode: AI steps replay pre-computed results 
 ```bash
 npm run verify     # lint, writing check (no emojis, no em dashes), tests, type check
 npm test           # 23 tests: rule engine, AIS parser, claim pack PDF, dividend search
+npm run eval       # measures the AI: document reading and the debate (needs an API key)
 npm run build      # production build
 ```
+
+Measured on the current build:
+
+| Check | Result |
+|---|---|
+| Automated tests | 23 of 23 pass |
+| Accessibility (axe, WCAG 2.2 AA), 10 pages, light and dark | 0 serious or critical, 0 moderate |
+| Lighthouse desktop, landing page | 99 performance, 100 accessibility, 100 best practices, 100 SEO |
+| Writing check | no emojis, no em or en dashes |
 
 ## Technology stack
 
@@ -45,6 +55,7 @@ npm run build      # production build
 | AI | Anthropic SDK, model `claude-opus-5`, structured outputs (Zod schemas), prompt caching |
 | Documents | pdf-parse (AIS tables), pdf-lib (claim pack PDFs) |
 | Voice | Browser Web Speech API (speech recognition and text to speech), Hindi and English |
+| Languages | English and Hindi across every screen, the rule engine output and the AI debate |
 | Data | Family data in the browser (localStorage). Nothing personal is stored on the server. |
 | API | Route handlers under `/api/v1`, API keys (`vs_test_demo` sandbox), rate limit headers, RFC 9457 errors |
 | Quality | ESLint, Vitest, TypeScript strict, writing check, Playwright screenshots in light and dark, mobile and desktop |
