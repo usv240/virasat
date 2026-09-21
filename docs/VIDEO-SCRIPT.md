@@ -89,8 +89,6 @@ waiting for the network instead of silently failing."
 
 ## 2:35 to 3:00 — Scale, and the close
 
-**On screen:** /developers, showing the API playground. Then /judges briefly.
-
 **On screen:** /developers showing the API playground, then the open corpus
 section, then /proof showing the cost table.
 
@@ -98,7 +96,7 @@ section, then /proof showing the cost table.
 are open, MIT licensed, served with no key at all. If a bank or a government
 portal serves families better by taking them, that is the point. We would rather
 be the standard than the site. One family costs about thirty six rupees of AI,
-arithmetic on real token counts, against an average of thirty eight thousand
+measured against the live API rather than estimated, against an average of thirty eight thousand
 seven hundred returned per family. And every number on this site sits next to the
 command that would prove us wrong. Aapki poonji, aapka adhikar. Your money, your
 right. Thank you."
