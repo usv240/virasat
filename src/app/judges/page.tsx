@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Explain } from "@/components/explain";
+import { clsx } from "clsx";
 import { Card, Section } from "@/components/ui";
 
 export const metadata = { title: "Virasat for judges" };
@@ -12,15 +14,61 @@ const CRITERIA = [
   ["Presentation and Demonstration", "5%", "Sunita's story runs end to end in 3 minutes on sample data with one click. A reset button restores it.", "/try", "Try it"],
 ];
 
-const DELIVERABLES = [
-  ["Working prototype", "This site. Try it with sample data in one click.", "/try"],
-  ["Project description", "The home page, sections Problem to Roadmap.", "/"],
-  ["Source code", "GitHub repository (link in the README).", "/developers#source"],
-  ["Documentation", "README, projects folder (plan, technical design, UX spec), API docs.", "/developers"],
-  ["Demonstration video", "Linked from the README and the submission form.", "/developers#source"],
-  ["Pitch deck", "Submitted with the idea round; updated for the final.", "/developers#source"],
-  ["Technology stack", "Technology section, Technical mode.", "/#technology"],
-  ["Demo link", "This deployment.", "/"],
+// Each row carries its own status, so the list stays honest if something is
+// still outstanding rather than showing a green dot for everything.
+const DELIVERABLES: [string, string, string, "done" | "pending"][] = [
+  ["Working prototype", "This site. Try it with sample data in one click.", "/try", "done"],
+  ["Project description", "The home page, sections Problem to Roadmap. Also a one page version in the repository.", "/", "done"],
+  ["Source code", "Public GitHub repository, MIT licensed, with the full commit history.", "https://github.com/usv240/virasat", "done"],
+  ["Documentation", "README, technical design, UX spec and API docs.", "/developers", "done"],
+  ["Demonstration video", "Being recorded against this deployment. The shot by shot script is in the repository.", "https://github.com/usv240/virasat/blob/master/docs/VIDEO-SCRIPT.md", "pending"],
+  ["Pitch deck", "The final deck, as a PDF you can open right now.", "/docs/Virasat-Team-USV-Deck.pdf", "done"],
+  ["Technology stack", "Technology section, and Technical mode on every page.", "/#technology", "done"],
+  ["Demo link", "This deployment, at virasat-indol.vercel.app.", "/", "done"],
+];
+
+
+// The question every informed Indian judge asks first: RBI already runs UDGAM,
+// so why does this need to exist? Answered with capabilities, not adjectives.
+const COMPARISON: [string, string, string, string][] = [
+  ["Covers banks, insurance, provident fund, shares and mutual funds in one place", "No. One portal per asset type: UDGAM for banks, IEPF for shares, MITRA for mutual funds, Bima Bharosa for insurance", "Sometimes, for a share of the money", "Yes"],
+  ["Finds accounts the family never knew existed", "No. You must already know the bank and the name to search", "Rarely", "Yes. The AIS lists every institution that paid them"],
+  ["Reads a photograph of an old passbook or policy", "No", "No", "Yes"],
+  ["Tells you which claim route applies, and why", "No", "Yes, but you cannot check the reasoning", "Yes. A versioned rule engine, with the rule id shown"],
+  ["Fills the claim forms for you", "No", "Yes", "Yes. A claim pack PDF, ready to submit"],
+  ["Works in Hindi, including the claim route and checklist", "Partly", "In person only", "Yes, and it reads aloud"],
+  ["Tracks the claim and escalates if nobody replies", "No", "Sometimes", "Yes. Escalation to the ombudsman after 30 days"],
+  ["Cost to the family", "Free", "10 to 30 percent of the money", "Free"],
+];
+
+const REAL = [
+  "Document reading with AI (when an API key is set, or with your own key)",
+  "AIS PDF parsing by code",
+  "Rule engine for SBI, LIC, EPFO, IEPF and India Post",
+  "Claim pack PDF generation",
+  "The Two AI Debate (live with a key)",
+  "Voice in and out in the browser",
+  "Guided portal steps and deep links",
+  "Public API with keys, rate limits and validation",
+  "Light, dark, Simple and Technical modes",
+  "Full Hindi: every screen, the rule engine output, and the debate",
+  "Zero serious axe violations on 10 pages, live; Lighthouse 96, 100, 100, 100, live",
+];
+
+const SAMPLE = [
+  "Sunita and Ramesh, their papers and amounts are made up",
+  "The AIS PDF is synthetic",
+  "The unpaid-dividend index has made-up names in the same shape as real company lists",
+  "Without an API key, the AI steps replay pre-computed results for the sample papers",
+];
+
+const PLANNED = [
+  "WhatsApp channel",
+  "DigiLocker login and certificate fetch",
+  "Account Aggregator consent for live bank data",
+  "Marathi, Tamil, Telugu and Bengali",
+  "A server database with OTP login for families who want to save across devices",
+  "Real dividend lists fetched from company investor pages",
 ];
 
 export default function JudgesPage() {
@@ -34,7 +82,7 @@ export default function JudgesPage() {
         </div>
         <ol className="mt-8 grid gap-3 md:grid-cols-5">
           {["Open Try it. Sunita's three papers and the AIS are already loaded.", "Find tab: see the asset map, press Search here on one row to see the guided portal steps.", "Claim tab: pick SBI, answer three questions, press Get my route. Read the verdict and open the full debate.", "Download the claim pack PDF. Then open Track and Vault.", "Switch to dark mode, Hindi, and Technical mode from the top bar. Press any info button."].map((s, i) => (
-            <li key={s} className="rounded-card border border-border bg-raised p-4 text-sm"><span className="mb-1 block text-2xl font-semibold text-brand">{i + 1}</span>{s}</li>
+            <li key={s} className="rounded-card border border-border bg-raised p-4 text-sm"><span className="mb-1 block text-2xl font-semibold text-brand">{i + 1}</span><Explain text={s} /></li>
           ))}
         </ol>
       </Section>
@@ -47,8 +95,34 @@ export default function JudgesPage() {
               {CRITERIA.map(([c, w, claim, href, where]) => (
                 <tr key={c} className="border-b border-border align-top odd:bg-raised">
                   <td className="p-3 font-semibold">{c} <span className="text-muted">({w})</span></td>
-                  <td className="p-3">{claim}</td>
+                  <td className="p-3"><Explain text={claim} /></td>
                   <td className="p-3"><Link href={href} className="text-brand underline">{where}</Link></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
+      <Section eyebrow="Why this is needed" title="What already exists, and what it still does not do">
+        <p className="max-w-3xl">The government portals are good and we send people to them by name. They answer a different question: they let you search one place, if you already know what you are looking for. Nothing joins the picture together, and nothing helps with the part families actually get stuck on, which is the claim itself.</p>
+        <div className="mt-6 overflow-x-auto">
+          <table className="w-full min-w-[760px] text-sm">
+            <thead>
+              <tr className="bg-brand text-left text-brand-contrast">
+                <th className="p-3">Can a family do this today?</th>
+                <th className="p-3">Government portals</th>
+                <th className="p-3">A private agent</th>
+                <th className="p-3">Virasat</th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARISON.map(([cap, portal, agent, us]) => (
+                <tr key={cap} className="border-b border-border align-top odd:bg-raised">
+                  <td className="p-3 font-semibold"><Explain text={cap} /></td>
+                  <td className="p-3 text-muted"><Explain text={portal} /></td>
+                  <td className="p-3 text-muted">{agent}</td>
+                  <td className="p-3 font-medium text-brand-strong"><Explain text={us} /></td>
                 </tr>
               ))}
             </tbody>
@@ -60,20 +134,20 @@ export default function JudgesPage() {
         <div className="grid gap-4 md:grid-cols-3">
           <Card>
             <h3 className="text-lg text-success">Real and working</h3>
-            <ul className="mt-2 list-disc pl-5 text-sm">
-              <li>Document reading with AI (when an API key is set, or with your own key)</li><li>AIS PDF parsing by code</li><li>Rule engine for SBI, LIC, EPFO, IEPF and India Post</li><li>Claim pack PDF generation</li><li>The Two AI Debate (live with a key)</li><li>Voice in and out in the browser</li><li>Guided portal steps and deep links</li><li>Public API with keys, limits and validation</li><li>Light, dark, Simple and Technical modes</li><li>Full Hindi: every screen, the rule engine output, and the debate</li><li>Zero serious axe violations on 10 pages, live; Lighthouse 96, 100, 100, 100, live</li>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-7">
+              {REAL.map((x) => <li key={x}><Explain text={x} /></li>)}
             </ul>
           </Card>
           <Card>
             <h3 className="text-lg text-warning">Sample data</h3>
-            <ul className="mt-2 list-disc pl-5 text-sm">
-              <li>Sunita and Ramesh, their papers and amounts are made up</li><li>The AIS PDF is synthetic</li><li>The unpaid-dividend index has made-up names in the same shape as real company lists</li><li>Without an API key, the AI steps replay pre-computed results for the sample papers</li>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-7">
+              {SAMPLE.map((x) => <li key={x}><Explain text={x} /></li>)}
             </ul>
           </Card>
           <Card>
             <h3 className="text-lg text-info">Planned next</h3>
-            <ul className="mt-2 list-disc pl-5 text-sm">
-              <li>WhatsApp channel</li><li>DigiLocker login and certificate fetch</li><li>Account Aggregator consent for live bank data</li><li>Marathi, Tamil, Telugu and Bengali</li><li>A server database with OTP login for families who want to save across devices</li><li>Real dividend lists fetched from company investor pages</li>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-7">
+              {PLANNED.map((x) => <li key={x}><Explain text={x} /></li>)}
             </ul>
           </Card>
         </div>
@@ -82,10 +156,19 @@ export default function JudgesPage() {
 
       <Section eyebrow="Deliverables" title="Everything the rules ask for" tone="surface">
         <ul className="grid gap-3 md:grid-cols-2">
-          {DELIVERABLES.map(([d, w, href]) => (
+          {DELIVERABLES.map(([d, w, href, status]) => (
             <li key={d} className="flex items-start gap-3 rounded-card border border-border bg-raised p-4 text-sm">
-              <span className="mt-0.5 inline-block h-5 w-5 shrink-0 rounded-full bg-success" aria-hidden />
-              <span><span className="font-semibold">{d}:</span> {w} <Link href={href} className="text-brand underline">Open</Link></span>
+              <span className={clsx("mt-0.5 inline-block h-5 w-5 shrink-0 rounded-full", status === "done" ? "bg-success" : "bg-warning")} aria-hidden />
+              <span>
+                <span className="font-semibold">{d}:</span>{" "}
+                <span className="sr-only">{status === "done" ? "Complete." : "In progress."}</span>
+                <Explain text={w} />{" "}
+                {href.startsWith("http") ? (
+                  <a href={href} target="_blank" rel="noreferrer" className="text-brand underline">Open<span className="sr-only"> (opens in a new tab)</span></a>
+                ) : (
+                  <Link href={href} className="text-brand underline">Open</Link>
+                )}
+              </span>
             </li>
           ))}
         </ul>

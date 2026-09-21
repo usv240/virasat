@@ -70,12 +70,20 @@ export function InfoButton({ label, children }: { label: string; children: React
     };
   }, [open]);
   return (
-    <span ref={ref} className="relative inline-block align-middle">
+    <span
+      ref={ref}
+      className="relative inline-block align-middle"
+      // Hover and focus open it as well as click, so a judge skimming with a
+      // mouse never has to work out that the icon is pressable.
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button
         type="button"
         aria-label={`More about ${label}`}
         aria-expanded={open}
         aria-controls={id}
+        onFocus={() => setOpen(true)}
         onClick={() => setOpen((v) => !v)}
         className="inline-flex h-11 w-11 -m-3 items-center justify-center text-info hover:text-brand"
       >

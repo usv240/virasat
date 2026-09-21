@@ -1,4 +1,5 @@
 import { Card, Section } from "@/components/ui";
+import { Explain } from "@/components/explain";
 import { Playground } from "@/components/developers/playground";
 
 export const metadata = { title: "Virasat API for developers" };
@@ -21,7 +22,7 @@ export default function DevelopersPage() {
         <p className="max-w-3xl text-lg">Send a document, get the details. Send the details, get the claim route, the debate verdict and the forms. Any bank, insurer, service centre or NGO can use this from their own software.</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {[["Sandbox key", "vs_test_demo", "Free. Sample data and your own files. 30 requests a minute."], ["Live keys", "vs_live_...", "For institutions. Stored only as a SHA-256 hash on the server. Scopes and limits per key."], ["Errors", "application/problem+json", "Every error follows RFC 9457 with a plain-language detail field. Rate limit headers on every response."]].map(([h, code, d]) => (
-            <Card key={h}><h2 className="text-lg text-brand">{h}</h2><code className="mt-1 block rounded bg-surface px-2 py-1 text-sm">{code}</code><p className="mt-2 text-sm">{d}</p></Card>
+            <Card key={h}><h2 className="text-lg text-brand">{h}</h2><code className="mt-1 block rounded bg-surface px-2 py-1 text-sm">{code}</code><p className="mt-2 text-sm"><Explain text={d} /></p></Card>
           ))}
         </div>
       </Section>
@@ -45,7 +46,7 @@ curl -X POST $HOST/api/v1/extract -H "Authorization: Bearer vs_test_demo" \\
         <div className="mt-3 overflow-x-auto">
           <table className="w-full min-w-[640px] text-sm">
             <thead><tr className="bg-brand text-left text-brand-contrast"><th className="p-2">Method</th><th className="p-2">Path</th><th className="p-2">What it does</th></tr></thead>
-            <tbody>{ENDPOINTS.map(([m, p, d]) => <tr key={p + m} className="border-b border-border odd:bg-raised"><td className="p-2 font-mono">{m}</td><td className="p-2 font-mono">{p}</td><td className="p-2">{d}</td></tr>)}</tbody>
+            <tbody>{ENDPOINTS.map(([m, p, d]) => <tr key={p + m} className="border-b border-border odd:bg-raised"><td className="p-2 font-mono">{m}</td><td className="p-2 font-mono">{p}</td><td className="p-2"><Explain text={d} /></td></tr>)}</tbody>
           </table>
         </div>
       </Section>
@@ -68,11 +69,11 @@ curl -X POST $HOST/api/v1/extract -H "Authorization: Bearer vs_test_demo" \\
       </Section>
 
       <Section id="source" eyebrow="Source and docs" title="Run it yourself">
-        <pre tabIndex={0} className="overflow-x-auto rounded-card border border-border bg-raised p-4 text-sm"><code>{`git clone <repository-url> && cd virasat
+        <pre tabIndex={0} className="overflow-x-auto rounded-card border border-border bg-raised p-4 text-sm"><code>{`git clone https://github.com/usv240/virasat.git && cd virasat
 npm install
 cp .env.example .env.local     # optional: ANTHROPIC_API_KEY=sk-ant-... for live AI
 npm run dev                    # http://localhost:3000`}</code></pre>
-        <p className="mt-3 text-sm text-muted">Without a key the app runs in Sample mode and the demo still works end to end. The repository README lists the stack, the tests and the video.</p>
+        <p className="mt-3 text-sm text-muted">Without a key the app runs in Sample mode and the demo still works end to end. The repository README lists the stack, the tests and how to run them.</p>
       </Section>
     </>
   );

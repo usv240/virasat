@@ -1,9 +1,12 @@
 # Virasat
 
+[![CI](https://github.com/usv240/virasat/actions/workflows/ci.yml/badge.svg)](https://github.com/usv240/virasat/actions/workflows/ci.yml)
+
 **Find and claim your family's money.** Take a photo of old papers. Virasat finds where the money is (bank, insurance, provident fund, shares), explains what to do in your language, and fills the forms.
 
 Built by Team USV for the Global Innovation Hackathon 2026: Build for a Better Future.
 
+**Source code:** https://github.com/usv240/virasat  
 **Live app: https://virasat-indol.vercel.app**  
 Start at [/try](https://virasat-indol.vercel.app/try) for the one click walkthrough, or [/judges](https://virasat-indol.vercel.app/judges) for the scoring map.
 

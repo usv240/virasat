@@ -6,6 +6,7 @@ import { SavingsCalculator } from "@/components/landing/savings-calculator";
 import { DemoEmbed } from "@/components/landing/demo-embed";
 import { DebateExample } from "@/components/landing/debate-example";
 import { Faq } from "@/components/landing/faq";
+import { Explain } from "@/components/explain";
 import { Reveal } from "@/components/reveal";
 import { GLOSSARY } from "@/lib/glossary";
 import { REFERENCES } from "@/lib/references";
@@ -144,7 +145,7 @@ export default function Home() {
           ].map(([h, d, href]) => (
             <Card key={h} className="flex flex-col">
               <h3 className="text-xl text-brand">{h}</h3>
-              <p className="mt-2 flex-1">{d}</p>
+              <p className="mt-2 flex-1"><Explain text={d as string} /></p>
               <Link href={href} className="mt-4 font-semibold text-brand underline">Start here</Link>
             </Card>
           ))}
@@ -188,7 +189,7 @@ export default function Home() {
           ].map(([h, d, i]) => (
             <Card key={h}>
               <h3 className="text-lg text-brand">{h} <InfoButton label={h}>{i}</InfoButton></h3>
-              <p className="mt-2 text-sm">{d}</p>
+              <p className="mt-2 text-sm"><Explain text={d as string} /></p>
             </Card>
           ))}
         </div>
@@ -205,7 +206,7 @@ export default function Home() {
           ].map(([h, items], i) => (
             <Card key={h as string} tone={i === 1 ? "brand" : "raised"}>
               <h3 className={i === 1 ? "text-accent" : "text-brand"}>{h as string}</h3>
-              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">{(items as string[]).map((x) => <li key={x}>{x}</li>)}</ul>
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">{(items as string[]).map((x) => <li key={x}><Explain text={x} /></li>)}</ul>
             </Card>
           ))}
         </div>
@@ -221,7 +222,7 @@ export default function Home() {
             <Card key={k} tone={i === 3 ? "accent" : "raised"}>
               <p className="text-xs font-semibold uppercase tracking-wider text-muted">{k}</p>
               <h3 className="mt-1 text-xl">{h}</h3>
-              <p className="mt-2 text-sm">{d}</p>
+              <p className="mt-2 text-sm"><Explain text={d as string} /></p>
             </Card>
           ))}
         </div>

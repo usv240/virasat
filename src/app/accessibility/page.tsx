@@ -1,4 +1,5 @@
 import { Section } from "@/components/ui";
+import { Term } from "@/components/term";
 
 export const metadata = { title: "Virasat accessibility statement" };
 
@@ -6,7 +7,7 @@ export default function AccessibilityPage() {
   return (
     <Section eyebrow="Accessibility" title="Built for everyone" h1>
       <div className="max-w-3xl space-y-4">
-        <p>Virasat aims to meet WCAG 2.2 Level AA and India&apos;s GIGW 3.0 guidelines. What that means in practice:</p>
+        <p>Virasat aims to meet <Term id="wcag">WCAG 2.2 Level AA</Term> and India&apos;s GIGW 3.0 guidelines. What that means in practice:</p>
         <ul className="list-disc space-y-1 pl-5">
           <li>Text contrast of at least 4.5 to 1 in both light and dark mode.</li>
           <li>Every button and link is at least 44 pixels tall, so it is easy to tap.</li>
