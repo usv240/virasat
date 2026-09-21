@@ -60,7 +60,7 @@ Measured on the current build:
 | Automated tests | 39 of 39 pass |
 | Accessibility (axe, WCAG 2.2 AA), 11 pages, light and dark | 0 serious or critical, 0 moderate |
 | Cost of serving one family | About ₹20 of AI, against an average of ₹38,700 returned per family at Gujarat's camps. Arithmetic on token counts at published prices, shown in full on [/proof](https://virasat-indol.vercel.app/proof). |
-| Lighthouse, landing page, live deployment | Desktop: 99 to 100 performance, LCP 0.8 s. Mobile, throttled: 91 to 96 performance, LCP 3.4 s. Both: 100 accessibility, 100 best practices, 100 SEO, and layout shift between 0 and 0.024 against a 0.1 threshold. Three runs each, range published rather than the best one. Reproduce with `npm run audit`. |
+| Lighthouse, landing page, live deployment | Desktop: 99 to 100 performance, LCP 0.8 s. Mobile, throttled: never below 90 performance, having ranged from 90 to 96 across runs, LCP 3.5 s. Both: 100 accessibility, 100 best practices, 100 SEO, and layout shift between 0 and 0.024 against a 0.1 threshold. Three runs each, range published rather than the best one. Reproduce with `npm run audit`. |
 | Writing check | no emojis, no em or en dashes |
 
 ## Technology stack

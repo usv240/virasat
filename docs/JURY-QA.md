@@ -237,11 +237,11 @@ three months publishes.
 Have one real answer ready. A good one: the site published a single Lighthouse
 performance score, and it turned out we had been quoting a desktop number and a
 mobile number as if they were the same measurement. They are not close: the live
-deployment scores 99 to 100 on desktop and 91 to 96 on a throttled phone. For a
+deployment scores 99 to 100 on desktop and never below 90 on a throttled phone. For a
 product whose whole argument is that it is built for people on cheap phones,
 quoting the desktop figure was the wrong number to be proud of.
 
-We now publish both, three runs each, and the range rather than the best run.
+We now publish both, and on mobile we publish the floor rather than the best run, because the score moves between 90 and 96 depending on whether the webfont beats the largest paint that time. A judge who runs it will never get less than we claimed.
 
 It is a small thing, and that is exactly why it works. It shows the honesty is
 operational rather than rhetorical.

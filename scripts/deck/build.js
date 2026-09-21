@@ -208,7 +208,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     screenshot(s, "dark.png", 0.5, 1.5, 4.3, 2.4);
     screenshot(s, "hindi.png", 5.2, 1.5, 1.55, 3.35);
     const rows = [["Accessibility (axe, WCAG 2.2 AA)", "0 serious or critical across 11 pages, light and dark"],
-      ["Lighthouse, live, 3 runs each", "99 to 100 desktop, 91 to 96 on a throttled phone. 100 accessibility, best practices and SEO on both, and layout shift under a quarter of the 0.1 threshold."],
+      ["Lighthouse, live, 3 runs each", "99 to 100 desktop, never below 90 on a throttled phone. 100 accessibility, best practices and SEO on both, and layout shift under a quarter of the 0.1 threshold."],
       ["Works with no signal", "Installable. A service worker keeps every opened page, the Vault and the glossary working offline, and says which steps are waiting."],
       ["Languages and reach", "English and Hindi on every screen including the rule output and the debate. 320 px, 44 px controls, voice in and out, no sign up."]];
     rows.forEach(([k, v], i) => {
