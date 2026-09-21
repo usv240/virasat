@@ -37,6 +37,12 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: "DigiLocker", def: "The Government of India's official app for storing verified documents such as certificates and identity proofs, so they do not have to be uploaded again.", id: "digilocker" },
   { term: "Common Service Centre (CSC)", def: "A government-backed village level service point where a trained operator helps people with online government services. There are about 5 lakh of them across India.", id: "csc", aliases: ["CSC", "service centre", "Common Service Centres"] },
   { term: "Rate limit", def: "A cap on how many times a minute one key may call the API, so a single user cannot overwhelm the service for everyone else.", id: "rate-limit", aliases: ["rate limits"] },
+  { term: "Token", def: "The unit an AI model reads and writes in, roughly three quarters of a word. Models are billed per token, so counting tokens is how you work out what something really costs.", id: "token", aliases: ["tokens"] },
+  { term: "Prompt cache", def: "Storing the unchanging part of an instruction so repeat calls do not pay to process it again. A cached read costs about a tenth of a fresh one.", id: "prompt-cache", aliases: ["prompt caching", "cached"] },
+  { term: "Batch API", def: "A way of sending work that does not need an answer this second. It costs half as much, which suits overnight jobs but not a family waiting at a counter.", id: "batch-api", aliases: ["Batch API"] },
+  { term: "Unit economics", def: "What one user, or in our case one family, actually costs to serve. The number that decides whether something can run at national scale or only in a demo.", id: "unit-economics", aliases: ["unit economics"] },
+  { term: "Data minimisation", def: "Collecting and keeping as little personal information as the job needs. Under India's DPDP Act this is a duty, not a courtesy.", id: "data-minimisation", aliases: ["data minimisation"] },
+  { term: "Rule corpus", def: "The full collection of claim rule files, one per institution, kept as versioned data anyone can read, check and add to.", id: "rule-corpus", aliases: ["rule corpus", "rule set", "rule sets", "rule file", "rule files"] },
 ];
 
 /** Look an entry up by id, or by any of the short forms used in the copy. */

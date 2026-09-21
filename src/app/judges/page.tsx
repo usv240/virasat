@@ -9,8 +9,8 @@ const CRITERIA = [
   ["Innovation and Originality", "25%", "The tax statement (AIS) asset map and the photo-to-claim flow exist in no other product. The Two AI Debate checks every route in the open. Institutions can bring their own rules.", "/try", "Find tab: use the sample AIS; Claim tab: see the debate"],
   ["Technical Implementation", "25%", "Multimodal AI with strict JSON schemas, a versioned rule engine with 5 institutions, an AIS table parser, PDF claim packs, browser voice in and out, a public API with keys, rate limits and problem-details errors, light and dark themes.", "/developers", "API docs and playground; Technical mode on the home page"],
   ["Real-World Impact", "20%", "₹1.84 lakh crore is unclaimed. Gujarat's camps returned ₹38,700 per family on average. One family like Sunita's keeps up to ₹63,000 that an agent would take.", "/#impact", "Impact section and savings calculator"],
-  ["Feasibility and Scalability", "15%", "No private data access needed: official public portals, guided. Rules are files. One deployment serves many institutions. Free for families; institutions and service centres pay.", "/#roadmap", "Roadmap and the Data section"],
-  ["User Experience and Design", "10%", "Measured, not claimed: zero serious or critical axe violations across 10 pages in both themes, and Lighthouse on the live deployment of 91 to 96 performance across repeated runs, 100 accessibility, 100 best practices, 100 SEO. Full Hindi including the claim route and checklist, voice in and out, 44 px controls, info buttons everywhere, works at 320 px.", "/how-ai-works", "Test results on the Transparency page"],
+  ["Feasibility and Scalability", "15%", "One family costs about ₹20 of AI, worked out from real token counts, against an average of ₹38,700 returned per family at Gujarat's camps. No private data access is needed. Adding an institution is adding a file, not writing code. Families never pay; institutions, service centres and state camps do, and each of those has a stated reason to.", "/#feasibility", "Feasibility section, and the unit economics on the Proof page"],
+  ["User Experience and Design", "10%", "Measured, not claimed: zero serious or critical axe violations across 11 pages in both themes, and Lighthouse on the live deployment of 91 to 96 performance across repeated runs, 100 accessibility, 100 best practices, 100 SEO. Full Hindi including the claim route and checklist, voice in and out, 44 px controls, info buttons everywhere, works at 320 px.", "/how-ai-works", "Test results on the Transparency page"],
   ["Presentation and Demonstration", "5%", "Sunita's story runs end to end in 3 minutes on sample data with one click. A reset button restores it.", "/try", "Try it"],
 ];
 
@@ -25,6 +25,7 @@ const DELIVERABLES: [string, string, string, "done" | "pending"][] = [
   ["Pitch deck", "The final deck, as a PDF you can open right now.", "/docs/Virasat-Team-USV-Deck.pdf", "done"],
   ["Technology stack", "Technology section, and Technical mode on every page.", "/#technology", "done"],
   ["Demo link", "This deployment, at virasat-indol.vercel.app.", "/", "done"],
+  ["Audit report", "The last full audit run, written down by the script rather than by us, including anything that did not pass.", "https://github.com/usv240/virasat/blob/master/docs/AUDIT-REPORT.md", "done"],
 ];
 
 
@@ -79,7 +80,18 @@ export default function JudgesPage() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/try" className="inline-flex min-h-12 items-center rounded-lg bg-brand px-5 font-semibold text-brand-contrast">Start the 3-minute demo (sample data)</Link>
           <Link href="/#how" className="inline-flex min-h-12 items-center rounded-lg border border-border px-5 font-semibold">How it works</Link>
+          <Link href="/proof" className="inline-flex min-h-12 items-center rounded-lg border border-border px-5 font-semibold">Check our claims yourself</Link>
         </div>
+        <Card tone="brand" className="mt-6 max-w-3xl">
+          <h2 className="text-lg text-accent">If you only check one thing, check this</h2>
+          <p className="mt-2 text-sm">
+            Every score and figure on this site was produced by a script that is in the repository, and it writes down
+            failures as readily as passes. One command, <code>npm run audit</code>, re-runs accessibility, Lighthouse,
+            the tests, the build and every page, against this live deployment. The{" "}
+            <Link href="/proof" className="font-semibold underline">Proof page</Link> lists each claim next to the
+            command that would catch us if it were wrong.
+          </p>
+        </Card>
         <ol className="mt-8 grid gap-3 md:grid-cols-5">
           {["Open Try it. Sunita's three papers and the AIS are already loaded.", "Find tab: see the asset map, press Search here on one row to see the guided portal steps.", "Claim tab: pick SBI, answer three questions, press Get my route. Read the verdict and open the full debate.", "Download the claim pack PDF. Then open Track and Vault.", "Switch to dark mode, Hindi, and Technical mode from the top bar. Press any info button."].map((s, i) => (
             <li key={s} className="rounded-card border border-border bg-raised p-4 text-sm"><span className="mb-1 block text-2xl font-semibold text-brand">{i + 1}</span><Explain text={s} /></li>

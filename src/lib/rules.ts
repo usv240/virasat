@@ -208,3 +208,13 @@ export function decide(input: ClaimInput, extra: RuleSet[] = []): ClaimDecision 
 export function ruleSetsSummary() {
   return RULES.map((r) => ({ institution: r.institution, assetType: r.assetType, version: r.version, rules: r.rules.map((x) => x.id) }));
 }
+
+/**
+ * The corpus is versioned as a whole, separately from the version on each rule
+ * set, so an institution can cite "corpus 1.0, SBI rule set 3" and mean exactly
+ * one thing.
+ */
+export const CORPUS_VERSION = "1.0";
+
+/** Openly licensed on purpose. See /api/v1/rules/corpus for why. */
+export const CORPUS_LICENCE = "MIT";

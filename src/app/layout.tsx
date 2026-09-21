@@ -5,6 +5,7 @@ import { Providers } from "@/components/providers";
 import { TopBar } from "@/components/top-bar";
 import { Footer } from "@/components/footer";
 import { HelpButton } from "@/components/help-button";
+import { Offline } from "@/components/offline";
 
 // "swap" rather than "optional": measured over repeated Lighthouse runs the two
 // scored the same, and swap guarantees the designed typeface actually renders
@@ -24,6 +25,11 @@ export const metadata: Metadata = {
   title: "Virasat: find and claim your family's money",
   description:
     "Take a photo of old papers. Virasat finds where your family's money is, explains what to do in your language, and fills the forms.",
+  // Installable, and it keeps working when the signal goes. The families this
+  // is for are on patchy 2G, not on the wifi it was built on.
+  manifest: "/manifest.webmanifest",
+  appleWebApp: { capable: true, title: "Virasat", statusBarStyle: "default" },
+  icons: { icon: [{ url: "/icons/icon.svg", type: "image/svg+xml" }], apple: "/icons/icon-192.png" },
 };
 
 export const viewport: Viewport = {
@@ -53,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           >
             Skip to content
           </a>
+          <Offline />
           <TopBar />
           <main id="main" className="flex-1">
             {children}

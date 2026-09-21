@@ -5,6 +5,7 @@ import { ThumbsUp, Search, Gavel } from "lucide-react";
 import { clsx } from "clsx";
 import { Button, Card, Confidence, InfoButton, Listen } from "@/components/ui";
 import type { Debate } from "@/lib/types";
+import { inrFromUsd, rupees, usd } from "@/lib/cost";
 import { usePrefs } from "@/components/providers";
 
 export function DebatePanel({ debate, routeLabel }: { debate: Debate; routeLabel: string }) {
@@ -40,6 +41,12 @@ export function DebatePanel({ debate, routeLabel }: { debate: Debate; routeLabel
           <Button variant="secondary" onClick={() => setOpen((o) => !o)} aria-expanded={open}>{open ? t("debate.hide") : t("debate.see")}</Button>
           <Listen text={speak} />
           <span className="text-xs text-muted">{routeLabel} · {t("debate.rules")} {v.rule_ids_checked.join(", ")} · {debate.mode === "live" ? `${debate.model}, ${(debate.latencyMs / 1000).toFixed(1)} s` : t("debate.sample")}</span>
+          {debate.usage && (
+            <span className="inline-flex items-center gap-1 text-xs text-muted">
+              · {t("debate.cost")} {rupees(inrFromUsd(usd(debate.usage, debate.model)))}
+              <InfoButton label={t("debate.cost")}>{t("debate.cost.info")}</InfoButton>
+            </span>
+          )}
         </div>
       </Card>
       {open && (

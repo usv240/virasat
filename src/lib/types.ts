@@ -1,3 +1,4 @@
+import type { Usage } from "./cost";
 import { z } from "zod";
 
 export const Confidence = z.enum(["high", "medium", "low"]);
@@ -91,6 +92,8 @@ export type Debate = {
   model: string;
   latencyMs: number;
   mode: "live" | "sample";
+  /** What the three calls actually cost in tokens. Absent in sample mode, where nothing was spent. */
+  usage?: Usage;
 };
 
 export type Claim = {

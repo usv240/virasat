@@ -1,5 +1,6 @@
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
-import { client, MODEL } from "./anthropic";
+import { client, MODEL, toUsage } from "./anthropic";
+import type { Usage } from "./cost";
 import { ExtractionSchema, type Extraction } from "./types";
 
 const SYSTEM = `You read photographs of Indian financial documents for families who are taking over the family finances.
@@ -9,7 +10,12 @@ Set confidence to "high" only when the field is clearly legible, "medium" when p
 If no nominee line is visible, set nominee_name.value to null with low confidence and say so in notes_for_user.
 notes_for_user must be one short plain sentence a family member would understand.`;
 
-export async function extractDocument(imageBase64: string, mediaType: "image/jpeg" | "image/png" | "image/webp" | "image/gif", byoKey?: string | null): Promise<Extraction> {
+/**
+ * `onUsage` receives what this call actually cost in tokens. Every AI call in
+ * the app reports it, so the family can be told a real rupee figure instead of
+ * being asked to trust one.
+ */
+export async function extractDocument(imageBase64: string, mediaType: "image/jpeg" | "image/png" | "image/webp" | "image/gif", byoKey?: string | null, onUsage?: (u: Usage) => void): Promise<Extraction> {
   const c = client(byoKey);
   const response = await c.messages.parse({
     model: MODEL,
@@ -26,6 +32,7 @@ export async function extractDocument(imageBase64: string, mediaType: "image/jpe
     ],
     output_config: { format: zodOutputFormat(ExtractionSchema) },
   });
+  onUsage?.(toUsage(response.usage));
   if (!response.parsed_output) throw new Error("The AI could not read this document. Try a clearer photo.");
   return response.parsed_output;
 }

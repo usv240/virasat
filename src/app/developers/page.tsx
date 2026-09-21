@@ -12,6 +12,8 @@ const ENDPOINTS: [string, string, string][] = [
   ["GET", "/api/v1/dividends/search?name=", "Search the unpaid-dividend index by shareholder name."],
   ["GET", "/api/v1/rules", "List the built-in rule sets and versions."],
   ["POST", "/api/v1/rules", "Validate a Bring Your Own rule set against the schema."],
+  ["GET", "/api/v1/rules/corpus", "The whole claim rule corpus. No key, no permission, MIT licensed."],
+  ["GET", "/api/v1/rules/schema", "The JSON Schema a rule set must satisfy, generated from the code that validates it."],
   ["GET", "/api/v1/health", "Service status and whether live AI is on."],
 ];
 
@@ -68,7 +70,34 @@ curl -X POST $HOST/api/v1/extract -H "Authorization: Bearer vs_test_demo" \\
         </div>
       </Section>
 
-      <Section id="source" eyebrow="Source and docs" title="Run it yourself">
+      <Section id="corpus" eyebrow="Open corpus" title="The rules are the part worth taking">
+        <p className="max-w-3xl">
+          The app is the replaceable bit. What does not exist anywhere today is the claim procedure of each Indian
+          institution written down as data a machine can follow: which documents, in which order, above which amount,
+          and where a family actually gets each one.
+        </p>
+        <p className="mt-3 max-w-3xl">
+          So the corpus is open, MIT licensed, and served with no key and no permission. If a bank, a government
+          portal, or another team serves families better by taking it, that is the result we want. We would rather be
+          the standard than the site.
+        </p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <Card>
+            <h3 className="text-lg text-brand">Read it</h3>
+            <p className="mt-2 text-sm"><code>GET /api/v1/rules/corpus</code> returns every rule set, versioned as a whole so a result can cite exactly which corpus it came from.</p>
+          </Card>
+          <Card>
+            <h3 className="text-lg text-brand">Check yours against it</h3>
+            <p className="mt-2 text-sm"><code>GET /api/v1/rules/schema</code> is generated from the same Zod schema that validates incoming rule sets, so the published contract and the enforced one cannot drift apart.</p>
+          </Card>
+          <Card>
+            <h3 className="text-lg text-brand">Add one</h3>
+            <p className="mt-2 text-sm">You do not need to write code. <a className="font-semibold text-brand underline" href="https://github.com/usv240/virasat/blob/master/docs/CONTRIBUTING-RULES.md" target="_blank" rel="noreferrer">The guide</a> walks through writing a rule set, validating it, and trying it on a real situation.</p>
+          </Card>
+        </div>
+      </Section>
+
+      <Section id="source" eyebrow="Source and docs" title="Run it yourself" tone="surface">
         <pre tabIndex={0} className="overflow-x-auto rounded-card border border-border bg-raised p-4 text-sm"><code>{`git clone https://github.com/usv240/virasat.git && cd virasat
 npm install
 cp .env.example .env.local     # optional: ANTHROPIC_API_KEY=sk-ant-... for live AI

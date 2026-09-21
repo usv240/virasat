@@ -10,7 +10,8 @@
  * risks, raise the document list, or mark the case for human review.
  */
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
-import { client, MODEL } from "./anthropic";
+import { addUsage, client, MODEL, toUsage } from "./anthropic";
+import type { Usage } from "./cost";
 import { ArgumentSchema, VerdictSchema, type Argument, type ClaimDecision, type ClaimInput, type Debate, type Extraction, type Verdict } from "./types";
 
 export type Evidence = {
@@ -62,7 +63,7 @@ function packet(e: Evidence): string {
   );
 }
 
-async function argue(system: string, ev: string, byo?: string | null): Promise<Argument> {
+async function argue(system: string, ev: string, byo?: string | null, onUsage?: (u: Usage) => void): Promise<Argument> {
   const r = await client(byo).messages.parse({
     model: MODEL,
     max_tokens: 2000,
@@ -70,6 +71,7 @@ async function argue(system: string, ev: string, byo?: string | null): Promise<A
     messages: [{ role: "user", content: `Evidence packet:\n${ev}` }],
     output_config: { format: zodOutputFormat(ArgumentSchema) },
   });
+  onUsage?.(toUsage(r.usage));
   if (!r.parsed_output) throw new Error("debate role failed");
   return r.parsed_output;
 }
@@ -78,7 +80,12 @@ export async function runDebate(evidence: Evidence, byo?: string | null): Promis
   const started = Date.now();
   const ev = packet(evidence);
   const language = evidence.lang === "hi" ? "\nWrite every string in your answer in Hindi (Devanagari script). Keep institution names, rule ids and document form numbers in their original form." : "";
-  const [supporter, challenger] = await Promise.all([argue(SUPPORTER + language, ev, byo), argue(CHALLENGER + language, ev, byo)]);
+  // Each of the three calls reports what it cost, and the debate carries the
+  // total, so a family is shown the real price of the review rather than being
+  // asked to take it on faith.
+  const spent: Usage[] = [];
+  const track = (u: Usage) => void spent.push(u);
+  const [supporter, challenger] = await Promise.all([argue(SUPPORTER + language, ev, byo, track), argue(CHALLENGER + language, ev, byo, track)]);
   const r = await client(byo).messages.parse({
     model: MODEL,
     max_tokens: 2500,
@@ -91,9 +98,10 @@ export async function runDebate(evidence: Evidence, byo?: string | null): Promis
     ],
     output_config: { format: zodOutputFormat(VerdictSchema) },
   });
+  track(toUsage(r.usage));
   if (!r.parsed_output) throw new Error("referee failed");
   const verdict = enforce(r.parsed_output, evidence.decision);
-  return { id: `dbt-${Date.now()}`, supporter, challenger, verdict, model: MODEL, latencyMs: Date.now() - started, mode: "live" };
+  return { id: `dbt-${Date.now()}`, supporter, challenger, verdict, model: MODEL, latencyMs: Date.now() - started, mode: "live", usage: addUsage(...spent) };
 }
 
 /** Code-level guardrail: the verdict must name the rule engine's route and rule id. */

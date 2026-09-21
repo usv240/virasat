@@ -10,6 +10,10 @@ import { Explain } from "@/components/explain";
 import { Reveal } from "@/components/reveal";
 import { GLOSSARY } from "@/lib/glossary";
 import { REFERENCES } from "@/lib/references";
+import { DEPENDENCIES, FAMILY_PAYS, FUTURE, PAYERS } from "@/lib/plan";
+import { journeyTotal, rupees } from "@/lib/cost";
+
+const perFamily = journeyTotal();
 
 export default function Home() {
   return (
@@ -215,6 +219,50 @@ export default function Home() {
         </Technical>
       </Section>
 
+      {/* Feasibility */}
+      <Section
+        id="feasibility"
+        eyebrow="Feasibility"
+        title={<>One family costs about {rupees(perFamily.inr)} of AI. The family pays nothing.</>}
+      >
+        <p className="max-w-3xl">
+          <Explain text={FAMILY_PAYS} /> So somebody else has to, and that answer has to survive a hard look.
+          The figure above is arithmetic on real token counts, not a guess, and the working is on the{" "}
+          <Link href="/proof" className="font-semibold text-brand underline">Proof page</Link>.
+        </p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {PAYERS.map((p) => (
+            <Card key={p.who}>
+              <h3 className="text-lg text-brand">{p.who}</h3>
+              <p className="mt-2 text-sm font-semibold"><Explain text={p.what} /></p>
+              <p className="mt-2 text-sm"><Explain text={p.why} /></p>
+              <p className="mt-3 text-xs text-muted">{p.status}</p>
+            </Card>
+          ))}
+        </div>
+        <h3 className="mt-10 text-xl">What has to be true for this to work</h3>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full min-w-[680px] text-sm">
+            <thead>
+              <tr className="bg-brand text-left text-brand-contrast">
+                <th className="p-2">It depends on</th>
+                <th className="p-2">Where that usually goes wrong</th>
+                <th className="p-2">What we did about it</th>
+              </tr>
+            </thead>
+            <tbody>
+              {DEPENDENCIES.map((d) => (
+                <tr key={d.on} className="border-b border-border odd:bg-raised">
+                  <td className="p-2 font-semibold leading-7">{d.on}</td>
+                  <td className="p-2 leading-7"><Explain text={d.risk} /></td>
+                  <td className="p-2 leading-7"><Explain text={d.answer} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
       {/* Roadmap */}
       <Section id="roadmap" eyebrow="Scalability" title="Adding a new bank or insurer is just one new rule file" tone="surface">
         <div className="grid gap-4 md:grid-cols-4">
@@ -223,6 +271,22 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-wider text-muted">{k}</p>
               <h3 className="mt-1 text-xl">{h}</h3>
               <p className="mt-2 text-sm"><Explain text={d as string} /></p>
+            </Card>
+          ))}
+        </div>
+      </Section>
+
+
+      {/* Future scope */}
+      <Section id="future" eyebrow="Future scope" title="Where this goes next">
+        <div className="grid gap-4 md:grid-cols-3">
+          {FUTURE.map((f, i) => (
+            <Card key={f.when} tone={i === 2 ? "accent" : "raised"}>
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted">{f.when}</p>
+              <h3 className="mt-1 text-xl">{f.title}</h3>
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-7">
+                {f.points.map((x) => <li key={x}><Explain text={x} /></li>)}
+              </ul>
             </Card>
           ))}
         </div>

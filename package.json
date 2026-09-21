@@ -11,7 +11,9 @@
     "check:writing": "node scripts/check-writing.mjs",
     "samples": "node scripts/make-sample-ais.mjs",
     "verify": "npm run lint && npm run check:writing && npm test && npx tsc --noEmit",
-    "eval": "node --env-file-if-exists=.env.local scripts/eval.mjs"
+    "eval": "node --env-file-if-exists=.env.local scripts/eval.mjs",
+    "measure:cost": "tsx --env-file-if-exists=.env.local scripts/measure-cost.mts",
+    "audit": "tsx scripts/audit.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.127.0",
@@ -26,6 +28,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@tailwindcss/postcss": "^4",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.20.4",
@@ -33,7 +36,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
+    "playwright": "^1.63.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5",
     "vitest": "^5.0.1"
   }

@@ -17,6 +17,7 @@ export function TopBar() {
     ["/#impact", t("nav.impact")],
     ["/developers", t("nav.developers")],
     ["/judges", t("nav.judges")],
+    ["/proof", t("nav.proof")],
   ];
 
   const controls = (
