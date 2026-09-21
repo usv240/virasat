@@ -23,7 +23,7 @@ export default function DevelopersPage() {
       <Section eyebrow="For developers" title="Use Virasat as a service" h1>
         <p className="max-w-3xl text-lg">Send a document, get the details. Send the details, get the claim route, the debate verdict and the forms. Any bank, insurer, service centre or NGO can use this from their own software.</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {[["Sandbox key", "vs_test_demo", "Free. Sample data and your own files. 30 requests a minute."], ["Live keys", "vs_live_...", "For institutions. Stored only as a SHA-256 hash on the server. Scopes and limits per key."], ["Errors", "application/problem+json", "Every error follows RFC 9457 with a plain-language detail field. Rate limit headers on every response."]].map(([h, code, d]) => (
+          {[["Sandbox key", "vs_test_demo", "Free. Sample data and your own files. 30 requests a minute."], ["Live keys", "vs_live_...", "For institutions. Stored only as a SHA-256 hash on the server. Scopes and limits per key."], ["Errors", "application/problem+json", "Every error follows RFC 9457 with a plain-language detail field. Rate limit headers on every response."], ["Limits, honestly", "in-memory, per instance", "The counter lives in the memory of whichever serverless instance answers you, so the real limit is per instance and not global. Fine for a prototype, wrong for an institution. A shared store is the fix and it is not built yet."]].map(([h, code, d]) => (
             <Card key={h}><h2 className="text-lg text-brand">{h}</h2><code className="mt-1 block rounded bg-surface px-2 py-1 text-sm">{code}</code><p className="mt-2 text-sm"><Explain text={d} /></p></Card>
           ))}
         </div>
