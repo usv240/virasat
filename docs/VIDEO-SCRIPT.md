@@ -73,9 +73,17 @@ info button. Resize the window narrow to show it works on a phone.
 **Say:** "Every screen is in Hindi, including the rule engine output and the
 debate itself, not just the menus. It reads aloud, for anyone who cannot read
 comfortably. Light and dark, Simple and Technical modes, and an info button on
-every term. Zero serious accessibility violations across ten pages, measured with
-axe, and Lighthouse ninety six, one hundred, one hundred, one hundred on the live
-site."
+every term. Zero serious accessibility violations across eleven pages, measured
+with axe on the live site. And because the families this is for are on patchy
+two G and not on office wifi, watch this."
+
+**On screen:** open the browser dev tools network tab, set it to Offline, and
+reload. The offline bar appears and the page still works. Navigate to the
+glossary to show it is still there.
+
+**Say:** "The signal is gone, and it still works. Everything already opened, the
+Vault, every checklist, the glossary. It tells you honestly which steps are
+waiting for the network instead of silently failing."
 
 ---
 
@@ -83,11 +91,17 @@ site."
 
 **On screen:** /developers, showing the API playground. Then /judges briefly.
 
-**Say:** "For scale, all of this is a public API. An institution can bring their
-own data, their own AI key, and their own claim rules, and every answer records
-which rule version decided it, so a compliance team can audit it. Free for
-families. Institutions and service centres pay. Aapki poonji, aapka adhikar.
-Your money, your right. Thank you."
+**On screen:** /developers showing the API playground, then the open corpus
+section, then /proof showing the cost table.
+
+**Say:** "For scale, all of this is a public API, and the claim rules themselves
+are open, MIT licensed, served with no key at all. If a bank or a government
+portal serves families better by taking them, that is the point. We would rather
+be the standard than the site. One family costs about twenty rupees of AI,
+arithmetic on real token counts, against an average of thirty eight thousand
+seven hundred returned per family. And every number on this site sits next to the
+command that would prove us wrong. Aapki poonji, aapka adhikar. Your money, your
+right. Thank you."
 
 ---
 
@@ -97,6 +111,8 @@ Your money, your right. Thank you."
 - [ ] Audio is clear and there is no background noise.
 - [ ] The debate section is on screen long enough to read the verdict.
 - [ ] The Hindi screens are on screen long enough to read.
+- [ ] The offline moment actually shows the page still working, not a blank page.
+      Load the site once first so the service worker has registered.
 - [ ] Under 3 minutes.
 - [ ] Uploaded, set to unlisted or public, and the link added to the submission
       form, the README and the Judge page.

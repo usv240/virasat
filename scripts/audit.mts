@@ -13,8 +13,9 @@
  * Everything else runs on a plain checkout.
  */
 import { execSync, spawnSync } from "node:child_process";
-import { writeFileSync } from "node:fs";
+import { readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -25,7 +26,7 @@ const HOST = arg("host", "https://virasat-indol.vercel.app");
 const SKIP = arg("skip", "").split(",").filter(Boolean);
 
 /** The pages a visitor can actually reach. If you add a page, add it here. */
-const PAGES = ["/", "/try", "/judges", "/developers", "/how-ai-works", "/glossary", "/references", "/accessibility", "/privacy", "/proof"];
+const PAGES = ["/", "/try", "/judges", "/developers", "/how-ai-works", "/glossary", "/references", "/accessibility", "/privacy", "/proof", "/offline"];
 
 type Check = { name: string; how: string; result: string; ok: boolean; detail?: string };
 const checks: Check[] = [];
@@ -96,38 +97,57 @@ if (!SKIP.includes("a11y")) {
 /* ---------------- lighthouse ---------------- */
 
 if (!SKIP.includes("lighthouse")) {
-  process.stdout.write("Lighthouse (3 runs, we publish the range)... ");
-  const runs: Record<string, number>[] = [];
-  for (let i = 0; i < 3; i += 1) {
-    try {
-      const out = execSync(
-        `npx --yes lighthouse ${HOST} --quiet --chrome-flags="--headless" --preset=desktop --output=json --output-path=stdout`,
-        { cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 },
-      );
-      const r = JSON.parse(out);
-      runs.push(Object.fromEntries(Object.entries(r.categories).map(([k, v]) => [k, Math.round((v as { score: number }).score * 100)])));
-    } catch {
-      break;
+  // Both profiles, because only one of them is the honest one for this
+  // audience. Desktop is what a judge on a laptop sees. Mobile is Lighthouse's
+  // throttled phone on a slow connection, which is closer to the families this
+  // is actually for, and it is the lower number.
+  for (const profile of ["desktop", "mobile"] as const) {
+    process.stdout.write(`Lighthouse ${profile} (3 runs, we publish the range)... `);
+    const runs: Record<string, number>[] = [];
+    for (let i = 0; i < 3; i += 1) {
+      // Written to a file rather than read from stdout. On Windows the Chrome
+      // launcher sometimes throws while deleting its own temp directory, after
+      // the report is already complete, and a report on disk survives that.
+      const report = join(tmpdir(), `virasat-lh-${profile}-${i}.json`);
+      const preset = profile === "desktop" ? "--preset=desktop" : "";
+      try {
+        execSync(
+          `npx --yes lighthouse ${HOST} --quiet --chrome-flags="--headless --no-sandbox" ${preset} --output=json --output-path="${report}"`,
+          { cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024, stdio: "pipe" },
+        );
+      } catch {
+        // Fall through: the report may still be there.
+      }
+      try {
+        const r = JSON.parse(readFileSync(report, "utf8"));
+        runs.push({
+          ...Object.fromEntries(Object.entries(r.categories).map(([k, v]) => [k, Math.round((v as { score: number }).score * 100)])),
+          lcp: r.audits["largest-contentful-paint"].numericValue,
+          cls: r.audits["cumulative-layout-shift"].numericValue,
+        });
+        rmSync(report, { force: true });
+      } catch {
+        break;
+      }
     }
-  }
-  if (runs.length === 0) {
-    console.log("skipped");
-    checks.push({ name: "Lighthouse", how: `3 runs against ${HOST}`, result: "Not run", ok: false, detail: "Needs Chrome on the machine running the audit." });
-  } else {
+    if (runs.length === 0) {
+      console.log("skipped");
+      checks.push({ name: `Lighthouse ${profile}`, how: `3 runs against ${HOST}`, result: "Not run", ok: false, detail: "Needs Chrome on the machine running the audit." });
+      continue;
+    }
     // A single run flatters or punishes you depending on whether the webfont
     // beat the largest paint that time, so the range is what gets published.
-    const range = (key: string) => {
+    const range = (key: string, dp = 0) => {
       const vals = runs.map((r) => r[key]).filter((v) => typeof v === "number");
       const lo = Math.min(...vals);
       const hi = Math.max(...vals);
-      return lo === hi ? `${lo}` : `${lo} to ${hi}`;
+      return lo.toFixed(dp) === hi.toFixed(dp) ? lo.toFixed(dp) : `${lo.toFixed(dp)} to ${hi.toFixed(dp)}`;
     };
-    const perf = range("performance");
     console.log("ok");
     checks.push({
-      name: "Lighthouse (desktop)",
+      name: `Lighthouse (${profile})`,
       how: `${runs.length} runs against ${HOST}`,
-      result: `performance ${perf}, accessibility ${range("accessibility")}, best practices ${range("best-practices")}, SEO ${range("seo")}`,
+      result: `performance ${range("performance")}, accessibility ${range("accessibility")}, best practices ${range("best-practices")}, SEO ${range("seo")}, LCP ${(Math.max(...runs.map((r) => r.lcp)) / 1000).toFixed(1)} s, CLS ${range("cls", 3)}`,
       ok: true,
     });
   }

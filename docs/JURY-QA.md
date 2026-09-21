@@ -234,10 +234,14 @@ three months publishes.
 
 ### 18. What did you get wrong?
 
-Have one real answer ready. A good one: the site claimed a Lighthouse score of
-96 that came from a laptop, and the live deployment measured 91 to 96 depending
-on whether the webfont beat the largest paint. We changed every published figure
-to the range.
+Have one real answer ready. A good one: the site published a single Lighthouse
+performance score, and it turned out we had been quoting a desktop number and a
+mobile number as if they were the same measurement. They are not close: the live
+deployment scores 99 to 100 on desktop and 91 to 92 on a throttled phone. For a
+product whose whole argument is that it is built for people on cheap phones,
+quoting the desktop figure was the wrong number to be proud of.
+
+We now publish both, three runs each, and the range rather than the best run.
 
 It is a small thing, and that is exactly why it works. It shows the honesty is
 operational rather than rhetorical.

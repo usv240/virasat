@@ -38,19 +38,29 @@ Without a key the app runs in Sample mode: AI steps replay pre-computed results 
 ## Checks
 
 ```bash
-npm run verify     # lint, writing check (no emojis, no em dashes), tests, type check
-npm test           # 23 tests: rule engine, AIS parser, claim pack PDF, dividend search
-npm run eval       # measures the AI: document reading and the debate (needs an API key)
-npm run build      # production build
+npm run audit         # re-runs every claim on this page and writes docs/AUDIT-REPORT.md
+npm run verify        # lint, writing check (no emojis, no em dashes), tests, type check
+npm test              # 39 tests: rule engine, AIS parser, claim pack, dividends, cost model, corpus
+npm run eval          # measures the AI: document reading and the debate (needs an API key)
+npm run measure:cost  # measures what one family costs, using the app's own code (needs a key)
+npm run build         # production build
 ```
+
+`npm run audit` is the one that matters. It runs the lint, the writing rules, the
+types, the tests and a production build, then points axe at every page in both
+themes and Lighthouse at the live deployment three times on each profile, and
+writes the result to [docs/AUDIT-REPORT.md](docs/AUDIT-REPORT.md) including
+anything that failed. Every number below came from it. Please try to prove one
+of them wrong.
 
 Measured on the current build:
 
 | Check | Result |
 |---|---|
-| Automated tests | 23 of 23 pass |
-| Accessibility (axe, WCAG 2.2 AA), 10 pages, light and dark | 0 serious or critical, 0 moderate |
-| Lighthouse, landing page | Live deployment, mobile: 91 to 96 performance across repeated runs, 100 accessibility, 100 best practices, 100 SEO. Localhost, desktop: 99 performance. |
+| Automated tests | 39 of 39 pass |
+| Accessibility (axe, WCAG 2.2 AA), 11 pages, light and dark | 0 serious or critical, 0 moderate |
+| Cost of serving one family | About ₹20 of AI, against an average of ₹38,700 returned per family at Gujarat's camps. Arithmetic on token counts at published prices, shown in full on [/proof](https://virasat-indol.vercel.app/proof). |
+| Lighthouse, landing page, live deployment | Desktop: 99 to 100 performance, LCP 0.8 s. Mobile, throttled: 91 to 92 performance, LCP 3.4 s. Both: 100 accessibility, 100 best practices, 100 SEO, CLS 0. Three runs each, range published rather than the best one. Reproduce with `npm run audit`. |
 | Writing check | no emojis, no em or en dashes |
 
 ## Technology stack
@@ -64,7 +74,8 @@ Measured on the current build:
 | Languages | English and Hindi across every screen, the rule engine output and the AI debate |
 | Data | Family data in the browser (localStorage). Nothing personal is stored on the server. |
 | API | Route handlers under `/api/v1`, API keys (`vs_test_demo` sandbox), rate limit headers, RFC 9457 errors |
-| Quality | ESLint, Vitest, TypeScript strict, writing check, Playwright screenshots in light and dark, mobile and desktop |
+| Offline | Network-first service worker and a web manifest, so it installs and keeps working on patchy signal |
+| Quality | ESLint, Vitest, TypeScript strict, writing check, axe via Playwright, Lighthouse, all behind one `npm run audit` |
 
 ## Pages
 
@@ -76,6 +87,8 @@ Measured on the current build:
 | `/judges` | Judge Mode: criteria map, what is real and what is sample, deliverables |
 | `/developers` | API docs, playground, Bring Your Own Data, Key and Rules |
 | `/how-ai-works` | Transparency: what the AI does and never does, test results, limits |
+| `/proof` | Every claim we make, next to the command that would prove us wrong, plus the unit economics |
+| `/offline` | Shown when the phone has no signal, explaining what still works |
 | `/glossary`, `/references`, `/privacy`, `/accessibility` | Supporting pages |
 
 Top bar on every page: language (English, Hindi), theme (system, light, dark), and Simple or Technical mode. Info buttons explain every feature. The help button is in the same place on every page.
@@ -88,7 +101,25 @@ curl -X POST $HOST/api/v1/claims/route \
   -d '{"input":{"assetType":"bank","institution":"State Bank of India","amountInr":158420,"nomineePresent":true,"jointHolder":false,"claimantRelation":"spouse","otherHeirs":true}}'
 ```
 
-Endpoints: `POST /extract`, `POST /ais/parse`, `POST /claims/route`, `POST /claims/pack`, `GET /dividends/search`, `GET|POST /rules`, `GET /health`. Full docs and a playground at `/developers`.
+Endpoints: `POST /extract`, `POST /ais/parse`, `POST /claims/route`, `POST /claims/pack`, `GET /dividends/search`, `GET|POST /rules`, `GET /rules/corpus`, `GET /rules/schema`, `GET /health`. Full docs and a playground at `/developers`.
+
+## The open rule corpus
+
+The app is the replaceable part. What does not exist anywhere today is the claim
+procedure of each Indian institution written down as data a machine can follow:
+which documents, in which order, above which amount, and where a family actually
+gets each one.
+
+So it is open, MIT licensed, and served with no key and no permission:
+
+```bash
+curl $HOST/api/v1/rules/corpus     # every rule set
+curl $HOST/api/v1/rules/schema     # the JSON Schema, generated from the code that enforces it
+```
+
+If a bank, a government portal or another team serves families better by taking
+it, that is the result we want. [Adding an institution](docs/CONTRIBUTING-RULES.md)
+does not require writing code.
 
 ## Repository layout
 
@@ -97,7 +128,8 @@ src/app/            pages and API route handlers
 src/components/     design system (ui.tsx), top bar, footer, help, landing sections, the app (find, claim, track, vault)
 src/lib/            rules engine, portals, AIS parser, extraction, debate, forms, sample data, store
 tests/              vitest tests
-scripts/            sample AIS generator, writing check
+scripts/            audit harness, cost measurement, AI evaluation, sample generator, writing check
+docs/               audit report, jury brief, video script, rule contribution guide
 public/samples/     synthetic sample documents (all names and numbers are made up)
 ../projects/        the full plan, technical design and UX specification
 ```
