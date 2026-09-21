@@ -237,7 +237,7 @@ three months publishes.
 Have one real answer ready. A good one: the site published a single Lighthouse
 performance score, and it turned out we had been quoting a desktop number and a
 mobile number as if they were the same measurement. They are not close: the live
-deployment scores 99 to 100 on desktop and 91 to 92 on a throttled phone. For a
+deployment scores 99 to 100 on desktop and 91 to 96 on a throttled phone. For a
 product whose whole argument is that it is built for people on cheap phones,
 quoting the desktop figure was the wrong number to be proud of.
 
