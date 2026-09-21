@@ -18,7 +18,7 @@ The money stays stuck for four reasons:
 3. **Claiming is confusing.** Nominee or legal heir? Which certificate? Which form? Recovery agents charge 5 to 15 percent to help.
 4. **It keeps happening.** Accounts without a nominee become new unclaimed money every year.
 
-The people who lose the most are women managing on their own, elderly parents, and families in small towns and villages. Only about 8.5 lakh people have ever used RBI's search portal, in a country of 140 crore.
+The people who lose the most are women managing on their own, elderly parents, and families in small towns and villages. Only about 20 lakh people have ever used RBI's search portal, in a country of 140 crore, and searching is not claiming: the portal finds an account and then hands the family back to the bank.
 
 ## Proposed solution
 

@@ -109,13 +109,24 @@ confidence is shown rather than hidden.
 
 ### 7. Have you tested this with a real family?
 
-If the answer is still no on the 27th, do not dress it up. Say: not yet, and it
-is the most important thing missing. Then say what you did instead, which is
-that the flow was built from documented procedures and public sources, every one
-of which is cited on the Sources page.
+No, and do not dress it up. This was built from outside India on a hackathon
+timeline, with no access to Indian families or bank branches. Say that.
 
-This is the question most likely to hurt. Between now and the 27th, even three
-conversations changes the answer completely. See the note at the bottom.
+Then say what it was built from instead: documented procedures from SBI, LIC,
+EPFO, IEPF and India Post, and public sources, every one cited on the Sources
+page with a working link.
+
+Then hand them somebody with more authority than you. The Supreme Court is
+hearing a plea seeking a mechanism to inform legal heirs of deceased depositors
+about dormant unclaimed deposits, and counsel argued heirs should find every
+asset in one search. That is this problem statement, argued in the Supreme
+Court, by somebody else. And Gujarat's camps returned ₹104 crore to 26,874
+families, which is not a survey of whether families would come forward but a
+count of families who did.
+
+If they push back that desk research is not user validation, agree instantly.
+They are right, it is the first thing a pilot buys, and arguing the point costs
+you the room. The full evidence base is in docs/EVIDENCE-BASE.md.
 
 ### 8. Your unpaid-dividend index is sample data. Isn't that fatal?
 
@@ -305,14 +316,30 @@ If they press on whether you understand your own code, the answer is to invite
 it: open any file on the repository and talk through it. That offer is only
 comfortable to make if it is true, so make sure it is before the 27th.
 
+### 22. The government launched a Common Landing Portal in May. Is this not that?
+
+Expect this from anyone who follows the sector, and concede the overlap before
+you defend anything.
+
+On 29 May 2026 the Department of Financial Services launched the Common Landing
+Portal with the PSB Alliance: one search across bank deposits, insurance,
+shares, dividends and mutual funds. It is a real improvement and it removes
+something we used to list as a difference. The capability table on the judges
+page now gives the government the credit in its first row.
+
+What it does not do is anything after the search. It finds the asset and hands
+the family back to the institution. It does not read a photograph of a passbook,
+does not tell a widow whether she is a nominee or a legal heir, does not say
+which of six documents she needs, does not fill a form, and does not track the
+claim. That gap is the entire product, and it is the same gap the Supreme Court
+plea is about.
+
+The strongest version of this answer: the government building the search layer
+is good news for us, because it makes the layer we built more useful, not less.
+
 ---
 
 ## What to fix before the 27th
-
-**Talk to three families, or one bank branch officer.** Question 7 is the one
-that can end the round, and it is the only one that cannot be answered by
-writing more code. Three phone calls turns "not yet" into a quote on a slide,
-and no other team will have one.
 
 **Run `npm run eval`.** It needs the API key. Until then question 12 has to be
 answered with a script rather than a result.

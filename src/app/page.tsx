@@ -28,7 +28,7 @@ export default function Home() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Reveal><Stat tone="brand" value="₹1.84 lakh crore" label="lying unclaimed across banks, insurance, provident fund and shares" source="Finance Minister, Oct 2025" sourceHref="/references#r1" /></Reveal>
           <Reveal delay={60}><Stat value="₹72,454 crore" label="in old bank accounts alone, now parked with RBI (Jan 2026)" source="Govt and RBI data" sourceHref="/references#r3" /></Reveal>
-          <Reveal delay={120}><Stat value="8.5 lakh" label="people have used RBI's search portal so far, in a country of 140 crore" source="RBI UDGAM, Jul 2025" sourceHref="/references#r4" /></Reveal>
+          <Reveal delay={120}><Stat value="20 lakh" label="people have used RBI's search portal so far, in a country of 140 crore" source="RBI to the Supreme Court, Apr 2026" sourceHref="/references#r4" /></Reveal>
           <Reveal delay={180}><Stat value="₹38,700" label="average returned per family in Gujarat's recent claim camps" source="All India Radio" sourceHref="/references#r5" /></Reveal>
         </div>
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px]">

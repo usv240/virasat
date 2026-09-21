@@ -31,10 +31,13 @@ const DELIVERABLES: [string, string, string, "done" | "pending"][] = [
 ];
 
 
-// The question every informed Indian judge asks first: RBI already runs UDGAM,
-// so why does this need to exist? Answered with capabilities, not adjectives.
+// The question every informed Indian judge asks first: the government already
+// runs UDGAM, and since May 2026 a Common Landing Portal too, so why does this
+// need to exist? Answered with capabilities, not adjectives, and the first row
+// concedes the part the government has now solved.
 const COMPARISON: [string, string, string, string][] = [
-  ["Covers banks, insurance, provident fund, shares and mutual funds in one place", "No. One portal per asset type: UDGAM for banks, IEPF for shares, MITRA for mutual funds, Bima Bharosa for insurance", "Sometimes, for a share of the money", "Yes"],
+  ["Search banks, insurance, shares, dividends and mutual funds from one page", "Yes, since 29 May 2026. The Common Landing Portal put one search front door over the separate portals, and it is a real improvement", "Sometimes, for a share of the money", "Yes, and this is not where we claim to be different"],
+  ["Turn a search result into a filed claim", "No. Every portal searches and then hands the family back to the institution. The Supreme Court is hearing a plea about exactly this gap for legal heirs", "Yes, for 10 to 30 percent", "Yes. Route, documents, filled forms, tracking"],
   ["Finds accounts the family never knew existed", "No. You must already know the bank and the name to search", "Rarely", "Yes. The AIS lists every institution that paid them"],
   ["Reads a photograph of an old passbook or policy", "No", "No", "Yes"],
   ["Tells you which claim route applies, and why", "No", "Yes, but you cannot check the reasoning", "Yes. A versioned rule engine, with the rule id shown"],

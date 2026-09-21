@@ -2,7 +2,7 @@ export const REFERENCES: { id: string; title: string; url: string }[] = [
   { id: "r1", title: "Business Today: Finance Minister launches Aapki Poonji Aapka Adhikar, ₹1.84 lakh crore unclaimed (Oct 2025)", url: "https://www.businesstoday.in/personal-finance/banking/story/finance-minister-launches-rs-1-84-lakh-crore-unclaimed-assets-campaign-496827-2025-10-04" },
   { id: "r2", title: "All India Radio: campaign launch in Gujarat", url: "https://www.newsonair.gov.in/union-finance-minister-nirmala-sitharaman-launches-the-nationwide-aapki-punji-aapka-adhikarcampaign-in-gujarat" },
   { id: "r3", title: "Free Press Journal: unclaimed deposits in RBI DEA Fund reach ₹72,454 crore; multiple nominations (2026)", url: "https://www.freepressjournal.in/amp/business/unclaimed-bank-deposits-in-rbis-dea-fund-reach-72454-crore-government-promotes-udgam-portal-multiple-nominations" },
-  { id: "r4", title: "CAalley: 8.5 lakh UDGAM users; RBI accelerated payout scheme", url: "https://www.caalley.com/news-updates/indian-news/more-than-8-lakh-people-got-unclaimed-deposits-back-from-bank-via-udgam-steps-to-check-unclaimed-deposits" },
+  { id: "r4", title: "RBI to the Supreme Court, Apr 2026: 20 lakh UDGAM users and 44 lakh searches, on a portal that searches but does not settle", url: "https://www.drishtiias.com/daily-updates/daily-news-analysis/rbis-udgam-portal" },
   { id: "r5", title: "All India Radio: Gujarat returns ₹104 crore on 26,874 claims", url: "https://www.newsonair.gov.in/gujarat-rs-104-crore-returned-to-account-holders-under-aapki-punji-aapka-adhikar-campaign" },
   { id: "r6", title: "RBI: UDGAM FAQ", url: "https://www.rbi.org.in/commonman/english/scripts/FAQs.aspx?Id=3579" },
   { id: "r7", title: "IRDAI Bima Bharosa: unclaimed amounts query", url: "https://bimabharosa.irdai.gov.in/Home/UnclaimedAmountsQuery" },
@@ -16,4 +16,7 @@ export const REFERENCES: { id: string; title: string; url: string }[] = [
   { id: "r15", title: "W3C: WCAG 2.2", url: "https://www.w3.org/TR/WCAG22/" },
   { id: "r16", title: "Medhi and others: Designing mobile interfaces for novice and low-literacy users", url: "https://dl.acm.org/doi/pdf/10.1145/1959022.1959024" },
   { id: "r17", title: "Heydon Pickering: Tooltips and toggletips (Inclusive Components)", url: "https://inclusive-components.design/tooltips-toggletips/" },
+  { id: "r18", title: "Department of Financial Services: Common Landing Portal for Unclaimed Financial Assets, launched 29 May 2026 with the PSB Alliance. One search front door across banks, insurance, shares, dividends and mutual funds", url: "https://newsonair.gov.in/government-launches-portal-for-search-of-unclaimed-financial-assets/" },
+  { id: "r19", title: "Supreme Court: plea by Sucheta Dalal seeking a mechanism to inform legal heirs of deceased depositors about dormant unclaimed deposits. Counsel argued heirs should find every asset in one search", url: "https://www.drishtiias.com/daily-updates/daily-news-analysis/rbis-udgam-portal" },
+  { id: "r20", title: "Deccan Herald: a pensioner's son told at the branch that his father had never nominated anyone, and that prompting a nomination was not the bank's job", url: "https://www.deccanherald.com/amp/story/opinion%2Fmake-the-100-day-campaign-work-1229314.html" },
 ];

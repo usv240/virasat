@@ -94,7 +94,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     title(s, "Lakhs of families have money waiting for them.\nThey just do not know it.");
     const stats = [["₹1.84 L cr", "unclaimed across banks, insurance, PF and shares", "[1]"],
       ["₹72,454 cr", "in old bank accounts alone, parked with RBI", "[2]"],
-      ["8.5 lakh", "people have ever used RBI's search portal, in a country of 140 crore", "[3]"],
+      ["20 lakh", "people have ever used RBI's search portal, in a country of 140 crore", "[3]"],
       ["₹38,700", "average returned per family in Gujarat's claim camps", "[4]"]];
     stats.forEach(([n, l, r], i) => {
       const x = 0.5 + i * 2.28;
