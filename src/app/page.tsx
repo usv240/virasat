@@ -7,6 +7,7 @@ import { DemoEmbed } from "@/components/landing/demo-embed";
 import { DebateExample } from "@/components/landing/debate-example";
 import { Faq } from "@/components/landing/faq";
 import { Explain } from "@/components/explain";
+import { Term } from "@/components/term";
 import { Reveal } from "@/components/reveal";
 import { GLOSSARY } from "@/lib/glossary";
 import { REFERENCES } from "@/lib/references";
@@ -100,14 +101,53 @@ export default function Home() {
         </Technical>
       </Section>
 
+      {/* The headline innovation, which used to be a bullet inside a card. Laid
+          out as a flow rather than another grid of cards, because the page has
+          enough of those and this one is a sequence, not a set. */}
+      <Section id="asset-map" eyebrow="The idea nobody else has built" title="One tax statement finds accounts the family never knew existed">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          <div>
+            <p className="text-lg">
+              Every other service asks the family to already know where the money is. That is the whole problem:
+              the account they cannot find is the one nobody remembered.
+            </p>
+            <p className="mt-4">
+              A legal heir can request the account holder&apos;s <Term id="ais">Annual Information Statement</Term> from the
+              Income Tax Department. It lists interest from every bank and dividends from every company that ever paid
+              them. Virasat reads that one PDF and turns it into a map of institutions to claim from, even when the
+              family has no papers at all.
+            </p>
+            <p className="mt-4 font-semibold text-brand">
+              A document the family can already get, used as a search index for their own money. No portal does this.
+            </p>
+          </div>
+          <ol className="space-y-3">
+            {[
+              ["One PDF", "The heir requests the AIS. Free, and already their right."],
+              ["Read by code", "Tables parsed by pdf-parse, not by a model. Deterministic, and it costs nothing."],
+              ["Payers matched", "Each payer name is matched to an institution by rules."],
+              ["A map of claims", "Every bank, insurer and company that owes them, with the portal for each."],
+            ].map(([h, d], i) => (
+              <li key={h} className="flex gap-4">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-semibold text-brand-contrast">{i + 1}</span>
+                <span>
+                  <span className="block font-semibold">{h}</span>
+                  <span className="block text-sm text-muted">{d}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </Section>
+
       {/* Live demo */}
       <Section id="try" eyebrow="Try it" title="Try it with Sunita's papers. No sign up.">
         <DemoEmbed />
       </Section>
 
       {/* Debate */}
-      <Section id="debate" eyebrow="Trust" title="Two AI reviewers check every claim route before you see it." tone="surface">
-        <p className="max-w-3xl text-lg">The Supporter argues the route is right. The Challenger looks for what could go wrong. The Referee decides and explains. <InfoButton label="The Two AI Debate">Research shows AI models that argue and then agree make fewer factual mistakes (Du and others, ICML 2024). We use it to catch gaps and to show our reasoning. The referee can only make advice more careful, never override the fixed rules. We test it ourselves and publish the results on the How our AI works page.</InfoButton></p>
+      <Section id="debate" eyebrow="Trust" title="You can read the argument the AI had about your case." tone="surface">
+        <p className="max-w-3xl text-lg">The Supporter argues the route is right. The Challenger looks for what could go wrong. The Referee decides and explains. <InfoButton label="The Two AI Debate">Research on whether debate makes models more accurate is mixed (Du and others, ICML 2024, and the counter-view in 2025). We measured our own: on three planted problems the Challenger caught 3 of 3, and so did a single reviewer with no debate. So we do not claim it is righter. We keep it because you can read the disagreement and judge it yourself, and because the Referee is prevented in code from lowering a caution. The numbers are on the How our AI works page.</InfoButton></p>
         <div className="mt-8"><DebateExample /></div>
       </Section>
 
