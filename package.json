@@ -14,7 +14,8 @@
     "eval": "node --env-file-if-exists=.env.local scripts/eval.mjs",
     "measure:cost": "tsx --env-file-if-exists=.env.local scripts/measure-cost.mts",
     "audit": "tsx scripts/audit.mts",
-    "deck": "node scripts/deck/build.js public/docs/Virasat-Team-USV-Deck.pptx"
+    "deck": "node scripts/deck/build.js public/docs/Virasat-Team-USV-Deck.pptx",
+    "credits": "tsx scripts/credits.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.127.0",

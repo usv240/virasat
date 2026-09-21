@@ -10,6 +10,15 @@ const fs = require("fs");
 const OUT = process.argv[2] || "Virasat_Final_Deck.pptx";
 const SHOTS = __dirname + "/shots";
 
+// Counted off disk rather than typed in, because a number on a slide that used
+// to be true is worse than no number at all. A judge who runs npm test sees
+// this exact figure. The published rupee figure is checked against the cost
+// model by a test, for the same reason.
+const TESTS = fs.readdirSync(__dirname + "/../../tests")
+  .filter((f) => f.endsWith(".test.ts"))
+  .reduce((n, f) => n + (fs.readFileSync(`${__dirname}/../../tests/${f}`, "utf8").match(/^ {2}it\(/gm) || []).length, 0);
+const COST_PER_FAMILY = "about ₹20";
+
 const TEAL = "0F3D3E", TEAL2 = "1F6F6B", TINT = "E6F0EE", GOLD = "E3A33B",
   GOLD_T = "FBF1DF", INK = "1B2424", MUTED = "5B6B6A", WHITE = "FFFFFF", LINE = "D5E2DF", GREEN = "1E7F4F";
 const LIVE = "https://virasat-indol.vercel.app";
@@ -129,20 +138,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     });
   }
 
-  /* 4. The product, built (point 5 preview) */
-  {
-    const s = pres.addSlide(); s.background = { color: WHITE };
-    tag(s, "05", "Product demonstration");
-    title(s, "This is the working product, not a mock-up", INK, 0.58, 24);
-    screenshot(s, "find.png", 0.5, 1.45, 4.4, 3.1);
-    screenshot(s, "claim.png", 5.1, 1.45, 4.4, 3.1);
-    txt(s, "Find: three sample papers and the tax statement become a list of ₹4.85 lakh waiting in 5 places, each with its own portal and guided steps.",
-      { x: 0.5, y: 4.62, w: 4.4, h: 0.6, fontSize: 10, color: MUTED });
-    txt(s, "Claim: the rule engine picks the route, the Two AI Debate checks it, and the filled claim pack downloads as a PDF.",
-      { x: 5.1, y: 4.62, w: 4.4, h: 0.6, fontSize: 10, color: MUTED });
-  }
-
-  /* 5. Innovation (point 3) */
+  /* 4. Innovation (point 3) */
   {
     const s = pres.addSlide(); s.background = { color: WHITE };
     tag(s, "03", "Innovation");
@@ -159,7 +155,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     });
   }
 
-  /* 6. The debate, shown */
+  /* 5. The debate, shown */
   {
     const s = pres.addSlide(); s.background = { color: TINT };
     tag(s, "03", "Innovation: the Two AI Debate");
@@ -177,7 +173,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     foot(s, "Research: multi-agent debate improves factual accuracy (Du and others, ICML 2024). Newer work warns it is not always better, so we measure it: npm run eval reports how often the Challenger catches a planted problem, with and without the debate. Both numbers are published on the site.");
   }
 
-  /* 7. Technical implementation (point 4) */
+  /* 6. Technical implementation (point 4) */
   {
     const s = pres.addSlide(); s.background = { color: WHITE };
     tag(s, "04", "Technical implementation");
@@ -191,7 +187,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     col(0.5, 3.0, "READS AND WRITES", ["Claude Opus 5 with JSON schema outputs", "AIS PDF tables parsed in code", "Claim packs built with pdf-lib", "Browser speech in and out"], WHITE, INK, MUTED);
     col(3.65, 2.7, "DECIDES", ["Rule engine, 5 institutions", "Versioned and unit-tested", "Bring your own rules", "Debate can only raise caution"], TEAL, WHITE, GOLD);
     col(6.5, 3.0, "SERVES", ["Next.js 16, React 19, TypeScript", "Public API with keys and limits", "RFC 9457 errors, playground", "Data stays in the browser"], WHITE, INK, MUTED);
-    const nums = [["23", "automated tests"], ["0", "serious axe violations"], ["99 / 100", "Lighthouse perf / a11y"], ["about ₹16", "AI cost per claim"]];
+    const nums = [[String(TESTS), "automated tests"], ["0", "serious axe violations"], ["99 to 100", "Lighthouse, desktop"], [COST_PER_FAMILY, "AI cost per family"]];
     nums.forEach(([n, l], i) => {
       const x = 0.5 + i * 2.28;
       card(s, x, 4.15, 2.1, 0.85, GOLD_T);
@@ -200,7 +196,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     });
   }
 
-  /* 8. Accessibility and languages */
+  /* 7. Accessibility and languages */
   {
     const s = pres.addSlide(); s.background = { color: TINT };
     tag(s, "04", "Technical implementation: measured, not claimed");
@@ -217,6 +213,21 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
       txt(s, v, { x: 7.05, y: y + 0.24, w: 2.5, h: 0.62, fontSize: 8.5, color: INK });
     });
     txt(s, "Dark mode and Hindi are one tap from any screen.", { x: 0.5, y: 4.05, w: 4.3, h: 0.3, fontSize: 10, color: MUTED });
+  }
+
+  /* 8. Product demonstration (point 5). Placed after innovation and the
+     technical slides, so the eight points the rules list arrive in the
+     order the rules list them. */
+  {
+    const s = pres.addSlide(); s.background = { color: WHITE };
+    tag(s, "05", "Product demonstration");
+    title(s, "This is the working product, not a mock-up", INK, 0.58, 24);
+    screenshot(s, "find.png", 0.5, 1.45, 4.4, 3.1);
+    screenshot(s, "claim.png", 5.1, 1.45, 4.4, 3.1);
+    txt(s, "Find: three sample papers and the tax statement become a list of ₹4.85 lakh waiting in 5 places, each with its own portal and guided steps.",
+      { x: 0.5, y: 4.62, w: 4.4, h: 0.6, fontSize: 10, color: MUTED });
+    txt(s, "Claim: the rule engine picks the route, the Two AI Debate checks it, and the filled claim pack downloads as a PDF.",
+      { x: 5.1, y: 4.62, w: 4.4, h: 0.6, fontSize: 10, color: MUTED });
   }
 
   /* 9. Impact (point 6) */
@@ -302,7 +313,9 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
   /* 12. Judge mode */
   {
     const s = pres.addSlide(); s.background = { color: WHITE };
-    tag(s, "05", "Product demonstration: for judges");
+    // No point number: this slide is the evaluation criteria, not one of the
+    // eight presentation points, and numbering it would break the sequence.
+    tag(s, "", "Evaluation criteria, mapped");
     title(s, "Every criterion mapped to proof you can open", INK, 0.58, 24);
     screenshot(s, "judges.png", 0.5, 1.45, 5.2, 3.25);
     const pts = ["A 2-minute guided tour of the live product.",
@@ -337,7 +350,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     txt(s, "Aapki Poonji, Aapka Adhikar.", { x: 0.6, y: 1.3, w: 8.8, h: 0.8, fontFace: HF, fontSize: 34, bold: true, color: WHITE });
     txt(s, "Your money, your right. Virasat is the layer that gets families to it, in their own language.",
       { x: 0.6, y: 2.15, w: 8.5, h: 0.7, fontSize: 17, color: "CFE3DF" });
-    [["₹1.84 L cr", "waiting to be claimed"], ["1 photo", "to get started"], ["₹0", "cost to families"], ["23 tests", "and zero a11y violations"]].forEach(([n, l], i) => {
+    [["₹1.84 L cr", "waiting to be claimed"], ["1 photo", "to get started"], ["₹0", "cost to families"], [`${TESTS} tests`, "and zero a11y violations"]].forEach(([n, l], i) => {
       const x = 0.6 + i * 2.3;
       txt(s, n, { x, y: 3.2, w: 2.2, h: 0.5, fontFace: HF, fontSize: 24, bold: true, color: GOLD });
       txt(s, l, { x, y: 3.75, w: 2.2, h: 0.4, fontSize: 11, color: "9FC3BD" });

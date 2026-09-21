@@ -1,9 +1,11 @@
+import { readFileSync, readdirSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
 import { JOURNEY, LEVERS, PRICES, journeyTotal, rupees, usd } from "../src/lib/cost";
 import { CORPUS_VERSION, RULES, RuleSchema } from "../src/lib/rules";
 import { CLAIMS } from "../src/lib/proof";
 import { GLOSSARY } from "../src/lib/glossary";
+import { HOW_IT_WAS_BUILT, RUNTIME, SERVICES, TOOLING } from "../src/lib/credits";
 
 /**
  * The cost figure is published to judges as a fact about the system, so it gets
@@ -101,5 +103,107 @@ describe("glossary", () => {
 
   it("gives every entry a definition worth reading", () => {
     for (const g of GLOSSARY) expect(g.def.length).toBeGreaterThan(20);
+  });
+});
+
+/**
+ * The rules ask that third-party resources be acknowledged. Credits lists are
+ * famous for going stale the day after they are written, so this fails the
+ * build if a dependency gets added and nobody says thank you for it.
+ */
+describe("credits", () => {
+  const pkg = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8")) as {
+    dependencies: Record<string, string>;
+  };
+
+  // Names as published on npm, mapped to how a reader would recognise them.
+  const NAMED: Record<string, string> = {
+    next: "Next.js",
+    react: "React",
+    zod: "Zod",
+    clsx: "clsx",
+    "js-yaml": "js-yaml",
+    "pdf-lib": "pdf-lib",
+    "pdf-parse": "pdf-parse",
+    "lucide-react": "lucide-react",
+    "@anthropic-ai/sdk": "Anthropic TypeScript SDK",
+  };
+
+  it("acknowledges every package that ships to a family", () => {
+    const credited = RUNTIME.map((c) => c.name);
+    for (const dep of Object.keys(pkg.dependencies)) {
+      expect(NAMED[dep], `${dep} is a new dependency with no entry in credits.ts`).toBeTruthy();
+      expect(credited).toContain(NAMED[dep]);
+    }
+  });
+
+  it("names a licence and a link for everything it credits", () => {
+    for (const c of [...RUNTIME, ...TOOLING, ...SERVICES]) {
+      expect(c.licence.length).toBeGreaterThan(2);
+      expect(c.url).toMatch(/^https:\/\//);
+      expect(c.what.endsWith(".")).toBe(true);
+    }
+  });
+});
+
+/**
+ * The deck goes in front of the jury without the site next to it, so a stale
+ * number on a slide is the one kind of error nobody catches in the room. These
+ * check the two figures that have drifted before, and that the eight points the
+ * rules ask for appear in the order the rules ask for them.
+ */
+describe("pitch deck", () => {
+  const deck = readFileSync(new URL("../scripts/deck/build.js", import.meta.url), "utf8");
+
+  it("quotes the same cost per family as the cost model", () => {
+    const shown = deck.match(/const COST_PER_FAMILY = "about ₹(\d+)"/);
+    expect(shown).toBeTruthy();
+    expect(Number(shown![1])).toBe(Math.round(journeyTotal().inr));
+  });
+
+  it("never prints a Lighthouse figure without saying which profile it is", () => {
+    for (const line of deck.split("\n")) {
+      if (!line.includes("Lighthouse")) continue;
+      expect(line.toLowerCase()).toMatch(/desktop|mobile|phone|profile/);
+    }
+  });
+
+  it("covers the eight presentation points in the order the rules list them", () => {
+    const points = ["point 1", "point 2", "point 3", "point 4", "point 5", "point 6", "point 7", "point 8"];
+    const at = points.map((p) => deck.indexOf(p));
+    for (const i of at) expect(i).toBeGreaterThan(-1);
+    expect([...at].sort((a, b) => a - b)).toEqual(at);
+  });
+});
+
+describe("CREDITS.md", () => {
+  const md = readFileSync(new URL("../CREDITS.md", import.meta.url), "utf8");
+
+  it("names everything the site credits, so the repository and the page agree", () => {
+    for (const c of [...RUNTIME, ...TOOLING, ...SERVICES]) expect(md).toContain(c.name);
+  });
+
+  it("discloses how the project was built, as the rules require", () => {
+    expect(md).toContain(HOW_IT_WAS_BUILT.tools);
+  });
+});
+
+/**
+ * A test count is the easiest number in a project to quote once and never
+ * update again. The deck counts it off disk; the prose cannot, so this checks
+ * the prose instead. If you add a test and this fails, update the two files it
+ * names rather than deleting this.
+ */
+describe("published test count", () => {
+  it("matches what the README and the project description tell a judge", () => {
+    const dir = new URL("./", import.meta.url);
+    const actual = readdirSync(dir)
+      .filter((f) => f.endsWith(".test.ts"))
+      .reduce((n, f) => n + (readFileSync(new URL(f, dir), "utf8").match(/^ {2}it\(/gm) ?? []).length, 0);
+    for (const file of ["../README.md", "../public/docs/PROJECT-DESCRIPTION.md"]) {
+      const quoted = readFileSync(new URL(file, import.meta.url), "utf8").match(/(\d+) (?:automated )?tests\W/);
+      expect(quoted, `${file} never says how many tests there are`).toBeTruthy();
+      expect(Number(quoted![1]), file).toBe(actual);
+    }
   });
 });

@@ -267,6 +267,26 @@ unit economics are arithmetic rather than a slide, and the rules are open for
 anyone including our competitors. A family can use it today. The money is real
 and the people it belongs to are real.
 
+### 21. How much of this did you actually write? It looks like AI built it.
+
+Expect this, because a solo developer with a deployed product, a public API, an
+open corpus, 44 tests and an audit harness invites it. Getting defensive here is
+what loses the room.
+
+The rules allow AI development tools and make us responsible for what we submit,
+so say it first, before they ask: this was built with Claude Code, by one
+person, over the hackathon period, and the Sources page says so in writing.
+
+Then move the conversation to where it should be. The interesting decisions are
+not typing speed. They are choosing to keep the model out of the legal decision,
+choosing to publish synthetic dividend names rather than real ones, choosing to
+publish the mobile floor rather than the best run. A tool does not make those
+calls, and every one of them is defensible out loud.
+
+If they press on whether you understand your own code, the answer is to invite
+it: open any file on the repository and talk through it. That offer is only
+comfortable to make if it is true, so make sure it is before the 27th.
+
 ---
 
 ## What to fix before the 27th
