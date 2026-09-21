@@ -17,7 +17,7 @@ export default function Home() {
       <div className="border-y border-border bg-accent-soft">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-2 text-sm">
           <span>Judging this project? Everything is mapped to the criteria, with proof.</span>
-          <Link href="/judges" className="font-semibold text-brand underline">Take the 2-minute Judge Tour</Link>
+          <Link href="/judges" className="font-semibold text-brand-strong underline">Take the 2-minute Judge Tour</Link>
         </div>
       </div>
 
@@ -174,7 +174,7 @@ export default function Home() {
       {/* Developers */}
       <Section id="developers" eyebrow="For developers" title="Use Virasat in your own app" tone="surface">
         <p className="max-w-3xl text-lg">Send a document, get the details. Send the details, get the claim route and forms. Bring your own data, your own AI key, or your own rules.</p>
-        <pre className="mt-6 overflow-x-auto rounded-card border border-border bg-raised p-4 text-sm"><code>{`curl -X POST https://YOUR-HOST/api/v1/claims/route \\
+        <pre tabIndex={0} className="mt-6 overflow-x-auto rounded-card border border-border bg-raised p-4 text-sm"><code>{`curl -X POST https://YOUR-HOST/api/v1/claims/route \\
   -H "Authorization: Bearer vs_test_demo" \\
   -H "Content-Type: application/json" \\
   -d '{"input":{"assetType":"bank","institution":"State Bank of India","amountInr":158420,

@@ -106,7 +106,8 @@ export function InfoButton({ label, children }: { label: string; children: React
 
 /* ---------- Source badge ---------- */
 export function SourceBadge({ kind, href }: { kind: "public" | "sample" | "yours"; href?: string }) {
-  const text = kind === "public" ? "Real public data" : kind === "sample" ? "Sample data" : "Your data";
+  const { t } = usePrefs();
+  const text = t(`badge.${kind}`);
   const cls = clsx(
     "inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium",
     kind === "public" && "border-success/40 text-success",
@@ -124,12 +125,13 @@ export function SourceBadge({ kind, href }: { kind: "public" | "sample" | "yours
 
 /* ---------- Confidence ---------- */
 export function Confidence({ level }: { level: "high" | "medium" | "low" }) {
+  const { t } = usePrefs();
   const Icon = level === "high" ? CheckCircle2 : level === "medium" ? HelpCircle : AlertTriangle;
   const color = level === "high" ? "text-success" : level === "medium" ? "text-warning" : "text-danger";
   return (
     <span className={clsx("inline-flex items-center gap-1 text-sm font-medium", color)}>
       <Icon className="h-4 w-4" aria-hidden />
-      {level === "high" ? "High" : level === "medium" ? "Medium" : "Low"} confidence
+      {t(`debate.confidence.${level}`)}
     </span>
   );
 }
@@ -189,12 +191,13 @@ export function Listen({ text, className }: { text: string; className?: string }
 }
 
 /* ---------- Section ---------- */
-export function Section({ id, eyebrow, title, children, className, tone }: { id?: string; eyebrow?: string; title: React.ReactNode; children: React.ReactNode; className?: string; tone?: "surface" }) {
+export function Section({ id, eyebrow, title, children, className, tone, h1 }: { id?: string; eyebrow?: string; title: React.ReactNode; children: React.ReactNode; className?: string; tone?: "surface"; h1?: boolean }) {
+  const Heading = h1 ? "h1" : "h2";
   return (
     <section id={id} className={clsx("scroll-mt-20 py-16 lg:py-24", tone === "surface" && "bg-surface", className)}>
       <div className="mx-auto w-full max-w-6xl px-4">
         {eyebrow && <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">{eyebrow}</p>}
-        <h2 className="text-3xl lg:text-4xl">{title}</h2>
+        <Heading className="text-3xl lg:text-4xl">{title}</Heading>
         <div className="mt-8">{children}</div>
       </div>
     </section>

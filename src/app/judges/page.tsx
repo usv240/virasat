@@ -26,7 +26,7 @@ const DELIVERABLES = [
 export default function JudgesPage() {
   return (
     <>
-      <Section eyebrow="For judges" title="Two minutes, everything mapped to the criteria">
+      <Section eyebrow="For judges" title="Two minutes, everything mapped to the criteria" h1>
         <p className="max-w-3xl text-lg">Thank you for your time. This page maps each judging criterion from the rules to a claim and a proof you can open. It also says plainly what is real, what is sample data, and what is planned.</p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/try" className="inline-flex min-h-12 items-center rounded-lg bg-brand px-5 font-semibold text-brand-contrast">Start the 3-minute demo (sample data)</Link>

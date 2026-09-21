@@ -5,7 +5,7 @@ export const metadata = { title: "Virasat glossary" };
 
 export default function GlossaryPage() {
   return (
-    <Section eyebrow="Glossary" title="Every word we use, explained">
+    <Section eyebrow="Glossary" title="Every word we use, explained" h1>
       <dl className="grid gap-4 md:grid-cols-2">
         {GLOSSARY.map((g) => (
           <div key={g.term} id={g.term.toLowerCase().replace(/[^a-z]+/g, "-")} className="rounded-card border border-border bg-raised p-4">

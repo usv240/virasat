@@ -34,7 +34,7 @@ export function Hero() {
           <div className="mt-6 grid grid-cols-3 gap-3 text-center text-sm">
             {[["1 photo", "to start"], ["₹0", "cost to families"], ["Hindi", "and English, by voice"]].map(([n, l]) => (
               <div key={n} className="rounded-lg bg-white/5 p-3">
-                <p className="text-xl font-semibold text-accent">{n}</p>
+                <p className="text-xl font-bold text-accent">{n}</p>
                 <p className="text-brand-contrast/80">{l}</p>
               </div>
             ))}

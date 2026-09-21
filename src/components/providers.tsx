@@ -14,7 +14,7 @@ type Prefs = {
   setMode: (m: Mode) => void;
   lang: Lang;
   setLang: (l: Lang) => void;
-  t: (key: string) => string;
+  t: (key: string, vars?: Record<string, string | number>) => string;
 };
 
 const PrefsContext = createContext<Prefs | null>(null);
@@ -50,7 +50,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       setMode: (v) => setMode(v),
       lang: lang as Lang,
       setLang: (v) => setLang(v),
-      t: (key) => translate(lang as Lang, key),
+      t: (key, vars) => translate(lang as Lang, key, vars),
     }),
     [theme, mode, lang, setTheme, setMode, setLang],
   );

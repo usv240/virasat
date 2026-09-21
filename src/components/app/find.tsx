@@ -8,11 +8,13 @@ import { SAMPLE_DOCS } from "@/lib/sample";
 import { searchPlan } from "@/lib/portals";
 import type { Asset, Extraction } from "@/lib/types";
 import { VoiceInput } from "./voice-input";
+import { usePrefs } from "@/components/providers";
 
 type Family = { state: FamilyState; update: (fn: (s: FamilyState) => FamilyState) => void };
 
 export function Find({ family, ai, onClaim }: { family: Family; ai: "live" | "sample" | "unknown"; onClaim: () => void }) {
   const { state, update } = family;
+  const { t } = usePrefs();
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [plan, setPlan] = useState<Asset | null>(null);
@@ -101,12 +103,12 @@ export function Find({ family, ai, onClaim }: { family: Family; ai: "live" | "sa
   if (!consent) {
     return (
       <Card className="max-w-xl">
-        <h2 className="text-2xl">Before we start</h2>
-        <p className="mt-3">Your papers stay in your browser. When you press &quot;Read this paper&quot;, that one photo is sent to the AI to read and is not stored on our servers. You can delete everything from the Help tab at any time.</p>
-        <p className="mt-2 text-sm text-muted">We keep only what is needed, with your consent, as India&apos;s data protection law (DPDP Act 2023) requires. <InfoButton label="What we keep">In this prototype: nothing on our servers. Extracted details, your assets, claims and Vault are stored in your own browser. AI calls are not used for training.</InfoButton></p>
+        <h2 className="text-2xl">{t("consent.title")}</h2>
+        <p className="mt-3">{t("consent.body")}</p>
+        <p className="mt-2 text-sm text-muted">{t("consent.law")} <InfoButton label="What we keep">In this prototype: nothing on our servers. Extracted details, your assets, claims and Vault are stored in your own browser. AI calls are not used for training.</InfoButton></p>
         <div className="mt-5 flex gap-3">
-          <Button onClick={giveConsent}>I agree, let us start</Button>
-          <Button variant="secondary" onClick={() => history.back()}>Not now</Button>
+          <Button onClick={giveConsent}>{t("consent.agree")}</Button>
+          <Button variant="secondary" onClick={() => history.back()}>{t("consent.no")}</Button>
         </div>
       </Card>
     );
@@ -115,19 +117,19 @@ export function Find({ family, ai, onClaim }: { family: Family; ai: "live" | "sa
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl">Find your family&apos;s money</h2>
-        <p className="text-muted">Step 1 of 4. Add papers, the tax statement, or search by name. <Listen text="Step 1 of 4. Find your family's money. Add papers, the tax statement, or search by name." /></p>
+        <h2 className="text-2xl">{t("find.title")}</h2>
+        <p className="text-muted">{t("find.step")} <Listen text={t("find.title") + ". " + t("find.step")} /></p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
         <Card>
-          <h3 className="flex items-center gap-2 text-lg"><Camera className="h-5 w-5 text-brand" aria-hidden /> Photograph papers</h3>
-          <p className="mt-1 text-sm text-muted">Passbook, policy bond, share certificate, PF slip. JPEG or PNG, under 10 MB.</p>
-          <input ref={fileRef} type="file" accept="image/*" capture="environment" className="sr-only" onChange={(e) => e.target.files?.[0] && runUpload(e.target.files[0])} />
+          <h3 className="flex items-center gap-2 text-lg"><Camera className="h-5 w-5 text-brand" aria-hidden /> {t("find.photo.title")}</h3>
+          <p className="mt-1 text-sm text-muted">{t("find.photo.sub")}</p>
+          <input ref={fileRef} type="file" accept="image/*" capture="environment" aria-label={t("find.photo.btn")} className="sr-only" onChange={(e) => e.target.files?.[0] && runUpload(e.target.files[0])} />
           <Button className="mt-3 w-full" onClick={() => fileRef.current?.click()} loading={busy === "upload"} disabled={ai !== "live" && !state.byoKey}>
-            {ai === "live" || state.byoKey ? "Take or choose a photo" : "Needs live AI (see Help)"}
+            {ai === "live" || state.byoKey ? t("find.photo.btn") : t("find.photo.needs")}
           </Button>
-          <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-muted">Or use Sunita&apos;s sample papers</p>
+          <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-muted">{t("find.photo.samples")}</p>
           <div className="mt-2 flex flex-wrap gap-2">
             {SAMPLE_DOCS.map((d) => (
               <Button key={d.id} variant="secondary" onClick={() => runSample(d.id)} loading={busy === d.id} disabled={state.documents.some((x) => x.id === `doc-${d.id}`)}>
@@ -137,31 +139,31 @@ export function Find({ family, ai, onClaim }: { family: Family; ai: "live" | "sa
           </div>
         </Card>
         <Card>
-          <h3 className="flex items-center gap-2 text-lg"><FileText className="h-5 w-5 text-brand" aria-hidden /> Tax statement (AIS) <InfoButton label="Tax statement (AIS)">The Annual Information Statement lists interest from every bank and dividends from every company paid to a person. A legal heir can download it from incometax.gov.in after registering as the representative. It finds accounts you never knew about. No AI is needed to read it.</InfoButton></h3>
-          <p className="mt-1 text-sm text-muted">Upload the AIS PDF. Virasat reads its tables and lists every payer.</p>
-          <input ref={aisRef} type="file" accept="application/pdf" className="sr-only" onChange={(e) => e.target.files?.[0] && runAis(e.target.files[0])} />
-          <Button className="mt-3 w-full" onClick={() => aisRef.current?.click()} loading={busy === "ais"}>Upload AIS PDF</Button>
+          <h3 className="flex items-center gap-2 text-lg"><FileText className="h-5 w-5 text-brand" aria-hidden /> {t("find.ais.title")} <InfoButton label="Tax statement (AIS)">The Annual Information Statement lists interest from every bank and dividends from every company paid to a person. A legal heir can download it from incometax.gov.in after registering as the representative. It finds accounts you never knew about. No AI is needed to read it.</InfoButton></h3>
+          <p className="mt-1 text-sm text-muted">{t("find.ais.sub")}</p>
+          <input ref={aisRef} type="file" accept="application/pdf" aria-label={t("find.ais.btn")} className="sr-only" onChange={(e) => e.target.files?.[0] && runAis(e.target.files[0])} />
+          <Button className="mt-3 w-full" onClick={() => aisRef.current?.click()} loading={busy === "ais"}>{t("find.ais.btn")}</Button>
           <div className="mt-2 flex gap-2">
-            <Button variant="secondary" className="flex-1" onClick={() => runAis()} loading={busy === "ais"}>Use Ramesh&apos;s sample AIS</Button>
-            <a href="/samples/sample-ais.pdf" className="inline-flex min-h-11 items-center text-sm text-brand underline" download>Download sample</a>
+            <Button variant="secondary" className="flex-1" onClick={() => runAis()} loading={busy === "ais"}>{t("find.ais.sample")}</Button>
+            <a href="/samples/sample-ais.pdf" className="inline-flex min-h-11 items-center text-sm text-brand underline" download>{t("find.ais.download")}</a>
           </div>
         </Card>
         <Card>
-          <h3 className="flex items-center gap-2 text-lg"><Search className="h-5 w-5 text-brand" aria-hidden /> Unpaid dividends by name <InfoButton label="Unpaid dividend lists">Listed companies must publish the names of shareholders whose dividends were never paid. Virasat indexes these lists so you can search by name. The demo index is sample data in the same shape as the real lists.</InfoButton></h3>
+          <h3 className="flex items-center gap-2 text-lg"><Search className="h-5 w-5 text-brand" aria-hidden /> {t("find.div.title")} <InfoButton label="Unpaid dividend lists">Listed companies must publish the names of shareholders whose dividends were never paid. Virasat indexes these lists so you can search by name. The demo index is sample data in the same shape as the real lists.</InfoButton></h3>
           <div className="mt-2 flex gap-2">
-            <input value={divName} onChange={(e) => setDivName(e.target.value)} placeholder="Shareholder name" aria-label="Shareholder name" className="min-h-11 w-full rounded-lg border border-border bg-raised px-3" />
-            <Button onClick={runDividends} disabled={divName.trim().length < 3}>Search</Button>
+            <input value={divName} onChange={(e) => setDivName(e.target.value)} placeholder={t("find.div.placeholder")} aria-label={t("find.div.placeholder")} className="min-h-11 w-full rounded-lg border border-border bg-raised px-3" />
+            <Button onClick={runDividends} disabled={divName.trim().length < 3}>{t("find.div.search")}</Button>
           </div>
-          <div className="mt-2"><VoiceInput onText={setDivName} label="Say the name" /></div>
+          <div className="mt-2"><VoiceInput onText={setDivName} label={t("find.div.say")} /></div>
           {divResults && (
             <ul className="mt-3 space-y-1 text-sm">
-              {divResults.length === 0 && <li className="text-muted">No match in the index. Try a shorter name.</li>}
+              {divResults.length === 0 && <li className="text-muted">{t("find.div.none")}</li>}
               {divResults.map((r, i) => (
                 <li key={i} className="flex justify-between rounded bg-surface px-2 py-1"><span>{r.company} ({r.year})</span><span className="tabular">{inr(r.amountInr)}</span></li>
               ))}
               {divResults.length > 0 && (
                 <li>
-                  <Button variant="quiet" onClick={() => update((s) => ({ ...s, assets: [...s.assets, { id: `div-${Date.now()}`, type: "shares", institution: divResults[0].company, identifierMasked: "See company list", holderName: divResults[0].holder, nomineeName: null, amountEstimateInr: divResults.reduce((a, b) => a + b.amountInr, 0), source: "dividend_index", sourceDetail: `${divResults.length} unpaid dividend entries`, confidence: "medium", status: "found" }] }))}>Add to my list</Button>
+                  <Button variant="quiet" onClick={() => update((s) => ({ ...s, assets: [...s.assets, { id: `div-${Date.now()}`, type: "shares", institution: divResults[0].company, identifierMasked: "See company list", holderName: divResults[0].holder, nomineeName: null, amountEstimateInr: divResults.reduce((a, b) => a + b.amountInr, 0), source: "dividend_index", sourceDetail: `${divResults.length} unpaid dividend entries`, confidence: "medium", status: "found" }] }))}>{t("find.div.add")}</Button>
                 </li>
               )}
             </ul>
@@ -173,15 +175,15 @@ export function Find({ family, ai, onClaim }: { family: Family; ai: "live" | "sa
 
       {state.documents.length > 0 && (
         <div>
-          <h3 className="text-lg">What Virasat read</h3>
+          <h3 className="text-lg">{t("find.read")}</h3>
           <div className="mt-3 grid gap-3 md:grid-cols-3">
             {state.documents.map((d) => (
               <Card key={d.id} className="text-sm">
                 {d.preview && /* eslint-disable-next-line @next/next/no-img-element */ <img src={d.preview} alt="" className="mb-2 h-24 w-full rounded object-cover" />}
                 <p className="font-semibold">{d.extraction.institution.name}</p>
                 <p className="text-muted">{d.extraction.document_kind.replace("_", " ")} · {d.extraction.identifier.value_masked}</p>
-                <p>Holder: {d.extraction.holder_name.value}</p>
-                <p>Nominee: {d.extraction.nominee_name.value ?? "not visible"}</p>
+                <p>{t("find.holder")}: {d.extraction.holder_name.value}</p>
+                <p>{t("find.nominee")}: {d.extraction.nominee_name.value ?? t("find.nominee.none")}</p>
                 <p className="mt-1 italic text-muted">{d.extraction.notes_for_user}</p>
                 <div className="mt-2 flex items-center justify-between"><Confidence level={d.extraction.identifier.confidence} /><SourceBadge kind={d.mode === "sample" ? "sample" : "yours"} /></div>
               </Card>
@@ -195,9 +197,9 @@ export function Find({ family, ai, onClaim }: { family: Family; ai: "live" | "sa
           <div className="flex flex-wrap items-end justify-between gap-2">
             <div>
               <p className="text-3xl font-semibold text-brand tabular">{inr(total)}</p>
-              <p className="text-sm text-muted">estimated, waiting in {state.assets.length} places <InfoButton label="How we estimate">Amounts from documents are the last balance or sum assured. Amounts from the AIS are estimated from the yearly interest (about 6 percent) or dividend (about 1.5 percent). The institution confirms the real figure.</InfoButton></p>
+              <p className="text-sm text-muted">{t("find.total.sub", { n: state.assets.length })} <InfoButton label="How we estimate">Amounts from documents are the last balance or sum assured. Amounts from the AIS are estimated from the yearly interest (about 6 percent) or dividend (about 1.5 percent). The institution confirms the real figure.</InfoButton></p>
             </div>
-            <Button onClick={onClaim}>Next: claim this money</Button>
+            <Button onClick={onClaim}>{t("find.next")}</Button>
           </div>
           <ul className="mt-4 divide-y divide-border">
             {[...state.assets].sort((a, b) => (b.amountEstimateInr ?? 0) - (a.amountEstimateInr ?? 0)).map((a) => (
@@ -210,7 +212,7 @@ export function Find({ family, ai, onClaim }: { family: Family; ai: "live" | "sa
                   <span className="tabular font-semibold">{inr(a.amountEstimateInr)}</span>
                   <Confidence level={a.confidence} />
                   <SourceBadge kind={a.source === "dividend_index" ? "public" : state.documents.find((d) => d.id === a.id)?.mode === "live" ? "yours" : "sample"} />
-                  <Button variant="secondary" onClick={() => setPlan(a)}>Search here</Button>
+                  <Button variant="secondary" onClick={() => setPlan(a)}>{t("find.searchhere")}</Button>
                 </div>
               </li>
             ))}
@@ -224,25 +226,26 @@ export function Find({ family, ai, onClaim }: { family: Family; ai: "live" | "sa
 }
 
 function PlanSheet({ asset, onClose, onFound }: { asset: Asset; onClose: () => void; onFound: () => void }) {
+  const { t } = usePrefs();
   const p = searchPlan(asset);
   const speak = `${p.portal}. ${p.steps.join(" ")}`;
   return (
     <div role="dialog" aria-modal="true" aria-label={`How to search ${p.portal}`} className="fixed inset-0 z-40 flex items-end justify-center bg-black/40 sm:items-center" onClick={onClose}>
       <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-t-2xl bg-raised p-5 sm:rounded-2xl" onClick={(e) => e.stopPropagation()}>
-        <p className="text-xs font-semibold uppercase tracking-wider text-muted">Where to search</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted">{t("find.plan.where")}</p>
         <h3 className="mt-1 text-xl text-brand">{p.portal} <InfoButton label={p.portal}>{p.info}</InfoButton></h3>
-        <p className="mt-2 text-sm">You log in yourself. Virasat has pre-filled what you need to type.</p>
-        <p className="mt-3 text-sm font-semibold">You will need</p>
+        <p className="mt-2 text-sm">{t("find.plan.intro")}</p>
+        <p className="mt-3 text-sm font-semibold">{t("find.plan.need")}</p>
         <ul className="list-disc pl-5 text-sm">{p.needs.map((n) => <li key={n}>{n}</li>)}</ul>
-        <p className="mt-3 text-sm font-semibold">Steps</p>
+        <p className="mt-3 text-sm font-semibold">{t("find.plan.steps")}</p>
         <ol className="list-decimal space-y-1 pl-5 text-sm">{p.steps.map((s) => <li key={s}>{s}</li>)}</ol>
         <div className="mt-4 flex flex-wrap gap-2">
-          <a href={p.url} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-brand px-4 font-semibold text-brand-contrast">Open {p.portal.split(" ")[0]} <ExternalLink className="h-4 w-4" aria-hidden /></a>
-          <Button variant="secondary" onClick={onFound}>I found it</Button>
+          <a href={p.url} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-brand px-4 font-semibold text-brand-contrast">{t("find.plan.open")} {p.portal.split(" ")[0]} <ExternalLink className="h-4 w-4" aria-hidden /></a>
+          <Button variant="secondary" onClick={onFound}>{t("find.plan.found")}</Button>
           <Listen text={speak} />
-          <Button variant="quiet" onClick={onClose}>Close</Button>
+          <Button variant="quiet" onClick={onClose}>{t("close")}</Button>
         </div>
-        <a href={p.sourceHref} target="_blank" rel="noreferrer" className="mt-3 block text-xs text-muted underline">Source for this guidance</a>
+        <a href={p.sourceHref} target="_blank" rel="noreferrer" className="mt-3 block text-xs text-muted underline">{t("find.plan.source")}</a>
       </div>
     </div>
   );

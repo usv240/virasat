@@ -100,3 +100,37 @@ export const SAMPLE_DEBATE: Debate = {
     raise_to_human_review: false,
   },
 };
+
+/** The same sample debate in Hindi, for Sample mode when the family chose Hindi. */
+export const SAMPLE_DEBATE_HI: Debate = {
+  id: "dbt-sample-hi",
+  mode: "sample",
+  model: "sample (pre-computed)",
+  latencyMs: 0,
+  supporter: {
+    position: "नॉमिनी वाला रास्ता सही है: पासबुक पर नॉमिनी का नाम है और रकम बैंक की सीमा से कम है।",
+    points: [
+      { claim: "पासबुक पर नॉमिनी का नाम लिखा है।", evidence: "nominee_name.value = Sunita R Kulkarni (मध्यम भरोसा)" },
+      { claim: "रकम 5,00,000 रुपये की सीमा से कम है, इसलिए कोर्ट के प्रमाणपत्र की ज़रूरत नहीं।", evidence: "last_balance = 1,58,420" },
+      { claim: "दावा करने वाली ही नॉमिनी और पत्नी हैं, इसलिए वे दोनों तरह से हकदार हैं।", evidence: "claimant_relation = spouse" },
+    ],
+  },
+  challenger: {
+    position: "रास्ता शायद सही है, पर पासबुक का नाम पहचान पत्र से अलग हो सकता है, और नामांकन केवल मध्यम भरोसे से पढ़ा गया है।",
+    points: [
+      { claim: "पासबुक पर नाम 'Sunita R Kulkarni' है। पहचान पत्र पर 'Sunita Ramesh Kulkarni' हो सकता है। बैंक वर्तनी के फ़र्क़ पर दावा लौटा देते हैं।", evidence: "nominee_name.confidence = medium" },
+      { claim: "अगर शाखा के रिकॉर्ड में नामांकन दर्ज नहीं है, तो रास्ता बदलकर कानूनी वारिस वाला हो जाएगा।", evidence: "नॉमिनी फोटो से पढ़ा गया, बैंक से पुष्टि नहीं हुई" },
+      { claim: "अगर बैंक नॉमिनी को न्यासी मानता है तो बच्चों के दस्तख़त भी लग सकते हैं।", evidence: "other_heirs = true" },
+    ],
+  },
+  verdict: {
+    verdict: "नॉमिनी वाला रास्ता। आगे बढ़ें, पर ऐसा पहचान पत्र साथ रखें जिस पर नाम बिल्कुल वैसा ही हो।",
+    confidence: "high",
+    reasons: ["नॉमिनी का नाम दर्ज है और दावा करने वाली वही हैं।", "रकम सीमा से कम है, इसलिए कोर्ट का प्रमाणपत्र नहीं चाहिए।", "नियम SBI_NOMINEE_V1 लागू होता है।"],
+    risks: ["पासबुक पर नॉमिनी के नाम की वर्तनी पहचान पत्र से अलग हो सकती है।", "शाखा को पुष्टि करनी होगी कि नामांकन रिकॉर्ड में है।"],
+    what_would_change_my_mind: "अगर शाखा कहे कि कोई नामांकन दर्ज नहीं है, तो कानूनी वारिस वाला रास्ता लागू होगा।",
+    next_step_for_user: "ऐसा पहचान पत्र ले जाएँ जिस पर नाम ठीक 'Sunita R Kulkarni' लिखा हो, या नाम के फ़र्क़ के लिए शपथ पत्र, दावा पैक के साथ।",
+    rule_ids_checked: ["SBI_NOMINEE_V1"],
+    raise_to_human_review: false,
+  },
+};

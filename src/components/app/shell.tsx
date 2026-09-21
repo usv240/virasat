@@ -43,8 +43,8 @@ export function AppShell({ sample = false }: { sample?: boolean }) {
     { id: "help", label: t("app.help"), icon: HelpCircle },
   ];
 
-  const nav = (
-    <nav aria-label="App sections" className="flex lg:flex-col">
+  const navFor = (which: string) => (
+    <nav aria-label={`${t("app.help")} ${which}`} className="flex lg:flex-col">
       {tabs.map(({ id, label, icon: Icon }) => (
         <button
           key={id}
@@ -62,10 +62,11 @@ export function AppShell({ sample = false }: { sample?: boolean }) {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl gap-6 px-4 py-6 pb-24 lg:pb-6">
-      <aside className="hidden w-48 shrink-0 lg:block">{nav}</aside>
+      <aside className="hidden w-48 shrink-0 lg:block">{navFor("sidebar")}</aside>
       <div className="min-w-0 flex-1">
+        <h1 className="sr-only">Virasat</h1>
         <div className={clsx("mb-4 rounded-lg px-3 py-2 text-sm", ai === "live" ? "bg-brand-soft text-brand" : "bg-accent-soft")}>
-          {ai === "live" ? "Live AI is on. Your own photos will be read by the AI when you press the button." : ai === "sample" ? "Sample mode: no AI key is set on this server, so AI steps replay pre-computed results for Sunita's papers. Add ANTHROPIC_API_KEY to run live." : "Checking AI status..."}
+          {ai === "live" ? t("ai.live") : ai === "sample" ? t("ai.sample") : t("ai.checking")}
         </div>
         {!family.ready ? (
           <div className="skeleton h-40" />
@@ -81,7 +82,7 @@ export function AppShell({ sample = false }: { sample?: boolean }) {
           <HelpTab family={family} />
         )}
       </div>
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-bg lg:hidden">{nav}</div>
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-bg lg:hidden">{navFor("bottom")}</div>
     </div>
   );
 }

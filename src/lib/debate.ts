@@ -18,11 +18,12 @@ export type Evidence = {
   input: ClaimInput;
   decision: ClaimDecision;
   userNotes?: string;
+  lang?: "en" | "hi";
 };
 
 const SHARED = `You are part of a three-role review of a claim route for an Indian family recovering money from a bank, insurer, provident fund or share registry.
 Use only the evidence packet. Do not invent facts. Do not use outside assumptions about the family.
-Write in plain English a family member can understand. Short sentences. No emojis. No em dashes.`;
+Write in plain language a family member can understand. Short sentences. No emojis. No em dashes.`;
 
 const SUPPORTER = `${SHARED}
 Your role: the Supporter. Make the strongest honest case that the rule engine's route is correct and complete, citing evidence fields.`;
@@ -76,11 +77,12 @@ async function argue(system: string, ev: string, byo?: string | null): Promise<A
 export async function runDebate(evidence: Evidence, byo?: string | null): Promise<Debate> {
   const started = Date.now();
   const ev = packet(evidence);
-  const [supporter, challenger] = await Promise.all([argue(SUPPORTER, ev, byo), argue(CHALLENGER, ev, byo)]);
+  const language = evidence.lang === "hi" ? "\nWrite every string in your answer in Hindi (Devanagari script). Keep institution names, rule ids and document form numbers in their original form." : "";
+  const [supporter, challenger] = await Promise.all([argue(SUPPORTER + language, ev, byo), argue(CHALLENGER + language, ev, byo)]);
   const r = await client(byo).messages.parse({
     model: MODEL,
     max_tokens: 2500,
-    system: [{ type: "text", text: REFEREE, cache_control: { type: "ephemeral" } }],
+    system: [{ type: "text", text: REFEREE + language, cache_control: { type: "ephemeral" } }],
     messages: [
       {
         role: "user",

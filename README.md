@@ -2,7 +2,7 @@
 
 **Find and claim your family's money.** Take a photo of old papers. Virasat finds where the money is (bank, insurance, provident fund, shares), explains what to do in your language, and fills the forms.
 
-Built by Team Virasat for the Global Innovation Hackathon 2026: Build for a Better Future.
+Built by Team USV for the Global Innovation Hackathon 2026: Build for a Better Future.
 
 ## The problem in one line
 

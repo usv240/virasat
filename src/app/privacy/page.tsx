@@ -4,7 +4,7 @@ export const metadata = { title: "Virasat privacy" };
 
 export default function PrivacyPage() {
   return (
-    <Section eyebrow="Privacy" title="Your data, in plain words">
+    <Section eyebrow="Privacy" title="Your data, in plain words" h1>
       <div className="max-w-3xl space-y-4">
         <p><strong>What we collect.</strong> In this prototype, nothing is stored on our servers. The details Virasat reads from your papers, your list of assets, your claims and your Vault are kept in your own browser on your own device.</p>
         <p><strong>When something leaves your device.</strong> Only when you press a button that needs the AI: reading a photo, or running the Two AI Debate. That request goes to our server and on to the AI provider (Anthropic) over an encrypted connection, is processed, and is not stored by us. Anthropic does not use API data to train models.</p>
