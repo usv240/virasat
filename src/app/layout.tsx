@@ -6,6 +6,9 @@ import { TopBar } from "@/components/top-bar";
 import { Footer } from "@/components/footer";
 import { HelpButton } from "@/components/help-button";
 
+// "swap" rather than "optional": measured over repeated Lighthouse runs the two
+// scored the same, and swap guarantees the designed typeface actually renders
+// rather than sometimes leaving a visitor on the fallback for the whole visit.
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const devanagari = Noto_Sans_Devanagari({
   subsets: ["devanagari"],

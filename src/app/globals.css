@@ -74,7 +74,7 @@
   --color-brand-contrast: var(--brand-contrast);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
-  --font-sans: var(--font-inter), var(--font-devanagari), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
   --radius-card: var(--radius);
 }
 
@@ -93,6 +93,10 @@ body {
   font-family: var(--font-sans);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+html[lang="hi"] {
+  --font-sans: var(--font-devanagari), var(--font-inter), system-ui, sans-serif;
 }
 
 h1, h2, h3, h4 {
