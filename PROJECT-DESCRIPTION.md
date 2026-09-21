@@ -56,7 +56,7 @@ Next.js 16 and React 19 with TypeScript, Tailwind CSS 4. Claude Opus 5 through t
 - 20 routes, deployed as a production build; `/try` runs the whole journey on sample data in one click.
 - **23 automated tests** covering the rule engine for five institutions, the AIS parser, claim pack generation and the dividend search.
 - **Accessibility: zero serious or critical axe violations** across 10 pages in both light and dark themes.
-- **Lighthouse (desktop, landing page): 99 performance, 100 accessibility, 100 best practices, 100 SEO.**
+- **Lighthouse on the live deployment (mobile, landing page): 96 performance, 100 accessibility, 100 best practices, 100 SEO.** On localhost desktop, 99 performance.
 - An evaluation script (`npm run eval`) measures document reading accuracy and how often the Challenger catches a planted problem, and publishes the numbers on the Transparency page.
 
 ## Honesty

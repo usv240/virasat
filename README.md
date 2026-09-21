@@ -47,7 +47,7 @@ Measured on the current build:
 |---|---|
 | Automated tests | 23 of 23 pass |
 | Accessibility (axe, WCAG 2.2 AA), 10 pages, light and dark | 0 serious or critical, 0 moderate |
-| Lighthouse desktop, landing page | 99 performance, 100 accessibility, 100 best practices, 100 SEO |
+| Lighthouse, landing page | Live deployment, mobile: 96 performance, 100 accessibility, 100 best practices, 100 SEO. Localhost, desktop: 99 performance. |
 | Writing check | no emojis, no em or en dashes |
 
 ## Technology stack

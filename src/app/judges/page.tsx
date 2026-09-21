@@ -8,7 +8,7 @@ const CRITERIA = [
   ["Technical Implementation", "25%", "Multimodal AI with strict JSON schemas, a versioned rule engine with 5 institutions, an AIS table parser, PDF claim packs, browser voice in and out, a public API with keys, rate limits and problem-details errors, light and dark themes.", "/developers", "API docs and playground; Technical mode on the home page"],
   ["Real-World Impact", "20%", "₹1.84 lakh crore is unclaimed. Gujarat's camps returned ₹38,700 per family on average. One family like Sunita's keeps up to ₹63,000 that an agent would take.", "/#impact", "Impact section and savings calculator"],
   ["Feasibility and Scalability", "15%", "No private data access needed: official public portals, guided. Rules are files. One deployment serves many institutions. Free for families; institutions and service centres pay.", "/#roadmap", "Roadmap and the Data section"],
-  ["User Experience and Design", "10%", "Measured, not claimed: zero serious or critical axe violations across 10 pages in both themes, and Lighthouse 99 performance, 100 accessibility, 100 best practices, 100 SEO. Full Hindi including the claim route and checklist, voice in and out, 44 px controls, info buttons everywhere, works at 320 px.", "/how-ai-works", "Test results on the Transparency page"],
+  ["User Experience and Design", "10%", "Measured, not claimed: zero serious or critical axe violations across 10 pages in both themes, and Lighthouse on the live deployment of 96 performance, 100 accessibility, 100 best practices, 100 SEO. Full Hindi including the claim route and checklist, voice in and out, 44 px controls, info buttons everywhere, works at 320 px.", "/how-ai-works", "Test results on the Transparency page"],
   ["Presentation and Demonstration", "5%", "Sunita's story runs end to end in 3 minutes on sample data with one click. A reset button restores it.", "/try", "Try it"],
 ];
 
@@ -61,7 +61,7 @@ export default function JudgesPage() {
           <Card>
             <h3 className="text-lg text-success">Real and working</h3>
             <ul className="mt-2 list-disc pl-5 text-sm">
-              <li>Document reading with AI (when an API key is set, or with your own key)</li><li>AIS PDF parsing by code</li><li>Rule engine for SBI, LIC, EPFO, IEPF and India Post</li><li>Claim pack PDF generation</li><li>The Two AI Debate (live with a key)</li><li>Voice in and out in the browser</li><li>Guided portal steps and deep links</li><li>Public API with keys, limits and validation</li><li>Light, dark, Simple and Technical modes</li><li>Full Hindi: every screen, the rule engine output, and the debate</li><li>Zero serious axe violations on 10 pages; Lighthouse 99, 100, 100, 100</li>
+              <li>Document reading with AI (when an API key is set, or with your own key)</li><li>AIS PDF parsing by code</li><li>Rule engine for SBI, LIC, EPFO, IEPF and India Post</li><li>Claim pack PDF generation</li><li>The Two AI Debate (live with a key)</li><li>Voice in and out in the browser</li><li>Guided portal steps and deep links</li><li>Public API with keys, limits and validation</li><li>Light, dark, Simple and Technical modes</li><li>Full Hindi: every screen, the rule engine output, and the debate</li><li>Zero serious axe violations on 10 pages, live; Lighthouse 96, 100, 100, 100, live</li>
             </ul>
           </Card>
           <Card>
