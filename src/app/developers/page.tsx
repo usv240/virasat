@@ -27,7 +27,9 @@ export default function DevelopersPage() {
       </Section>
 
       <Section eyebrow="Quickstart" title="Your first call in one minute" tone="surface">
-        <pre tabIndex={0} className="overflow-x-auto rounded-card border border-border bg-raised p-4 text-sm"><code>{`# 1. Route a claim (rules plus the Two AI Debate)
+        <pre tabIndex={0} className="overflow-x-auto rounded-card border border-border bg-raised p-4 text-sm"><code>{`HOST=https://virasat-indol.vercel.app
+
+# 1. Route a claim (rules plus the Two AI Debate)
 curl -X POST $HOST/api/v1/claims/route \\
   -H "Authorization: Bearer vs_test_demo" -H "Content-Type: application/json" \\
   -d '{"input":{"assetType":"bank","institution":"State Bank of India","amountInr":158420,

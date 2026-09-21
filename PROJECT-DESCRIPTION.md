@@ -2,6 +2,8 @@
 
 **Team USV** · Global Innovation Hackathon 2026: Build for a Better Future · Project Submission round
 
+**Live app:** https://virasat-indol.vercel.app · **Walkthrough:** https://virasat-indol.vercel.app/try · **For judges:** https://virasat-indol.vercel.app/judges
+
 ---
 
 ## Problem statement

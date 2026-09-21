@@ -4,6 +4,9 @@
 
 Built by Team USV for the Global Innovation Hackathon 2026: Build for a Better Future.
 
+**Live app: https://virasat-indol.vercel.app**  
+Start at [/try](https://virasat-indol.vercel.app/try) for the one click walkthrough, or [/judges](https://virasat-indol.vercel.app/judges) for the scoring map.
+
 ## The problem in one line
 
 About ₹1.84 lakh crore of Indians' own money lies unclaimed (Finance Minister, October 2025). Families do not know it exists, it is spread across many portals, claiming is confusing, and agents charge 5 to 15 percent to help.
