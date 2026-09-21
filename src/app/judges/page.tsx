@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Explain } from "@/components/explain";
 import { clsx } from "clsx";
 import { Card, Section } from "@/components/ui";
+import { DEPENDENCIES, FAMILY_PAYS, FUTURE, PAYERS } from "@/lib/plan";
+import { PUBLISHED_INR, rupees } from "@/lib/cost";
 
 export const metadata = { title: "Virasat for judges" };
 
@@ -9,7 +11,7 @@ const CRITERIA = [
   ["Innovation and Originality", "25%", "The tax statement (AIS) asset map and the photo-to-claim flow exist in no other product. The Two AI Debate checks every route in the open. Institutions can bring their own rules.", "/try", "Find tab: use the sample AIS; Claim tab: see the debate"],
   ["Technical Implementation", "25%", "Multimodal AI with strict JSON schemas, a versioned rule engine with 5 institutions, an AIS table parser, PDF claim packs, browser voice in and out, a public API with keys, rate limits and problem-details errors, light and dark themes.", "/developers", "API docs and playground; Technical mode on the home page"],
   ["Real-World Impact", "20%", "₹1.84 lakh crore is unclaimed. Gujarat's camps returned ₹38,700 per family on average. One family like Sunita's keeps up to ₹63,000 that an agent would take.", "/#impact", "Impact section and savings calculator"],
-  ["Feasibility and Scalability", "15%", "One family costs about ₹36 of AI, measured against the live API rather than estimated, against an average of ₹38,700 returned per family at Gujarat's camps. No private data access is needed. Adding an institution is adding a file, not writing code. Families never pay; institutions, service centres and state camps do, and each of those has a stated reason to.", "/#feasibility", "Feasibility section, and the unit economics on the Proof page"],
+  ["Feasibility and Scalability", "15%", "One family costs about ₹36 of AI, measured against the live API rather than estimated, against an average of ₹38,700 returned per family at Gujarat's camps. No private data access is needed. Adding an institution is adding a file, not writing code. Families never pay; institutions, service centres and state camps do, and each of those has a stated reason to.", "#feasibility", "Further down this page, and the unit economics on the Proof page"],
   ["User Experience and Design", "10%", "Measured, not claimed: zero serious or critical axe violations across 11 pages in both themes, and Lighthouse on the live deployment across three runs of each profile: 99 to 100 performance on desktop and never below 90 on a throttled phone, with 100 accessibility, 100 best practices and 100 SEO on both, and layout shift between 0 and 0.024 against a 0.1 threshold. Full Hindi including the claim route and checklist, voice in and out, 44 px controls, info buttons everywhere, works at 320 px.", "/how-ai-works", "Test results on the Transparency page"],
   ["Presentation and Demonstration", "5%", "Sunita's story runs end to end in 3 minutes on sample data with one click. A reset button restores it.", "/try", "Try it"],
 ];
@@ -184,6 +186,83 @@ export default function JudgesPage() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      {/* Feasibility, scalability and future scope live here rather than on the
+          landing page. The rules ask for them in the idea submission and in the
+          presentation, both of which are done; on the family's page they were
+          2,580px of scroll answering a question no family is asking. */}
+      {/* Feasibility */}
+      <Section
+        id="feasibility"
+        eyebrow="Feasibility"
+        title={<>One family costs about {rupees(PUBLISHED_INR)} of AI. The family pays nothing.</>}
+      >
+        <p className="max-w-3xl">
+          <Explain text={FAMILY_PAYS} /> So somebody else has to, and that answer has to survive a hard look.
+          The figure above was measured against the live API with a cold cache, not estimated, and the working is on the{" "}
+          <Link href="/proof" className="font-semibold text-brand underline">Proof page</Link>.
+        </p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {PAYERS.map((p) => (
+            <Card key={p.who}>
+              <h3 className="text-lg text-brand">{p.who}</h3>
+              <p className="mt-2 text-sm font-semibold"><Explain text={p.what} /></p>
+              <p className="mt-2 text-sm"><Explain text={p.why} /></p>
+              <p className="mt-3 text-xs text-muted">{p.status}</p>
+            </Card>
+          ))}
+        </div>
+        <h3 className="mt-10 text-xl">What has to be true for this to work</h3>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full min-w-[680px] text-sm">
+            <thead>
+              <tr className="bg-brand text-left text-brand-contrast">
+                <th className="p-2">It depends on</th>
+                <th className="p-2">Where that usually goes wrong</th>
+                <th className="p-2">What we did about it</th>
+              </tr>
+            </thead>
+            <tbody>
+              {DEPENDENCIES.map((d) => (
+                <tr key={d.on} className="border-b border-border odd:bg-raised">
+                  <td className="p-2 font-semibold leading-7">{d.on}</td>
+                  <td className="p-2 leading-7"><Explain text={d.risk} /></td>
+                  <td className="p-2 leading-7"><Explain text={d.answer} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
+      {/* Roadmap */}
+      <Section id="roadmap" eyebrow="Scalability" title="Adding a new bank or insurer is just one new rule file" tone="surface">
+        <div className="grid gap-4 md:grid-cols-4">
+          {[["Start", "1 district", "Begin with service centres and one bank. Count the money returned every week."], ["State", "All institutions", "Add every bank, insurer and fund house in the state through rule files."], ["India", "22 languages", "Connect DigiLocker and Account Aggregator. Join RBI and IRDAI campaigns."], ["World", "Beyond India", "NRI families, and countries with similar unclaimed money programs."]].map(([k, h, d], i) => (
+            <Card key={k} tone={i === 3 ? "accent" : "raised"}>
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted">{k}</p>
+              <h3 className="mt-1 text-xl">{h}</h3>
+              <p className="mt-2 text-sm"><Explain text={d as string} /></p>
+            </Card>
+          ))}
+        </div>
+      </Section>
+
+
+      {/* Future scope */}
+      <Section id="future" eyebrow="Future scope" title="Where this goes next">
+        <div className="grid gap-4 md:grid-cols-3">
+          {FUTURE.map((f, i) => (
+            <Card key={f.when} tone={i === 2 ? "accent" : "raised"}>
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted">{f.when}</p>
+              <h3 className="mt-1 text-xl">{f.title}</h3>
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-7">
+                {f.points.map((x) => <li key={x}><Explain text={x} /></li>)}
+              </ul>
+            </Card>
+          ))}
+        </div>
       </Section>
     </>
   );
