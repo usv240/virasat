@@ -5,7 +5,7 @@ import { JOURNEY, LEVERS, PRICES, PUBLISHED_INR, journeyTotal, rupees, usd } fro
 import { CORPUS_VERSION, RULES, RuleSchema } from "../src/lib/rules";
 import { CLAIMS } from "../src/lib/proof";
 import { GLOSSARY } from "../src/lib/glossary";
-import { INPUTS, SCENARIOS, outcome } from "../src/lib/impact";
+import { INPUTS, PREVENTION, SCENARIOS, outcome, prevented } from "../src/lib/impact";
 import { HOW_IT_WAS_BUILT, RUNTIME, SERVICES, TOOLING } from "../src/lib/credits";
 
 /**
@@ -230,6 +230,12 @@ describe("impact model", () => {
 
   it("names a source for every input", () => {
     for (const i of INPUTS) expect(i.source.length, i.id).toBeGreaterThan(10);
+  });
+
+  it("derives prevention from the cited inflow, and lists the smallest share first", () => {
+    const inflow = INPUTS.find((i) => i.id === "inflow")!.value;
+    for (const p of PREVENTION) expect(prevented(p.share)).toBe(Math.round(inflow * p.share));
+    expect(PREVENTION[0].share).toBe(Math.min(...PREVENTION.map((p) => p.share)));
   });
 
   it("keeps the success rate below what the camps saw, since camps started with a match in hand", () => {

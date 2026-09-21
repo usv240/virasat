@@ -21,6 +21,7 @@ export const INPUTS: Input[] = [
   { id: "aiCost", label: "AI cost per family", value: PUBLISHED_INR, unit: "rupees", source: "Measured against the live API, cold cache", ref: "proof" },
   { id: "cscs", label: "Common Service Centres in operation", value: 500_000, unit: "centres", source: "More than five lakh functional, reported to Parliament in 2026", ref: "r21" },
   { id: "perCscMonth", label: "Families one centre serves a month", value: 1, unit: "families", source: "Our assumption, deliberately low: one family a month per centre", ref: "r21" },
+  { id: "inflow", label: "New money becoming unclaimed each year", value: 10_000 * 1e7, unit: "rupees", source: "RBI: 62,225 crore to 78,213 crore in the year to March 2024; 27,824 crore in FY21 to 67,004 crore by June 2025", ref: "r22" },
 ];
 
 const v = (id: string) => INPUTS.find((i) => i.id === id)!.value;
@@ -52,4 +53,22 @@ export function outcome(s: Scenario): Outcome {
 export function crore(n: number): string {
   if (n < 1e7) return `₹${(n / 1e5).toLocaleString("en-IN", { maximumFractionDigits: 1 })} lakh`;
   return `₹${(n / 1e7).toLocaleString("en-IN", { maximumFractionDigits: n >= 1e9 ? 0 : 1 })} crore`;
+}
+
+/**
+ * The other half of the impact, which recovery-only tools cannot claim. The
+ * pool is not a stock, it is a flow: about ten thousand crore rupees becomes
+ * unclaimed every year, and the RBI's own finding is that a large number of
+ * accounts carry no nominee. The Parivaar Vault's nominee check works on the
+ * inflow. The share it stops is an assumption, so three are shown, and the
+ * smallest is the one to quote.
+ */
+export const PREVENTION: { share: number; label: string }[] = [
+  { share: 0.01, label: "If the nominee check stops 1 percent of next year's inflow" },
+  { share: 0.05, label: "If it stops 5 percent" },
+  { share: 0.10, label: "If it stops 10 percent" },
+];
+
+export function prevented(share: number): number {
+  return Math.round(v("inflow") * share);
 }

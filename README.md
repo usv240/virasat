@@ -40,7 +40,7 @@ Without a key the app runs in Sample mode: AI steps replay pre-computed results 
 ```bash
 npm run audit         # re-runs every claim on this page and writes docs/AUDIT-REPORT.md
 npm run verify        # lint, writing check (no emojis, no em dashes), tests, type check
-npm test              # 52 tests: rule engine, AIS parser, claim pack, dividends, cost model, corpus
+npm test              # 53 tests: rule engine, AIS parser, claim pack, dividends, cost model, corpus
 npm run eval          # measures the AI: document reading and the debate (needs an API key)
 npm run measure:cost  # measures what one family costs, using the app's own code (needs a key)
 npm run build         # production build

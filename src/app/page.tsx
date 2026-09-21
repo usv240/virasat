@@ -8,7 +8,7 @@ import { DebateExample } from "@/components/landing/debate-example";
 import { Faq } from "@/components/landing/faq";
 import { Explain } from "@/components/explain";
 import { Term } from "@/components/term";
-import { INPUTS, SCENARIOS, crore, outcome } from "@/lib/impact";
+import { INPUTS, PREVENTION, SCENARIOS, crore, outcome, prevented } from "@/lib/impact";
 import { Reveal } from "@/components/reveal";
 import { GLOSSARY } from "@/lib/glossary";
 import { REFERENCES } from "@/lib/references";
@@ -172,6 +172,15 @@ export default function Home() {
                 </tbody>
               </table>
             </div>
+            <h3 className="mt-8 text-lg">And the money that never becomes unclaimed <InfoButton label="Prevention">The pool is a flow, not a stock: about ten thousand crore rupees becomes unclaimed every year, and the RBI&apos;s own finding is that a large number of accounts carry no nominee. Recovery tools work on the stock. The Parivaar Vault&apos;s nominee check works on the flow, and the share it stops is an assumption, so the smallest figure is the one to quote.</InfoButton></h3>
+            <ul className="mt-3 space-y-2">
+              {PREVENTION.map((pv) => (
+                <li key={pv.share} className="flex items-baseline justify-between gap-4 border-b border-border pb-2 text-sm">
+                  <span>{pv.label}</span>
+                  <span className="shrink-0 tabular font-semibold text-brand">{crore(prevented(pv.share))} a year</span>
+                </li>
+              ))}
+            </ul>
             <p className="mt-3 text-sm text-muted">Potential, not achieved: nobody has used Virasat yet. About {outcome(SCENARIOS[0]).perRupee.toLocaleString("en-IN")} rupees reach families for every rupee of AI in every case. Inputs: {INPUTS.map((i, k) => <span key={i.id}>{k > 0 ? "; " : ""}{i.label.toLowerCase()} {i.unit === "rupees" ? `₹${i.value.toLocaleString("en-IN")}` : i.unit.startsWith("of") ? `${Math.round(i.value * 100)}%` : i.value.toLocaleString("en-IN")} <Link href={i.ref === "proof" ? "/proof" : `/references#${i.ref}`} className="underline">({i.ref === "proof" ? "measured" : "source"})</Link></span>)}.</p>
             <div className="mt-6 flex flex-wrap gap-2 text-xs">
               {["Aapki Poonji Aapka Adhikar", "RBI UDGAM", "SEBI MITRA", "IRDAI Bima Bharosa", "Digital India"].map((b) => (
