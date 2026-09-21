@@ -1,7 +1,7 @@
 # Demo video script: beats
 
-Target 2:50. Hard ceiling 3:00. About 390 spoken words at Polly long-form,
-Patrick, rate 87 percent. Every beat is one scene the family would live, in
+Target 2:50. Hard ceiling 3:00. About 410 spoken words at Polly long-form,
+Patrick, rate 95 percent. Every beat is one scene the family would live, in
 the order they would live it. Everything on screen is the live deployment at
 virasat-indol.vercel.app with the address bar burned in.
 
@@ -28,11 +28,10 @@ exact narration, nothing else is spoken.
 papers under "Or use Sunita's sample papers" without clicking.
 **Point:** the passbook thumbnail, then the LIC bond, then the share
 certificate, one per sentence.
-**Say:** **"Sunita's father died last year. He left her a tin of old papers: a
+**Say:** **"Sunita's father died last year. He left a tin of old papers: a
 passbook, an insurance bond, a share certificate. Somewhere in there is money
-that belongs to her family. She does not know which of it is still live, which
-office to go to, or what to carry. Most families give up, or pay an agent a
-third of it."**
+that belongs to her family. She does not know which is still live, which office
+to go to, or what to carry. Most families give up, or pay an agent."**
 
 ## 3. Name it, 0:26 to 0:34
 
@@ -48,10 +47,9 @@ explains what to do in your language, and fills the forms."**
 "What Virasat read" cards. Ease-scroll so the cards sit under the header.
 **Point:** the Holder field, then the confidence badge, then the total line
 "waiting in n places".
-**Say:** **"Each paper is read into fields: the institution, the holder, the
-masked number, the nominee. Every field carries a confidence, so nothing is
-silently guessed. Three papers, and already she can see what is waiting and
-where."**
+**Say:** **"Each paper is read into fields: institution, holder, masked number,
+nominee. Every field carries a confidence, so nothing is silently guessed.
+Three papers, and she can already see what is waiting, and where."**
 
 ## 5. The idea nobody else has, 0:56 to 1:16
 
@@ -96,8 +94,8 @@ verdict, then the "This review cost" line.
 **Say:** **"Before she acts, two AIs argue about her case in the open. The
 Challenger catches that the passbook says Sunita R Kulkarni and her ID may
 not. The Referee can only make advice more careful, never override the rules.
-We measured this: on our planted problems it caught no more than a single
-reviewer. We publish that. What it adds is that she can read the argument."**
+We measured it: it caught no more than one reviewer alone, and we publish
+that. What it adds is that she can read the argument."**
 
 ## 9. The pack, 2:16 to 2:28
 
@@ -115,9 +113,9 @@ replies in thirty days, the ombudsman complaint is pre-written."**
 the route and checklist, re-renders in Hindi. Click the Listen control so the
 route is read aloud for two seconds.
 **Point:** the Hindi route text, then the Listen control.
-**Say:** **"All of it in Hindi, including the route and the checklist, read
-aloud for anyone who cannot read comfortably. Zero accessibility violations,
-measured, on a cheap phone, offline."**
+**Say:** **"All of it in Hindi, route and checklist included, read aloud for
+anyone who cannot read comfortably. Zero accessibility violations, measured, on
+a cheap phone, offline."**
 
 ## 11. Close: the number, and the promise, 2:40 to 2:50
 
