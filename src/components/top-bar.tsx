@@ -20,20 +20,23 @@ export function TopBar() {
     ["/proof", t("nav.proof")],
   ];
 
-  const controls = (
-    <div className="flex flex-wrap items-center gap-2">
+  // wrap is for the mobile drawer, where the controls stack happily. In the top
+  // bar it has to be off: if the row runs out of room the CTA drops onto a
+  // second line and the header turns into an L.
+  const controlsFor = (wrap: boolean) => (
+    <div className={clsx("flex items-center", wrap ? "flex-wrap gap-2" : "flex-nowrap gap-1.5")}>
       <label className="sr-only" htmlFor="lang">Language</label>
       <select
         id="lang"
         value={lang}
         onChange={(e) => setLang(e.target.value as typeof lang)}
-        className="min-h-11 rounded-lg border border-border bg-raised px-2 text-sm"
+        className="min-h-11 shrink-0 rounded-lg border border-border bg-raised px-2 text-sm"
       >
         {LANGS.map((l) => (
           <option key={l.code} value={l.code}>{l.label}</option>
         ))}
       </select>
-      <div role="group" aria-label="Theme" className="flex rounded-lg border border-border bg-raised">
+      <div role="group" aria-label="Theme" className="flex shrink-0 rounded-lg border border-border bg-raised">
         {(["system", "light", "dark"] as const).map((v) => {
           const Icon = v === "system" ? Laptop : v === "light" ? Sun : Moon;
           return (
@@ -50,7 +53,7 @@ export function TopBar() {
           );
         })}
       </div>
-      <div role="group" aria-label="Detail level" className="flex rounded-lg border border-border bg-raised text-sm">
+      <div role="group" aria-label="Detail level" className="flex shrink-0 rounded-lg border border-border bg-raised text-sm">
         {(["simple", "technical"] as const).map((v) => (
           <button
             key={v}
@@ -63,7 +66,7 @@ export function TopBar() {
           </button>
         ))}
       </div>
-      <Link href="/try" className="inline-flex min-h-11 items-center rounded-lg bg-brand px-4 text-sm font-semibold text-brand-contrast">
+      <Link href="/try" className="inline-flex min-h-11 items-center whitespace-nowrap rounded-lg bg-brand px-4 text-sm font-semibold text-brand-contrast">
         {t("cta.try")}
       </Link>
     </div>
@@ -72,22 +75,22 @@ export function TopBar() {
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-bg/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2">
-        <Link href="/" className="flex items-center gap-2 text-xl font-semibold tracking-tight text-brand [transition:opacity_160ms_var(--ease-out)] hover:opacity-80">
+        <Link href="/" className="flex shrink-0 items-center gap-2 text-xl font-semibold tracking-tight text-brand [transition:opacity_160ms_var(--ease-out)] hover:opacity-80">
           <Logo className="h-7 w-7 shrink-0" />
           <span>Virasat</span>
           <span className="sr-only">home</span>
         </Link>
-        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
+        <nav aria-label="Main" className="hidden items-center gap-0 xl:flex">
           {nav.map(([href, label]) => (
-            <Link key={href} href={href} className="rounded-lg px-3 py-2 text-sm font-medium text-text hover:bg-surface">
+            <Link key={href} href={href} className="whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium text-text hover:bg-surface">
               {label}
             </Link>
           ))}
         </nav>
-        <div className="hidden lg:block">{controls}</div>
+        <div className="hidden xl:block">{controlsFor(false)}</div>
         <button
           type="button"
-          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg lg:hidden"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg xl:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -96,7 +99,7 @@ export function TopBar() {
         </button>
       </div>
       {open && (
-        <div className="border-t border-border bg-bg px-4 py-4 lg:hidden">
+        <div className="border-t border-border bg-bg px-4 py-4 xl:hidden">
           <nav aria-label="Main mobile" className="mb-4 flex flex-col">
             {nav.map(([href, label]) => (
               <Link key={href} href={href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 font-medium hover:bg-surface">
@@ -104,7 +107,7 @@ export function TopBar() {
               </Link>
             ))}
           </nav>
-          {controls}
+          {controlsFor(true)}
         </div>
       )}
     </header>
