@@ -89,6 +89,22 @@ const PLANS: Record<AssetKind, (a: Asset) => SearchPlan> = {
   }),
 };
 
+/**
+ * The government's single front door, launched 29 May 2026 by the Department of
+ * Financial Services with the PSB Alliance. It searches bank deposits,
+ * insurance, shares, dividends and mutual funds from one page.
+ *
+ * We point families at it first and say so plainly. It searches across more
+ * than any one portal below, and it is official. What it does not do is
+ * anything after the search, which is where Virasat starts.
+ */
+export const COMMON_PORTAL = {
+  portal: "Common Landing Portal",
+  url: "https://www.unclaimedassetsportal.in",
+  info: "The Department of Financial Services launched this on 29 May 2026 with the Public Sector Bank Alliance. It searches bank deposits, insurance, shares, dividends and mutual funds in one place. It finds the asset and then sends you to the institution to claim it, which is the part Virasat helps with.",
+  sourceHref: "https://newsonair.gov.in/government-launches-portal-for-search-of-unclaimed-financial-assets/",
+};
+
 export function searchPlan(asset: Asset): SearchPlan {
   return PLANS[asset.type](asset);
 }

@@ -5,7 +5,7 @@ import { Camera, FileText, Search, ExternalLink } from "lucide-react";
 import { Button, Card, Confidence, InfoButton, Listen, SourceBadge } from "@/components/ui";
 import { extractionToAsset, inr, type FamilyState } from "@/lib/store";
 import { SAMPLE_DOCS } from "@/lib/sample";
-import { searchPlan } from "@/lib/portals";
+import { COMMON_PORTAL, searchPlan } from "@/lib/portals";
 import type { Asset, Extraction } from "@/lib/types";
 import { VoiceInput } from "./voice-input";
 import { usePrefs } from "@/components/providers";
@@ -237,6 +237,11 @@ function PlanSheet({ asset, onClose, onFound }: { asset: Asset; onClose: () => v
         <p className="text-xs font-semibold uppercase tracking-wider text-muted">{t("find.plan.where")}</p>
         <h3 className="mt-1 text-xl text-brand">{p.portal} <InfoButton label={p.portal}>{p.info}</InfoButton></h3>
         <p className="mt-2 text-sm">{t("find.plan.intro")}</p>
+        <div className="mt-3 rounded-card border border-border bg-surface p-3">
+          <p className="text-sm font-semibold">Try the government&apos;s single search first <InfoButton label={COMMON_PORTAL.portal}>{COMMON_PORTAL.info}</InfoButton></p>
+          <p className="mt-1 text-sm text-muted">One search across banks, insurance, shares, dividends and mutual funds. If it finds the asset, come back here and Virasat takes it from there.</p>
+          <a href={COMMON_PORTAL.url} target="_blank" rel="noreferrer" className="mt-2 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand underline">Open the Common Landing Portal <ExternalLink className="h-4 w-4" aria-hidden /></a>
+        </div>
         <p className="mt-3 text-sm font-semibold">{t("find.plan.need")}</p>
         <ul className="list-disc pl-5 text-sm">{p.needs.map((n) => <li key={n}>{n}</li>)}</ul>
         <p className="mt-3 text-sm font-semibold">{t("find.plan.steps")}</p>
