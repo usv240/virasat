@@ -1,5 +1,17 @@
 # Demonstration video: shot by shot
 
+**Two rules that matter more than any shot below.**
+
+**One person, then the number.** The opening decides whether the panel cares.
+A judge who cannot repeat your problem back in one sentence hears the rest as
+noise.
+
+**Narrow and working beats broad and toured.** A working demonstration of one
+journey beats a tour of a feature list, every time. Sunita's papers becoming a
+filed claim pack is the film. The API, the corpus, the voice, the themes and
+the offline mode are evidence you mention, not features you visit. If you are
+short on time, cut breadth and keep the one journey whole.
+
 **Team USV · Virasat · Global Innovation Hackathon 2026**
 
 Target length: 3 minutes. Record against the live deployment at
@@ -11,14 +23,26 @@ the recording. Record at 1920x1080.
 
 ---
 
-## 0:00 to 0:20 — The problem, on the landing page
+## 0:00 to 0:20 — One person, then the number
 
-**On screen:** the home page hero, then scroll slowly to the four statistics.
+Lead with a person, not a statistic. A panel decides in the first thirty
+seconds whether to care, and they cannot care about a number. Open on the
+photograph of the papers, not on the hero. The statistic lands harder second,
+because by then it means "and there are lakhs of her".
 
-**Say:** "About one lakh eighty four thousand crore rupees of Indians' own money
-is sitting unclaimed in banks, insurance, provident fund and shares. It is not
-lost. It is just that families do not know it exists, and the way to claim it is
-different at every institution. This is Virasat."
+**On screen:** the shoebox of papers, or the Find tab with Sunita's three
+documents. Hold it. Then cut to the hero statistics.
+
+**Say:** "This is Sunita. Her father died last year and left her a tin of old
+papers: a passbook, an insurance bond, a share certificate. Somewhere in there
+is money that belongs to her family. She does not know which of it is still
+live, which office to go to, or what to carry. Most families in her position
+give up, or pay an agent a third of it.
+
+About one lakh eighty four thousand crore rupees of Indians' own money is
+sitting unclaimed like this. It is not lost. Families just do not know it is
+there, and the way to claim it is different at every institution. This is
+Virasat."
 
 ---
 
