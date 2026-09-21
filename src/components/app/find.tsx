@@ -179,7 +179,9 @@ export function Find({ family, ai, onClaim }: { family: Family; ai: "live" | "sa
           <div className="mt-3 grid gap-3 md:grid-cols-3">
             {state.documents.map((d) => (
               <Card key={d.id} className="text-sm">
-                {d.preview && /* eslint-disable-next-line @next/next/no-img-element */ <img src={d.preview} alt="" className="mb-2 h-24 w-full rounded object-cover" />}
+                {/* A local object URL for the file the user just picked, so next/image cannot optimise it. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {d.preview && <img src={d.preview} alt="" className="mb-2 h-24 w-full rounded object-cover" />}
                 <p className="font-semibold">{d.extraction.institution.name}</p>
                 <p className="text-muted">{d.extraction.document_kind.replace("_", " ")} · {d.extraction.identifier.value_masked}</p>
                 <p>{t("find.holder")}: {d.extraction.holder_name.value}</p>

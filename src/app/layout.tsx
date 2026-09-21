@@ -12,6 +12,9 @@ const devanagari = Noto_Sans_Devanagari({
   variable: "--font-devanagari",
   display: "swap",
   weight: ["400", "600"],
+  // Only needed once someone switches to Hindi. Preloading it on every page
+  // makes it compete with the hero text for bandwidth on a slow connection.
+  preload: false,
 });
 
 export const metadata: Metadata = {

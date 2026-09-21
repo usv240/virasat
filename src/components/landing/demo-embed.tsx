@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button, Card, Confidence, SourceBadge } from "@/components/ui";
@@ -27,8 +28,7 @@ export function DemoEmbed() {
         <ul className="mt-3 space-y-2">
           {SAMPLE_DOCS.map((d) => (
             <li key={d.id} className="flex items-center gap-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={d.file} alt="" className="h-12 w-16 rounded object-cover" />
+              <Image src={d.file} alt="" width={128} height={96} className="h-12 w-16 rounded object-cover" />
               <span className="text-sm">{d.title}</span>
             </li>
           ))}
