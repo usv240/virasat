@@ -10,7 +10,7 @@ export const maxDuration = 60;
  * Returns { assets, rows, mode }. No AI is needed: the tables are read by code.
  */
 export async function POST(req: Request) {
-  const g = guard(req);
+  const g = await guard(req);
   if (g instanceof Response) return g;
   const form = await req.formData().catch(() => null);
   if (!form) return problem(400, "Bad request", "Send multipart form data with a PDF file or sample=true.");

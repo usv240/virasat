@@ -44,3 +44,6 @@ next-env.d.ts
 
 # Serena code-intelligence cache, machine local.
 .serena/
+
+# Downloaded real public lists for the parser check. Never committed.
+.cache/

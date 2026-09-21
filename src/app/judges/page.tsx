@@ -62,7 +62,7 @@ const REAL = [
 ];
 
 const SAMPLE = [
-  "API rate limits are counted in each serverless instance's memory, so the published per-minute limit is per instance rather than global",
+  "API rate limits are shared across instances only when Upstash Redis is configured; every response says which counter it used in X-Virasat-RateLimit-Store",
   "Sunita and Ramesh, their papers and amounts are made up",
   "The AIS PDF is synthetic",
   "The unpaid-dividend index has made-up names in the same shape as real company lists",

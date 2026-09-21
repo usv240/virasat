@@ -4,14 +4,14 @@ import { RuleSchema, ruleSetsSummary } from "@/lib/rules";
 
 /** GET /api/v1/rules: list built-in rule sets. */
 export async function GET(req: Request) {
-  const g = guard(req);
+  const g = await guard(req);
   if (g instanceof Response) return g;
   return withHeaders(Response.json({ ruleSets: ruleSetsSummary() }), g.info, g.rl);
 }
 
 /** POST /api/v1/rules: validate a Bring Your Own rule set. Returns the normalised set or the problems. */
 export async function POST(req: Request) {
-  const g = guard(req);
+  const g = await guard(req);
   if (g instanceof Response) return g;
   const body = await req.json().catch(() => null);
   const parsed = Array.isArray(body) ? z.array(RuleSchema).safeParse(body) : RuleSchema.safeParse(body);

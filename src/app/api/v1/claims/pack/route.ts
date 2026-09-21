@@ -11,7 +11,7 @@ const Body = z.object({
 
 /** POST /api/v1/claims/pack: returns the claim pack PDF. */
 export async function POST(req: Request) {
-  const g = guard(req);
+  const g = await guard(req);
   if (g instanceof Response) return g;
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return problem(400, "Invalid body", "Send claim, asset and claimant.");

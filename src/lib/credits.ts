@@ -41,6 +41,7 @@ export const TOOLING: Credit[] = [
 export const SERVICES: Credit[] = [
   { name: "Vercel", licence: "Commercial, free tier", url: "https://vercel.com", what: "Hosts the deployment the judges are looking at." },
   { name: "GitHub Actions", licence: "Commercial, free tier", url: "https://github.com/features/actions", what: "Runs lint, types and tests on every push." },
+  { name: "Upstash Redis", licence: "Commercial, free tier", url: "https://upstash.com", what: "One shared rate-limit counter across every serverless instance, over its REST API. Optional; without it the limit is per instance and the response header says so." },
   { name: "Anthropic API", licence: "Commercial, pay as you go", url: "https://www.anthropic.com", what: "The model behind document reading and the debate. You can bring your own key instead." },
 ];
 

@@ -41,6 +41,7 @@ Where it runs.
 
 - [Vercel](https://vercel.com), Commercial, free tier. Hosts the deployment the judges are looking at.
 - [GitHub Actions](https://github.com/features/actions), Commercial, free tier. Runs lint, types and tests on every push.
+- [Upstash Redis](https://upstash.com), Commercial, free tier. One shared rate-limit counter across every serverless instance, over its REST API. Optional; without it the limit is per instance and the response header says so.
 - [Anthropic API](https://www.anthropic.com), Commercial, pay as you go. The model behind document reading and the debate. You can bring your own key instead.
 
 ## How this was built

@@ -32,7 +32,7 @@ const Body = z.object({
  * Returns the rule engine decision and, if asked, the Two AI Debate verdict.
  */
 export async function POST(req: Request) {
-  const g = guard(req);
+  const g = await guard(req);
   if (g instanceof Response) return g;
   const json = await req.json().catch(() => null);
   const parsed = Body.safeParse(json);

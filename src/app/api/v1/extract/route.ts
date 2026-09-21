@@ -15,7 +15,7 @@ const TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
  * Returns the extraction schema. Sample mode when no AI key is available.
  */
 export async function POST(req: Request) {
-  const g = guard(req);
+  const g = await guard(req);
   if (g instanceof Response) return g;
   const form = await req.formData().catch(() => null);
   if (!form) return problem(400, "Bad request", "Send multipart form data with a file or a sampleId.");
