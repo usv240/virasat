@@ -29,7 +29,7 @@ const Body = z.object({
 
 /**
  * POST /api/v1/claims/route
- * Returns the rule engine decision and, if asked, the Two AI Debate verdict.
+ * Returns the rule engine decision and, if asked, the AI Review verdict.
  */
 export async function POST(req: Request) {
   const g = await guard(req);

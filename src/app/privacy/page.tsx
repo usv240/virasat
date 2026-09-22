@@ -8,7 +8,7 @@ export default function PrivacyPage() {
     <Section eyebrow="Privacy" title="Your data, in plain words" h1>
       <div className="max-w-3xl space-y-4">
         <p><strong>What we collect.</strong> In this prototype, nothing is stored on our servers. The details Virasat reads from your papers, your list of assets, your claims and your Vault are kept in your own browser on your own device.</p>
-        <p><strong>When something leaves your device.</strong> Only when you press a button that needs the AI: reading a photo, or running the <Term id="two-ai-debate">Two AI Debate</Term>. That request goes to our server and on to the AI provider (Anthropic) over an encrypted connection, is processed, and is not stored by us. Anthropic does not use API data to train models.</p>
+        <p><strong>When something leaves your device.</strong> Only when you press a button that needs the AI: reading a photo, or running the <Term id="two-ai-debate">AI Review</Term>. That request goes to our server and on to the AI provider (Anthropic) over an encrypted connection, is processed, and is not stored by us. Anthropic does not use API data to train models.</p>
         <p><strong>Consent.</strong> We ask before the first upload, in two sentences. You can say no and still read everything on the site.</p>
         <p><strong>Deleting.</strong> The Help tab has a &quot;Delete everything&quot; button. It removes all data from your browser immediately.</p>
         <p><strong>Government portals.</strong> We never log in for you, never ask for your passwords, and never get around OTPs or captchas. You log in yourself; we guide and prepare.</p>

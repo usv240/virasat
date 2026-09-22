@@ -31,7 +31,7 @@ const TOKENS: Token[] = GLOSSARY.flatMap((g) =>
     acronym: /^[A-Z0-9 ()]+$/.test(alias) && alias.length <= 24,
   })),
 )
-  // Longest first, so "lakh crore" wins over "lakh" and "Two AI Debate" over "debate".
+  // Longest first, so "lakh crore" wins over "lakh" and "AI Review" over "debate".
   .sort((a, b) => b.alias.length - a.alias.length);
 
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

@@ -60,7 +60,7 @@ family never knew about. No other product does this."
 
 ---
 
-## 0:50 to 1:35 — Claim: the rule engine and the Two AI Debate
+## 0:50 to 1:35 — Claim: the rule engine and the AI Review
 
 **On screen:** Claim tab. Pick the SBI row. Answer the three questions. Press
 **Get my route**. When the verdict appears, expand the full debate.

@@ -18,7 +18,7 @@ export function DebatePanel({ debate, routeLabel }: { debate: Debate; routeLabel
       <Card className="border-l-0">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted">{t("debate.verdict")} <InfoButton label="The Two AI Debate">Two AI reviewers argued about this result before we showed it to you. A third one decided. This catches mistakes a single AI can miss. The referee cannot change the route the rules chose; it can only add cautions.</InfoButton></p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted">{t("debate.verdict")} <InfoButton label="The AI Review">Before you see this, one AI looks for what could go wrong with it and another reviews that concern. The referee cannot change the route the rules chose; it can only add cautions. You can read the whole exchange.</InfoButton></p>
             <h3 className="mt-1 text-xl text-brand">{v.verdict}</h3>
           </div>
           <Confidence level={v.confidence} />

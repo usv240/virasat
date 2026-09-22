@@ -1,5 +1,5 @@
 /**
- * The Two AI Debate.
+ * The AI Review.
  *
  * Plain words: before we show a claim route, two AI reviewers argue about it.
  * The Supporter makes the best case that the route is right. The Challenger looks

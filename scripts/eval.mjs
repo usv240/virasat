@@ -8,7 +8,7 @@
  * What it measures
  *   1. Document reading: does the AI get the institution, the identifier and the
  *      holder name right on the sample papers?
- *   2. The Two AI Debate: when we plant a known problem in the evidence, does the
+ *   2. The AI Review: when we plant a known problem in the evidence, does the
  *      Challenger find it? We also run the same cases with the debate turned off,
  *      so the Transparency page can compare.
  */

@@ -144,7 +144,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     tag(s, "03", "Innovation");
     title(s, "Four things that exist nowhere else");
     const items = [[I.file, "The tax statement becomes an asset map", "A legal heir can get the account holder's Annual Information Statement. It lists interest from every bank and dividends from every company. Virasat turns that one PDF into a list of places to claim from, even with no papers at all."],
-      [I.balance, "The Two AI Debate", "One AI argues for the route, a second hunts for what could go wrong, a third gives the verdict with reasons and risks. The referee can only make advice more careful, never overrule the rules."],
+      [I.balance, "The AI Review", "One AI argues for the route, a second hunts for what could go wrong, a third gives the verdict with reasons and risks. The referee can only make advice more careful, never overrule the rules."],
       [I.cogs, "Safety by separation", "The AI reads, explains and translates. Every legal decision comes from a deterministic, versioned, unit-tested rule engine, so an institution can audit it."],
       [I.code, "Bring your own data, key and rules", "A bank sends its own claim rules as JSON. Virasat applies them and records the rule version on every claim."]];
     items.forEach(([ic, h, d], i) => {
@@ -158,8 +158,8 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
   /* 5. The debate, shown */
   {
     const s = pres.addSlide(); s.background = { color: TINT };
-    tag(s, "03", "Innovation: the Two AI Debate");
-    title(s, "Two AIs argue, and you can read the argument", INK, 0.58, 24);
+    tag(s, "03", "Innovation: the AI Review");
+    title(s, "Virasat challenges its own guidance before a family acts", INK, 0.58, 24);
     card(s, 0.5, 1.5, 4.5, 1.5, WHITE);
     txt(s, "Supporter", { x: 0.7, y: 1.62, w: 4, h: 0.25, fontSize: 11, bold: true, color: GREEN });
     txt(s, "The nominee route is correct: the passbook names a nominee and the amount is below the bank's threshold.", { x: 0.7, y: 1.9, w: 4.1, h: 1, fontSize: 10.5 });
@@ -226,7 +226,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     screenshot(s, "claim.png", 5.1, 1.45, 4.4, 3.1);
     txt(s, "Find: three sample papers and the tax statement become a list of ₹4.85 lakh waiting in 5 places, each with its own portal and guided steps.",
       { x: 0.5, y: 4.62, w: 4.4, h: 0.6, fontSize: 10, color: MUTED });
-    txt(s, "Claim: the rule engine picks the route, the Two AI Debate checks it, and the filled claim pack downloads as a PDF.",
+    txt(s, "Claim: the rule engine picks the route, the AI Review checks it, and the filled claim pack downloads as a PDF.",
       { x: 5.1, y: 4.62, w: 4.4, h: 0.6, fontSize: 10, color: MUTED });
   }
 
@@ -284,7 +284,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     card(s, 0.5, 1.5, 4.4, 3.2, "F2F8F6");
     txt(s, "What one family costs", { x: 0.75, y: 1.68, w: 4.0, h: 0.3, fontSize: 12, bold: true, color: TEAL });
     const steps = [["Reading 3 photographed papers", "₹5.17"],
-      ["Two AI reviewers, 3 claim routes", "₹14.82"],
+      ["The AI Review, 3 claim routes", "₹14.82"],
       ["Tax statement, rules, claim packs", "free"],
       ["One family, end to end", "₹19.99"]];
     steps.forEach(([k, v], i) => {

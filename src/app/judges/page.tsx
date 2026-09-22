@@ -8,7 +8,7 @@ import { PUBLISHED_INR, rupees } from "@/lib/cost";
 export const metadata = { title: "Virasat for judges" };
 
 const CRITERIA = [
-  ["Innovation and Originality", "25%", "The tax statement (AIS) asset map and the photo-to-claim flow exist in no other product. The Two AI Debate checks every route in the open. Institutions can bring their own rules.", "/try", "Find tab: use the sample AIS; Claim tab: see the debate"],
+  ["Innovation and Originality", "25%", "The tax statement (AIS) asset map and the photo-to-claim flow exist in no other product. The AI Review checks every route in the open. Institutions can bring their own rules.", "/try", "Find tab: use the sample AIS; Claim tab: see the debate"],
   ["Technical Implementation", "25%", "Multimodal AI with strict JSON schemas, a versioned rule engine with 5 institutions, an AIS table parser, PDF claim packs, browser voice in and out, a public API with keys, rate limits and problem-details errors, light and dark themes.", "/developers", "API docs and playground; Technical mode on the home page"],
   ["Real-World Impact", "20%", "₹1.84 lakh crore is unclaimed. Gujarat's camps returned ₹38,700 per family on average. One family like Sunita's keeps up to ₹63,000 that an agent would take.", "/#impact", "Impact section and savings calculator"],
   ["Feasibility and Scalability", "15%", "One family costs about ₹36 of AI, measured against the live API rather than estimated, against an average of ₹38,700 returned per family at Gujarat's camps. No private data access is needed. Adding an institution is adding a file, not writing code. Families never pay; institutions, service centres and state camps do, and each of those has a stated reason to.", "#feasibility", "Further down this page, and the unit economics on the Proof page"],
@@ -52,7 +52,7 @@ const REAL = [
   "AIS PDF parsing by code",
   "Rule engine for SBI, LIC, EPFO, IEPF and India Post",
   "Claim pack PDF generation",
-  "The Two AI Debate (live with a key)",
+  "The AI Review (live with a key)",
   "Voice in and out in the browser",
   "Guided portal steps and deep links",
   "Public API with keys, rate limits and validation",

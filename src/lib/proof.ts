@@ -87,7 +87,7 @@ export const CLAIMS: Claim[] = [
 export const NOT_CLAIMED: string[] = [
   "We have not connected to any bank, insurer or government system. Every claim is submitted by the family through the official portal, as it is today.",
   "The unpaid-dividend index in the prototype is sample data shaped like the real lists, not a republished copy of them.",
-  "The Two AI Debate improves transparency and catches planted problems in our tests. It is not a guarantee of correctness, and it never overrides the rule engine.",
+  "The AI Review improves transparency and catches planted problems in our tests. It is not a guarantee of correctness, and it never overrides the rule engine.",
   "We have rule files for five institutions. Everything else routes to a needs-review path rather than guessing.",
   "Hindi and English only so far.",
 ];

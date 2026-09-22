@@ -80,10 +80,12 @@ questions are pre-filled for the sample. Click **Get my route and forms**.
 Wait for "Your route".
 **Point:** the route name, then the "Rule" line with its id and version, then
 the document checklist.
-**Say:** **"Three simple questions are enough for Virasat to determine her route: nominee,
-legal heir, or court. And that decision is not left to the AI. A versioned,
-tested rule chooses it, with the rule id shown so it can be audited. Then the
-exact documents she needs, and where to get each one."**
+**Say:** **"Three simple questions are enough for Virasat to determine her route:
+nominee, legal heir, or court. And that decision is not made by AI. It comes
+from an open, machine-readable rule corpus, where each institution's claim
+process is written down, versioned and tested, with the rule id shown so every
+decision is traceable. Then the exact documents she needs, and where to get
+each one."**
 
 ## 8. Virasat challenges its own guidance, 1:54 to 2:16
 

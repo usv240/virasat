@@ -205,9 +205,12 @@ describe("published test count", () => {
       .filter((f) => f.endsWith(".test.ts"))
       .reduce((n, f) => n + (readFileSync(new URL(f, dir), "utf8").match(/^ {2}it\(/gm) ?? []).length, 0);
     for (const file of ["../README.md", "../public/docs/PROJECT-DESCRIPTION.md"]) {
-      const quoted = readFileSync(new URL(file, import.meta.url), "utf8").match(/(\d+) (?:automated )?tests\W/);
-      expect(quoted, `${file} never says how many tests there are`).toBeTruthy();
-      expect(Number(quoted![1]), file).toBe(actual);
+      const text = readFileSync(new URL(file, import.meta.url), "utf8");
+      // Every place the file quotes a count, not just the first: the README
+      // once said 53 in one line and "39 of 39 pass" in a table lower down.
+      const quoted = [...text.matchAll(/(\d+) (?:automated )?tests\W|(\d+) of \d+ pass/g)].map((m) => Number(m[1] ?? m[2]));
+      expect(quoted.length, `${file} never says how many tests there are`).toBeGreaterThan(0);
+      for (const q of quoted) expect(q, file).toBe(actual);
     }
   });
 });

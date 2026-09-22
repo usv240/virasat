@@ -148,7 +148,7 @@ export default function Home() {
 
       {/* Debate */}
       <Section id="debate" eyebrow="Trust" title="You can read the argument the AI had about your case." tone="surface">
-        <p className="max-w-3xl text-lg">The Supporter argues the route is right. The Challenger looks for what could go wrong. The Referee decides and explains. <InfoButton label="The Two AI Debate">Research on whether debate makes models more accurate is mixed (Du and others, ICML 2024, and the counter-view in 2025). We measured our own: on three planted problems the Challenger caught 3 of 3, and so did a single reviewer with no debate. So we do not claim it is righter. We keep it because you can read the disagreement and judge it yourself, and because the Referee is prevented in code from lowering a caution. The numbers are on the How our AI works page.</InfoButton></p>
+        <p className="max-w-3xl text-lg">The Supporter argues the route is right. The Challenger looks for what could go wrong. The Referee decides and explains. <InfoButton label="The AI Review">Research on whether debate makes models more accurate is mixed (Du and others, ICML 2024, and the counter-view in 2025). We measured our own: on three planted problems the Challenger caught 3 of 3, and so did a single reviewer with no debate. So we do not claim it is righter. We keep it because you can read the disagreement and judge it yourself, and because the Referee is prevented in code from lowering a caution. The numbers are on the How our AI works page.</InfoButton></p>
         <div className="mt-8"><DebateExample /></div>
       </Section>
 
@@ -258,7 +258,7 @@ export default function Home() {
         <div className="grid gap-4 md:grid-cols-3">
           {[
             ["What goes in", ["Photos of passbooks, bonds and certificates", "Tax statement (AIS) PDFs", "Voice in Hindi or English", "Web now, WhatsApp next"]],
-            ["Virasat's brain", ["Reads documents in Indian languages, even handwriting", "Knows the claim rules of each bank and insurer", "Two AI reviewers check every route", "Fills forms and writes letters in two languages"]],
+            ["Virasat's brain", ["Reads documents in Indian languages, even handwriting", "Knows the claim rules of each bank and insurer", "Challenges its own guidance before you act", "Fills forms and writes letters in two languages"]],
             ["What comes out", ["A list of money owed, with sources", "Ready claim packs (PDF)", "Reminders and tracking", "The family Vault"]],
           ].map(([h, items], i) => (
             <Card key={h as string} tone={i === 1 ? "brand" : "raised"}>

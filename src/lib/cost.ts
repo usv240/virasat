@@ -132,7 +132,7 @@ export const JOURNEY: Step[] = [
   },
   {
     id: "debate",
-    label: "Two AI reviewers checking the route",
+    label: "The AI Review checking the route",
     what: "A Supporter, a Challenger and a Referee argue the route before the family sees it.",
     times: 3,
     usage: { input: 3569, cacheRead: 2221, cacheWrite: 0, output: 3630 },

@@ -6,7 +6,7 @@ const QA: [string, string][] = [
   ["What if there is no nominee?", "Virasat shows the legal heir route and the documents needed. For smaller amounts no court is needed."],
   ["Which languages does it support?", "English and Hindi today, by text and voice. More Indian languages are next."],
   ["Is my data safe?", "Your papers stay in your browser. They are sent for AI reading only when you press the button, and are not stored on our servers. One button deletes everything."],
-  ["What if the AI makes a mistake?", "The claim rules are fixed and tested. The AI only reads, explains and translates. Two AI reviewers check every route, every result shows its confidence and reasons, and you always review before acting."],
+  ["What if the AI makes a mistake?", "The claim rules are fixed and tested. The AI only reads, explains and translates. Virasat challenges its own guidance before you act, every result shows its confidence and reasons, and you always review before acting."],
   ["Can I use it without a smartphone?", "Yes, through a Common Service Centre or a helper who runs Virasat for you."],
   ["How is this different from the government portals?", "Portals let you search one place at a time if you know what to look for. Virasat finds everything, tells you exactly where to search, and prepares the forms."],
 ];

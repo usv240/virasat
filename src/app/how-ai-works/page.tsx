@@ -9,7 +9,7 @@ export default function HowAiWorks() {
     <>
       <Section eyebrow="Transparency" title="How our AI works, and what it never does" h1>
         <div className="grid gap-4 md:grid-cols-2">
-          <Card><h2 className="text-lg text-brand">What the AI does</h2><ul className="mt-2 list-disc pl-5 text-sm"><li>Reads photographed documents and pulls out the institution, number (masked), names, dates and amounts, with a confidence per field.</li><li>Argues for and against a claim route (the Two AI Debate) and writes a verdict with reasons and risks.</li><li>Understands your spoken or typed questions.</li></ul></Card>
+          <Card><h2 className="text-lg text-brand">What the AI does</h2><ul className="mt-2 list-disc pl-5 text-sm"><li>Reads photographed documents and pulls out the institution, number (masked), names, dates and amounts, with a confidence per field.</li><li>Argues for and against a claim route (the AI Review) and writes a verdict with reasons and risks.</li><li>Understands your spoken or typed questions.</li></ul></Card>
           <Card><h2 className="text-lg text-brand">What it never does</h2><ul className="mt-2 list-disc pl-5 text-sm"><li>It never decides the claim route. A fixed, tested rule engine does.</li><li>It never submits anything to a bank or portal. You do.</li><li>It never lowers a caution: the referee can only add risks or ask for human review.</li><li>It never sees your passwords or OTPs.</li><li>Your documents are not used to train any model.</li></ul></Card>
         </div>
       </Section>

@@ -24,7 +24,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: "Ombudsman", def: "A free official who resolves complaints against a bank (RBI), insurer (IRDAI) or other institution when they do not respond." , id: "ombudsman" },
   { term: "Rule engine", def: "A written checklist the computer follows exactly. The same input always gives the same result, and every rule has tests." , id: "rule-engine", aliases: ["rules engine"] },
   { term: "Structured output", def: "A way of making the AI answer in a fixed format (a JSON schema), so the app never breaks on an unexpected answer." , id: "structured-output", aliases: ["JSON schema"] },
-  { term: "The Two AI Debate", def: "Two AI reviewers argue for and against a result, and a third gives a verdict with reasons and risks. It catches gaps a single answer can miss." , id: "two-ai-debate", aliases: ["Two AI Debate", "debate"] },
+  { term: "The AI Review", def: "Before you see a route, one AI looks for what could go wrong with it, another reviews that concern, and a referee gives a verdict with reasons and risks. The referee can only add caution, never override the rules." , id: "two-ai-debate", aliases: ["AI Review", "debate"] },
   { term: "Bring Your Own (BYO)", def: "Institutions can use Virasat with their own data, their own AI key, or their own claim rules." , id: "byo", aliases: ["BYO", "Bring Your Own"] },
   { term: "Lakh and crore", def: "1 lakh = 1,00,000 (one hundred thousand). 1 crore = 1,00,00,000 (ten million). 1 lakh crore = one trillion." , id: "lakh-crore", aliases: ["lakh", "crore", "lakh crore"] },
   { term: "DPDP Act 2023", def: "India's Digital Personal Data Protection Act: consent, purpose limitation, minimal data, and the right to delete." , id: "dpdp", aliases: ["DPDP"] },

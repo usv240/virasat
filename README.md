@@ -19,7 +19,7 @@ About ₹1.84 lakh crore of Indians' own money lies unclaimed (Finance Minister,
 | Step | What happens |
 |---|---|
 | Find | Photograph a passbook, policy bond, share certificate or PF slip, or upload the income tax statement (AIS). Virasat lists every place the family may have money, with a confidence per field. |
-| Claim | A rule engine (one tested rule file per institution) decides the route: nominee, legal heir, or court certificate. Two AI reviewers argue for and against it, a referee explains. Virasat fills the claim form and cover letter (English and Hindi) into a PDF claim pack. |
+| Claim | A rule engine (one tested rule file per institution) decides the route: nominee, legal heir, or court certificate. Virasat then challenges its own guidance: one AI looks for what could go wrong, another reviews the concern, and a referee explains. Virasat fills the claim form and cover letter (English and Hindi) into a PDF claim pack. |
 | Track | Every claim has a status, a next action, and an escalation path to the ombudsman after 30 days. |
 | Prevent | The Parivaar Vault records every account and checks that each has a nominee. |
 
@@ -33,7 +33,7 @@ cp .env.example .env.local   # optional: ANTHROPIC_API_KEY=sk-ant-... for live A
 npm run dev                  # http://localhost:3000
 ```
 
-Without a key the app runs in Sample mode: AI steps replay pre-computed results for the sample family, and the whole demo still works end to end. With a key, your own photos are read live and the Two AI Debate runs live. You can also paste your own key in the app's Help tab (Bring Your Own Key); it stays in your browser.
+Without a key the app runs in Sample mode: AI steps replay pre-computed results for the sample family, and the whole demo still works end to end. With a key, your own photos are read live and the AI Review runs live. You can also paste your own key in the app's Help tab (Bring Your Own Key); it stays in your browser.
 
 ## Checks
 
@@ -57,7 +57,7 @@ Measured on the current build:
 
 | Check | Result |
 |---|---|
-| Automated tests | 39 of 39 pass |
+| Automated tests | 53 of 53 pass |
 | Accessibility (axe, WCAG 2.2 AA), 11 pages, light and dark | 0 serious or critical, 0 moderate |
 | Cost of serving one family | About ₹36 of AI, measured against the live API on 21 Sep 2026 with a cold prompt cache, against an average of ₹38,700 returned per family at Gujarat's camps. A warm cache measures ₹33; we publish the higher figure. Shown in full on [/proof](https://virasat-indol.vercel.app/proof), reproducible with `npm run measure:cost`. |
 | Lighthouse, landing page, live deployment | Desktop: 99 to 100 performance, LCP 0.8 s. Mobile, throttled: never below 90 performance, having ranged from 90 to 96 across runs, LCP 3.5 s. Both: 100 accessibility, 100 best practices, 100 SEO, and layout shift between 0 and 0.024 against a 0.1 threshold. Three runs each, range published rather than the best one. Reproduce with `npm run audit`. |
@@ -81,7 +81,7 @@ Measured on the current build:
 
 | Route | What it is |
 |---|---|
-| `/` | Landing page: problem, how it works, live demo, the Two AI Debate, impact and savings calculator, trust, developers, technology, roadmap, FAQ, glossary, sources |
+| `/` | Landing page: problem, how it works, live demo, the AI Review, impact and savings calculator, trust, developers, technology, roadmap, FAQ, glossary, sources |
 | `/try` | The product with Sunita's sample papers loaded |
 | `/app` | The product, empty, for your own papers |
 | `/judges` | Judge Mode: criteria map, what is real and what is sample, deliverables |

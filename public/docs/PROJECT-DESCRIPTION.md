@@ -36,7 +36,7 @@ Everything works in **English and Hindi**, by text and by voice, in light and da
 ## Innovation
 
 1. **The tax statement becomes an asset map.** A legal heir can obtain the account holder's Annual Information Statement, which lists interest from every bank and dividends from every company. Virasat parses it into a list of places to claim from, even when the family has no papers at all. No other product does this.
-2. **The Two AI Debate.** Before a route is shown, one AI argues for it, a second hunts for what could go wrong (name mismatches, amounts near a threshold, lapsed policies), and a third gives a verdict with reasons, risks and a next step. The referee can only make the advice more careful; it can never overrule the rule engine.
+2. **The AI Review.** Before a route is shown, one AI argues for it, a second hunts for what could go wrong (name mismatches, amounts near a threshold, lapsed policies), and a third gives a verdict with reasons, risks and a next step. The referee can only make the advice more careful; it can never overrule the rule engine.
 3. **Safety by separation.** The AI reads, explains and translates. Every legal decision comes from a deterministic, versioned, unit-tested rule engine, so the same input always gives the same answer and an institution can audit it.
 4. **Bring Your Own data, key and rules.** A bank can send its own claim rules as a JSON file and see them applied and recorded per claim.
 5. **Prevention, not only recovery.** The Parivaar Vault and its nominee check stop the next loss.
