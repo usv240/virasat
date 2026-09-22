@@ -50,3 +50,6 @@ next-env.d.ts
 
 # Demo video build output. Scripts are committed, artefacts are not.
 video/build/
+
+# Finished films. Too large for git; uploaded to YouTube instead.
+video/out/

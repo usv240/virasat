@@ -26,8 +26,13 @@ SEG = BUILD / "seg"
 GAP_CAP = 0.85        # most settle time kept after a line ends
 # Screen content, not film: large flat areas and hard edges. The default
 # deblocking softens type, which is the whole picture here.
-ENC = ["-c:v", "libx264", "-crf", "16", "-preset", "slow", "-tune", "stillimage",
-       "-pix_fmt", "yuv420p", "-an"]
+def encoder(width):
+    """Screen content, not film: large flat areas and hard edges. The default
+    deblocking softens type, which is the whole picture here. 4K uses a faster
+    preset because slow at this frame size costs an hour for no visible gain."""
+    preset = "medium" if width > 2000 else "slow"
+    return ["-c:v", "libx264", "-crf", "16", "-preset", preset, "-tune", "stillimage",
+            "-pix_fmt", "yuv420p", "-an"]
 
 
 def run(args):
@@ -46,6 +51,12 @@ def main():
     raw = BUILD / "raw.webm"
     timeline = json.loads((BUILD / "timeline.json").read_text(encoding="utf-8"))
     raw_len = probe(raw)
+    width = int(subprocess.run(
+        ["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+         "stream=width", "-of", "default=nw=1:nk=1", str(raw)],
+        capture_output=True, text=True, check=True).stdout.split()[0])
+    ENC = encoder(width)
+    print("source is %dpx wide, preset %s" % (width, ENC[5]))
 
     # Work out what to keep. Each beat keeps its line plus slack, plus a capped
     # amount of the composition that follows it.

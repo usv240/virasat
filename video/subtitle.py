@@ -24,9 +24,20 @@ MAX = 58
 # and then silently renders nothing. Declaring PlayRes as the real frame size
 # also means FontSize is in actual pixels, instead of being scaled from the
 # 288-line default and having to be guessed.
-PLAY_W, PLAY_H = 1920, 1080
-FONT_SIZE = 42
-MARGIN_V = 54
+def _frame():
+    out = subprocess.run(
+        ["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+         "stream=width,height", "-of", "default=nw=1:nk=1",
+         str(pathlib.Path(__file__).parent / "build" / "master.mp4")],
+        capture_output=True, text=True, check=True).stdout.split()
+    return int(out[0]), int(out[1])
+
+
+PLAY_W, PLAY_H = _frame()
+# Scaled off the real frame, so a caption is the same size on screen whether
+# the film is 1080p or 4K.
+FONT_SIZE = round(42 * PLAY_H / 1080)
+MARGIN_V = round(54 * PLAY_H / 1080)
 # The alpha byte runs backwards: &HAABBGGRR, 00 opaque and FF transparent,
 # so 0x33 is 80 percent opaque.
 BACK = "&H33000000"
@@ -113,7 +124,8 @@ def main():
         subprocess.run(
             ["ffmpeg", "-y", "-i", str(BUILD / "master.mp4"),
              "-vf", "ass=_cc.ass",
-             "-c:v", "libx264", "-crf", "18", "-preset", "slow", "-tune", "stillimage",
+             "-c:v", "libx264", "-crf", "18",
+             "-preset", "medium" if PLAY_W > 2000 else "slow", "-tune", "stillimage",
              "-pix_fmt", "yuv420p", "-c:a", "copy", str(out)],
             check=True, capture_output=True)
     finally:

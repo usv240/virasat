@@ -43,6 +43,10 @@ def main():
         print("No build/final.mp4. Run the pipeline first.", file=sys.stderr)
         sys.exit(1)
 
+    dur = float(probe(FINAL, "duration")[0])
+    w, h = (int(x) for x in probe(FINAL, "width,height", stream=True)[:2])
+    bitrate = int(probe(FINAL, "bit_rate")[0]) // 1000
+
     spoken = " ".join(b["say"] for b in BEATS)
     srt = (BUILD / "captions.srt").read_text(encoding="utf-8")
     cuts = json.loads((BUILD / "cuts.json").read_text(encoding="utf-8"))
@@ -98,17 +102,15 @@ def main():
           fields[6] == "&H33000000" and fields[15] == "3",
           "back %s, border %s" % (fields[6], fields[15]))
     size = int(fields[2])
-    check("Caption size suits the frame", play_h == H and 30 <= size <= 56,
+    check("Caption size suits the frame", play_h == h and 0.033 < size / play_h < 0.05,
           "%dpx at PlayResY %d" % (size, play_h))
     check("No emoji or dash in captions",
           not re.search(r"[–—\U0001F300-\U0001FAFF✀-➿]", srt))
 
     # ---- the encoded file itself
-    dur = float(probe(FINAL, "duration")[0])
-    w, h = (int(x) for x in probe(FINAL, "width,height", stream=True)[:2])
-    bitrate = int(probe(FINAL, "bit_rate")[0]) // 1000
     check("Under the three minute ceiling", dur <= CEILING, "%.1fs" % dur)
-    check("1920x1080", (w, h) == (W, H), "%dx%d" % (w, h))
+    check("1080p or 4K, nothing in between", (w, h) in ((1920, 1080), (3840, 2160)),
+          "%dx%d" % (w, h))
     check("Bitrate is not starved", bitrate > 500, "%d kbps" % bitrate)
     check("Has an audio track", bool(probe(FINAL, "nb_streams")) and
           subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a:0",

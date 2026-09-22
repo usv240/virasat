@@ -21,10 +21,17 @@ from beats import BEATS, SITE  # noqa: E402
 
 HERE = pathlib.Path(__file__).parent
 BUILD = HERE / "build"
-W, H = 1920, 1080
-BAR = 38                      # must match chrome.js
-HEADER = 71                   # the site's own sticky header
-TOP = BAR + HEADER + 16       # where a panel's top should land
+
+# 4K is done by doubling the frame and zooming the page to match, not by asking
+# for a bigger canvas: Playwright fits the viewport into whatever size you ask
+# for and pads the remainder with flat grey. Zooming keeps the layout identical
+# to 1080p, so every word stays the same size relative to the frame and the only
+# thing that changes is how many pixels it is drawn with.
+SCALE = 2 if "--4k" in sys.argv else 1
+W, H = 1920 * SCALE, 1080 * SCALE
+BAR = 38 * SCALE              # must match chrome.js, which is in CSS pixels
+HEADER = 71 * SCALE           # the site's own sticky header
+TOP = BAR + HEADER + 16 * SCALE   # where a panel's top should land
 
 SCROLL_JS = """(y) => new Promise((done) => {
     const s = window.scrollY, d = y - s, N = 26;
@@ -313,10 +320,19 @@ def main():
             viewport={"width": W, "height": H},
             record_video_dir=str(vid),
             record_video_size={"width": W, "height": H},   # must equal the viewport
-            device_scale_factor=2,                          # supersample the text
+            # At 1080p the page is drawn at twice the frame and downsampled, so
+            # the type is supersampled. At 4K the frame already has the pixels,
+            # and asking for another doubling only costs memory.
+            device_scale_factor=1 if SCALE > 1 else 2,
             color_scheme="light",
         )
         ctx.add_init_script(path=str(HERE / "chrome.js"))
+        if SCALE != 1:
+            # Applied before anything is measured, so every bounding box the
+            # actions read is already in the zoomed coordinate space.
+            ctx.add_init_script(
+                "addEventListener('DOMContentLoaded',function(){"
+                "document.documentElement.style.zoom='%d'})" % SCALE)
         # Force the light theme before first paint, so the recording does not
         # depend on the machine's OS theme.
         ctx.add_init_script("try{localStorage.setItem('virasat.theme','light')}catch(e){}")
