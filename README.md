@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/usv240/virasat/actions/workflows/ci.yml/badge.svg)](https://github.com/usv240/virasat/actions/workflows/ci.yml)
 
-**Find and claim your family's money.** Take a photo of old papers. Virasat finds where the money is (bank, insurance, provident fund, shares), explains what to do in your language, and fills the forms.
+**Find forgotten family money. Know exactly how to claim it.** Take a photo of old papers. Virasat finds where the money is (bank, insurance, provident fund, shares), explains what to do in your language, and fills the forms.
 
 Built by Team USV for the Global Innovation Hackathon 2026: Build for a Better Future.
 
@@ -19,7 +19,7 @@ About ₹1.84 lakh crore of Indians' own money lies unclaimed (Finance Minister,
 | Step | What happens |
 |---|---|
 | Find | Photograph a passbook, policy bond, share certificate or PF slip, or upload the income tax statement (AIS). Virasat lists every place the family may have money, with a confidence per field. |
-| Claim | A rule engine (one tested rule file per institution) decides the route: nominee, legal heir, or court certificate. Virasat then challenges its own guidance: one AI looks for what could go wrong, another reviews the concern, and a referee explains. Virasat fills the claim form and cover letter (English and Hindi) into a PDF claim pack. |
+| Claim | A rule engine (one tested rule file per institution) decides the route: nominee, legal heir, or court certificate. Virasat then challenges its own guidance: an independent AI review looks for risks and explains them before the family acts. Virasat fills the claim form and cover letter (English and Hindi) into a PDF claim pack. |
 | Track | Every claim has a status, a next action, and an escalation path to the ombudsman after 30 days. |
 | Prevent | The Parivaar Vault records every account and checks that each has a nominee. |
 
@@ -41,7 +41,7 @@ Without a key the app runs in Sample mode: AI steps replay pre-computed results 
 npm run audit         # re-runs every claim on this page and writes docs/AUDIT-REPORT.md
 npm run verify        # lint, writing check (no emojis, no em dashes), tests, type check
 npm test              # 53 tests: rule engine, AIS parser, claim pack, dividends, cost model, corpus
-npm run eval          # measures the AI: document reading and the debate (needs an API key)
+npm run eval          # measures the AI: document reading and the AI Review (needs an API key)
 npm run measure:cost  # measures what one family costs, using the app's own code (needs a key)
 npm run build         # production build
 ```
@@ -50,8 +50,8 @@ npm run build         # production build
 types, the tests and a production build, then points axe at every page in both
 themes and Lighthouse at the live deployment three times on each profile, and
 writes the result to [docs/AUDIT-REPORT.md](docs/AUDIT-REPORT.md) including
-anything that failed. Every number below came from it. Please try to prove one
-of them wrong.
+anything that failed. Every number below came from it, and every
+result is reproducible from this repository.
 
 Measured on the current build:
 
@@ -63,6 +63,17 @@ Measured on the current build:
 | Lighthouse, landing page, live deployment | Desktop: 99 to 100 performance, LCP 0.8 s. Mobile, throttled: never below 90 performance, having ranged from 90 to 96 across runs, LCP 3.5 s. Both: 100 accessibility, 100 best practices, 100 SEO, and layout shift between 0 and 0.024 against a 0.1 threshold. Three runs each, range published rather than the best one. Reproduce with `npm run audit`. |
 | Writing check | no emojis, no em or en dashes |
 
+## How it is put together
+
+The AI has bounded responsibilities, and the boundary is the point:
+
+**AI reads the documents. Deterministic, versioned rules decide the claim route.
+An independent AI review looks for risks. The family acts.**
+
+The route a family is told to take never comes from a model. And the step that
+makes Virasat different from a document reader is the tax statement: **the AIS
+can uncover banks and companies a family would never have known to search for.**
+
 ## Technology stack
 
 | Layer | Choice |
@@ -71,7 +82,7 @@ Measured on the current build:
 | AI | Anthropic SDK, model `claude-opus-5`, structured outputs (Zod schemas), prompt caching |
 | Documents | pdf-parse (AIS tables), pdf-lib (claim pack PDFs) |
 | Voice | Browser Web Speech API (speech recognition and text to speech), Hindi and English |
-| Languages | English and Hindi across every screen, the rule engine output and the AI debate |
+| Languages | English and Hindi across every screen, including the rule engine output and the AI Review |
 | Data | Family data in the browser (localStorage). Nothing personal is stored on the server. |
 | API | Route handlers under `/api/v1`, API keys (`vs_test_demo` sandbox), rate limit headers, RFC 9457 errors |
 | Offline | Network-first service worker and a web manifest, so it installs and keeps working on patchy signal |
@@ -105,10 +116,11 @@ Endpoints: `POST /extract`, `POST /ais/parse`, `POST /claims/route`, `POST /clai
 
 ## The open rule corpus
 
-The app is the replaceable part. What does not exist anywhere today is the claim
-procedure of each Indian institution written down as data a machine can follow:
-which documents, in which order, above which amount, and where a family actually
-gets each one.
+Virasat's most reusable piece of infrastructure is its open rule corpus: each
+institution's claim procedure encoded as machine-readable, versioned rules.
+Nothing like it exists today. Which documents, in which order, above which
+amount, and where a family actually gets each one. The app around it is the
+replaceable part.
 
 So it is open, MIT licensed, and served with no key and no permission:
 
@@ -119,7 +131,7 @@ curl $HOST/api/v1/rules/schema     # the JSON Schema, generated from the code th
 
 If a bank, a government portal or another team serves families better by taking
 it, that is the result we want. [Adding an institution](docs/CONTRIBUTING-RULES.md)
-does not require writing code.
+is a new rule file, with no change to application code.
 
 ## Repository layout
 
