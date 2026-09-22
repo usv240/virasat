@@ -16,6 +16,20 @@ ENGINE = "long-form"
 SITE = "https://virasat-indol.vercel.app"
 NAME = "Ujwal"
 
+# An American voice guesses at these and gets them wrong, so it is told how to
+# say them. IPA, because Polly's own alphabet varies by language. The captions
+# and every other script keep the plain spelling; only the audio sees these.
+PRONOUNCE = {
+    "Ujwal": "ˈuːdʒwəl",
+    "Sunita": "sʊˈniːtɑː",
+    "Sunita's": "sʊˈniːtɑːz",
+    "Virasat": "vɪˈrɑːsət",
+    "Virasat.": "vɪˈrɑːsət",
+    "Gujarat's": "ˌgʊdʒəˈrɑːts",
+    "Hindi": "ˈhɪndiː",
+    "Hindi.": "ˈhɪndiː",
+}
+
 # pause: seconds of silence before the line, for the screen to settle.
 BEATS = [
     dict(id="hello", pause=0.0, say=f"Hi everyone, I am {NAME}."),

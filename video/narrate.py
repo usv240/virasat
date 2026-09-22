@@ -13,7 +13,7 @@ import sys
 import xml.sax.saxutils as esc
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from beats import BEATS, CEILING, ENGINE, RATE, VOICE, sentences  # noqa: E402
+from beats import BEATS, CEILING, ENGINE, PRONOUNCE, RATE, VOICE, sentences  # noqa: E402
 
 BUILD = pathlib.Path(__file__).parent / "build"
 AUDIO = BUILD / "audio"
@@ -27,8 +27,27 @@ def duration(path):
     return float(out.stdout.strip())
 
 
+def say_as(text):
+    """Wrap the words an American voice mispronounces in a phoneme tag.
+
+    Escaping happens first, then the tags go in, so the tags survive and the
+    words themselves are still escaped. Only the audio sees this; the captions
+    keep the plain spelling.
+    """
+    out = []
+    for word in esc.escape(text).split(" "):
+        bare = word.strip(",.:;")
+        ipa = PRONOUNCE.get(word) or PRONOUNCE.get(bare)
+        if ipa:
+            tail = word[len(bare):] if word.startswith(bare) else ""
+            out.append('<phoneme alphabet="ipa" ph="%s">%s</phoneme>%s' % (ipa, bare, tail))
+        else:
+            out.append(word)
+    return " ".join(out)
+
+
 def synth(text, out):
-    ssml = f'<speak><prosody rate="{RATE}">{esc.escape(text)}</prosody></speak>'
+    ssml = f'<speak><prosody rate="{RATE}">{say_as(text)}</prosody></speak>'
     subprocess.run(
         ["aws", "polly", "synthesize-speech",
          "--engine", ENGINE, "--voice-id", VOICE,

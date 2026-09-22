@@ -16,7 +16,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from beats import BEATS, CEILING, NAME  # noqa: E402
+from beats import BEATS, CEILING, NAME, PRONOUNCE  # noqa: E402
 
 BUILD = pathlib.Path(__file__).parent / "build"
 FINAL = BUILD / "final.mp4"
@@ -67,6 +67,17 @@ def main():
     check("Sign-off is its own beat", BEATS[-1]["say"].strip() == "Thank you.")
     check("No emoji or dash in narration",
           not re.search(r"[–—\U0001F300-\U0001FAFF✀-➿]", spoken))
+
+    # Every Indian word an American voice would guess at is given a phoneme.
+    # Checks the words in the script, not the dictionary, so a new one added to
+    # the narration without a pronunciation fails here.
+    import re as _re
+    words = set(_re.findall(r"[A-Z][A-Za-z']+", spoken))
+    indian = {w for w in words
+              if w.rstrip(".,") in {"Ujwal", "Sunita", "Sunita's", "Virasat", "Gujarat's", "Hindi"}}
+    missing = sorted(w for w in indian if w not in PRONOUNCE and w.rstrip(".,") not in PRONOUNCE)
+    check("Indian words carry a pronunciation", not missing,
+          ", ".join(missing) if missing else "%d covered" % len(indian))
 
     # ---- what the camera was pointed at
     ids = [c["id"] for c in cuts]
