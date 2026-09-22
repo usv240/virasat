@@ -57,8 +57,8 @@ AIS**. Wait for the new rows to appear.
 **Point:** the new rows that were not in the papers, one by one.
 **Say:** **"But Virasat can find something more important: the account that was never in
 the tin. A legal heir can obtain the account holder's income tax statement.
-Virasat reads it for every bank and company that paid him, and one PDF becomes
-a map of accounts the family never knew about. We are not just digitising the
+Virasat reads it for every bank and company that paid him, and one PDF reveals banks and companies that never appeared
+in the papers she found. We are not just digitising the
 papers she found. We are helping her discover what was missing."**
 
 ## 6. Messy records, broadened search, 1:16 to 1:32
