@@ -1,0 +1,243 @@
+1
+00:00:00,000 --> 00:00:02,904
+Hi everyone, I am Ujwal.
+
+2
+00:00:03,760 --> 00:00:06,100
+Sunita's father died last year,
+
+3
+00:00:06,100 --> 00:00:10,553
+leaving a tin of old papers: a passbook, an insurance bond,
+
+4
+00:00:10,553 --> 00:00:12,062
+a share certificate.
+
+5
+00:00:12,062 --> 00:00:13,396
+The money is hers.
+
+6
+00:00:13,396 --> 00:00:16,485
+The hard part is discovering where it is,
+
+7
+00:00:16,485 --> 00:00:17,992
+and how to claim it.
+
+8
+00:00:18,880 --> 00:00:20,051
+This is Virasat.
+
+9
+00:00:20,051 --> 00:00:23,450
+Photograph the papers, and it finds the money,
+
+10
+00:00:23,450 --> 00:00:27,736
+explains what to do in your language, and fills the forms.
+
+11
+00:00:28,600 --> 00:00:32,004
+Virasat turns each paper into structured fields,
+
+12
+00:00:32,004 --> 00:00:34,416
+every one with its own confidence.
+
+13
+00:00:34,416 --> 00:00:38,471
+Three forgotten papers become three places where money is
+
+14
+00:00:38,471 --> 00:00:39,040
+waiting.
+
+15
+00:00:39,920 --> 00:00:43,844
+But Virasat can find something more important: the account
+
+16
+00:00:43,844 --> 00:00:45,603
+that was never in the tin.
+
+17
+00:00:45,603 --> 00:00:49,337
+A legal heir can obtain the account holder's income tax
+
+18
+00:00:49,337 --> 00:00:50,016
+statement.
+
+19
+00:00:50,015 --> 00:00:53,928
+Virasat reads it for every bank and company that paid him,
+
+20
+00:00:53,928 --> 00:00:57,503
+revealing accounts that never appeared in her papers.
+
+21
+00:00:57,503 --> 00:01:00,311
+We are not just digitising what she found.
+
+22
+00:01:00,311 --> 00:01:03,320
+We are helping her discover what was missing.
+
+23
+00:01:04,200 --> 00:01:05,856
+Real records are messy.
+
+24
+00:01:05,856 --> 00:01:09,165
+Names appear differently across institutions,
+
+25
+00:01:09,165 --> 00:01:11,959
+so when the full name is too specific,
+
+26
+00:01:11,959 --> 00:01:15,489
+a broader search finds it: three years of unpaid
+
+27
+00:01:15,489 --> 00:01:16,224
+dividends.
+
+28
+00:01:17,080 --> 00:01:21,065
+Three simple questions determine her route: nominee,
+
+29
+00:01:21,065 --> 00:01:22,675
+legal heir, or court.
+
+30
+00:01:22,675 --> 00:01:25,095
+That decision is not made by AI.
+
+31
+00:01:25,095 --> 00:01:29,154
+It comes from an open rule corpus: each institution's
+
+32
+00:01:29,154 --> 00:01:32,983
+claim process, written down, versioned and tested,
+
+33
+00:01:32,983 --> 00:01:36,966
+with the rule id shown so the decision is traceable.
+
+34
+00:01:36,966 --> 00:01:41,200
+Then the documents she needs, and where to get each one.
+
+35
+00:01:42,080 --> 00:01:46,756
+Before Sunita acts, Virasat challenges its own guidance.
+
+36
+00:01:46,756 --> 00:01:51,014
+One AI looks for problems, like this name mismatch.
+
+37
+00:01:51,014 --> 00:01:54,825
+Another reviews it, and can only add caution,
+
+38
+00:01:54,825 --> 00:01:56,942
+never override the rules.
+
+39
+00:01:56,942 --> 00:01:59,864
+Sunita reads the reasoning herself.
+
+40
+00:02:00,720 --> 00:02:03,940
+Now everything becomes something she can use.
+
+41
+00:02:03,940 --> 00:02:07,414
+One click creates her claim form, the checklist,
+
+42
+00:02:07,414 --> 00:02:10,236
+and cover letters in English and Hindi.
+
+43
+00:02:10,236 --> 00:02:14,294
+Virasat tracks it, and prepares the escalation if nobody
+
+44
+00:02:14,294 --> 00:02:15,960
+replies in thirty days.
+
+45
+00:02:16,480 --> 00:02:19,810
+And it is not built only for people comfortable with
+
+46
+00:02:19,810 --> 00:02:21,027
+financial websites.
+
+47
+00:02:21,027 --> 00:02:23,151
+The whole journey works in Hindi,
+
+48
+00:02:23,151 --> 00:02:26,497
+and the guidance is read aloud for anyone who is not
+
+49
+00:02:26,497 --> 00:02:27,784
+comfortable reading.
+
+50
+00:02:28,640 --> 00:02:30,005
+The economics work.
+
+51
+00:02:30,005 --> 00:02:33,957
+Serving one family costs about thirty six rupees of AI.
+
+52
+00:02:33,958 --> 00:02:37,961
+The average returned at Gujarat's camps is thirty eight
+
+53
+00:02:37,961 --> 00:02:39,635
+thousand seven hundred.
+
+54
+00:02:39,635 --> 00:02:43,802
+And the Vault checks that today's accounts have nominees,
+
+55
+00:02:43,802 --> 00:02:47,603
+so tomorrow's money does not become another family's
+
+56
+00:02:47,603 --> 00:02:48,115
+search.
+
+57
+00:02:48,114 --> 00:02:49,839
+Find what was forgotten.
+
+58
+00:02:49,839 --> 00:02:51,276
+Claim what is yours.
+
+59
+00:02:51,276 --> 00:02:51,851
+Virasat.
+
+60
+00:02:51,851 --> 00:02:53,504
+Your money, your right.
+
+61
+00:02:54,120 --> 00:02:55,296
+Thank you.

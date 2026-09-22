@@ -166,7 +166,10 @@ export function journeyTotal(steps: Step[] = JOURNEY): Total {
 
 /** Rupees, to two decimals, for numbers small enough that rounding to whole rupees would hide the point. */
 export function rupees(v: number): string {
-  return `₹${v.toFixed(2)}`;
+  // Indian grouping, so 38700 reads as 38,700 rather than 38700. toFixed alone
+  // gave an ungrouped number, which showed up on the Proof page next to the
+  // figure the whole cost argument rests on.
+  return `₹${v.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 /**

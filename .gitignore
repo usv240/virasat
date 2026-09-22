@@ -47,3 +47,6 @@ next-env.d.ts
 
 # Downloaded real public lists for the parser check. Never committed.
 .cache/
+
+# Demo video build output. Scripts are committed, artefacts are not.
+video/build/
