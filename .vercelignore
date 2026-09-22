@@ -1,0 +1,9 @@
+# Vercel reads this, not .gitignore, so anything large and local has to be
+# named here too. Without it a deploy tried to upload 531 MB of video build
+# artefacts and timed out.
+video/build/
+video/out/
+video/samples/
+.cache/
+docs/*.mp4
+docs/*.pdf
