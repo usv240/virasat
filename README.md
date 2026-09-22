@@ -72,7 +72,8 @@ An independent AI review looks for risks. The family acts.**
 
 The route a family is told to take never comes from a model. And the step that
 makes Virasat different from a document reader is the tax statement: **the AIS
-can uncover banks and companies a family would never have known to search for.**
+can reveal banks and companies that never appeared in the papers the family
+found.**
 
 ## Technology stack
 
@@ -118,9 +119,10 @@ Endpoints: `POST /extract`, `POST /ais/parse`, `POST /claims/route`, `POST /clai
 
 Virasat's most reusable piece of infrastructure is its open rule corpus: each
 institution's claim procedure encoded as machine-readable, versioned rules.
-Nothing like it exists today. Which documents, in which order, above which
-amount, and where a family actually gets each one. The app around it is the
-replaceable part.
+Today those procedures are fragmented across institutions and public guidance.
+The rules capture which documents are required, in which order, which
+thresholds apply, and where a family obtains each document. The app around
+them is the replaceable part.
 
 So it is open, MIT licensed, and served with no key and no permission:
 
