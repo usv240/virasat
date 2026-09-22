@@ -17,15 +17,16 @@ SITE = "https://virasat-indol.vercel.app"
 NAME = "Ujwal"
 
 # An American voice guesses at these and gets them wrong, so it is told how to
-# say them. IPA, because Polly's own alphabet varies by language. The captions
+# say them. Virasat ends in the Hindi dental त, which an English ear hears as
+# a soft th, so it is written as one: Polly has no dental stop to give. IPA, because Polly's own alphabet varies by language. The captions
 # and every other script keep the plain spelling; only the audio sees these.
 PRONOUNCE = {
-    "Ujwal": "ˈuːdʒwəl",
+    "Ujwal": "ˈʊdʒʋɑːl",
     "Sunita": "sʊˈniːtɑː",
     "Sunita's": "sʊˈniːtɑːz",
-    "Virasat": "vɪˈrɑːsət",
-    "Virasat.": "vɪˈrɑːsət",
-    "Gujarat's": "ˌgʊdʒəˈrɑːts",
+    "Virasat": "ʋɪˈrɑːsəθ",
+    "Virasat.": "ʋɪˈrɑːsəθ",
+    "Gujarat's": "gʊdʒˈrɑːts",
     "Hindi": "ˈhɪndiː",
     "Hindi.": "ˈhɪndiː",
 }
@@ -34,9 +35,9 @@ PRONOUNCE = {
 BEATS = [
     dict(id="hello", pause=0.0, say=f"Hi everyone, I am {NAME}."),
     dict(id="problem", pause=0.5, say=(
-        "Sunita's father died last year, leaving a tin of old papers: a passbook, an "
-        "insurance bond, a share certificate. The money is hers. The hard part is "
-        "discovering where it is, and how to claim it.")),
+        "Sunita's father is no more. What he left her is a tin of old papers: a "
+        "passbook, an insurance bond, a share certificate. The money is hers. The "
+        "hard part is discovering where it is, and how to claim it.")),
     dict(id="name-it", pause=0.4, say=(
         "This is Virasat. Photograph the papers, and it finds the money, explains "
         "what to do in your language, and fills the forms.")),
