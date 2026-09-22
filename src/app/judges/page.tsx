@@ -23,7 +23,7 @@ const DELIVERABLES: [string, string, string, "done" | "pending"][] = [
   ["Project description", "The home page, sections Problem to Roadmap. Also a one page version in the repository.", "/", "done"],
   ["Source code", "Public GitHub repository, MIT licensed, with the full commit history.", "https://github.com/usv240/virasat", "done"],
   ["Documentation", "README, technical design, UX spec and API docs.", "/developers", "done"],
-  ["Demonstration video", "Recorded against this deployment. The script is generated from the file the narrator reads, so the two cannot disagree.", "https://github.com/usv240/virasat/blob/master/docs/DEMO-SCRIPT.md", "pending"],
+  ["Demonstration video", "Three minutes, recorded against this deployment in 4K. The script is generated from the file the narrator reads, so the two cannot disagree.", "https://youtu.be/CMpV2y9Zoxk", "done"],
   ["Pitch deck", "The final deck, as a PDF you can open right now.", "/docs/Virasat-Team-USV-Deck.pdf", "done"],
   ["Technology stack", "Technology section, and Technical mode on every page.", "/#technology", "done"],
   ["Demo link", "This deployment, at virasat-indol.vercel.app.", "/", "done"],

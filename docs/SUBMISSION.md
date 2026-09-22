@@ -63,7 +63,7 @@ Try it:        https://virasat-indol.vercel.app/try
 For judges:    https://virasat-indol.vercel.app/judges
 Proof:         https://virasat-indol.vercel.app/proof
 Source code:   https://github.com/usv240/virasat
-Demo video:    <YOUTUBE URL>
+Demo video:    https://youtu.be/CMpV2y9Zoxk
 
 Everything published is reproducible from the repository. One command,
 npm run audit, re-runs accessibility on every page in both themes, Lighthouse

@@ -23,6 +23,7 @@ const TEAL = "0F3D3E", TEAL2 = "1F6F6B", TINT = "E6F0EE", GOLD = "E3A33B",
   GOLD_T = "FBF1DF", INK = "1B2424", MUTED = "5B6B6A", WHITE = "FFFFFF", LINE = "D5E2DF", GREEN = "1E7F4F";
 const LIVE = "https://virasat-indol.vercel.app";
 const REPO = "https://github.com/usv240/virasat";
+const FILM = "https://youtu.be/CMpV2y9Zoxk";
 const HF = "Cambria", BF = "Calibri";
 
 async function icon(name, color, size = 256) {
@@ -79,10 +80,11 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     txt(s, "Find and claim your family's money.", { x: 0.6, y: 2.0, w: 5, h: 0.45, fontSize: 19, color: "CFE3DF" });
     txt(s, "A working product. Photograph old papers, and Virasat finds where the money is, explains what to do in your language, and fills the forms.",
       { x: 0.6, y: 2.6, w: 4.9, h: 0.9, fontSize: 13, color: "E8F1EF" });
-    txt(s, "Team USV", { x: 0.6, y: 4.3, w: 4, h: 0.3, fontSize: 15, bold: true, color: WHITE });
-    txt(s, "FinTech  ·  Generative AI  ·  Social Impact  ·  Accessibility", { x: 0.6, y: 4.68, w: 6, h: 0.3, fontSize: 10.5, color: "9FC3BD" });
-    txt(s, "Try it now: virasat-indol.vercel.app", { x: 0.6, y: 3.6, w: 5, h: 0.32, fontSize: 13, bold: true, color: GOLD, hyperlink: { url: LIVE } });
-    txt(s, "Code: github.com/usv240/virasat", { x: 0.6, y: 3.95, w: 5, h: 0.3, fontSize: 11, color: "CFE3DF", hyperlink: { url: REPO } });
+    txt(s, "Team USV", { x: 0.6, y: 4.48, w: 4, h: 0.3, fontSize: 15, bold: true, color: WHITE });
+    txt(s, "FinTech  ·  Generative AI  ·  Social Impact  ·  Accessibility", { x: 0.6, y: 4.84, w: 6, h: 0.3, fontSize: 10.5, color: "9FC3BD" });
+    txt(s, "Try it now: virasat-indol.vercel.app", { x: 0.6, y: 3.42, w: 5, h: 0.32, fontSize: 13, bold: true, color: GOLD, hyperlink: { url: LIVE } });
+    txt(s, "Watch the 3 minute demo: youtu.be/CMpV2y9Zoxk", { x: 0.6, y: 3.76, w: 5.4, h: 0.3, fontSize: 11.5, bold: true, color: WHITE, hyperlink: { url: FILM } });
+    txt(s, "Code: github.com/usv240/virasat", { x: 0.6, y: 4.08, w: 5, h: 0.3, fontSize: 11, color: "CFE3DF", hyperlink: { url: REPO } });
     screenshot(s, "hindi.png", 6.1, 0.75, 1.75, 3.8);
     txt(s, "Working in Hindi,\non a phone", { x: 8.1, y: 1.6, w: 1.5, h: 0.8, fontSize: 11, color: "CFE3DF" });
   }

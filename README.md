@@ -8,6 +8,7 @@ Built by Team USV for the Global Innovation Hackathon 2026: Build for a Better F
 
 **Source code:** https://github.com/usv240/virasat  
 **Live app: https://virasat-indol.vercel.app**  
+**Demo video: https://youtu.be/CMpV2y9Zoxk** (3 minutes)  
 Start at [/try](https://virasat-indol.vercel.app/try) for the one click walkthrough, or [/judges](https://virasat-indol.vercel.app/judges) for the scoring map.
 
 ## The problem in one line
