@@ -245,7 +245,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     s.addTable([head, ...rows], { x: 0.5, y: 1.55, w: 5.5, colW: [1.9, 1.7, 1.9], fontFace: BF, fontSize: 10.5, border: { type: "solid", pt: 0.5, color: LINE }, rowH: 0.6, margin: [0.05, 0.08, 0.05, 0.08], valign: "middle" });
     const big = [["₹184 crore", "back to families if just 0.1 percent of the pool is claimed", GOLD, INK],
       ["₹38.7 crore", "saved in agent fees if we help 1 lakh families", TEAL, WHITE],
-      ["about ₹36", "of AI per family, measured from real token counts against the live API, versus ₹38,700 returned on average. Roughly 1,060 rupees recovered per rupee spent.", WHITE, INK]];
+      ["about ₹36", "of AI per family, measured from real token counts against the live API, versus ₹38,700 returned on average. Roughly 1,062 rupees recovered per rupee spent.", WHITE, INK]];
     big.forEach(([n, l, fill, tc], i) => {
       const y = 1.55 + i * 1.18;
       card(s, 6.3, y, 3.2, 1.03, fill);
@@ -285,10 +285,10 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
     // Left: where the thirty six rupees goes, and why most of the journey is free.
     card(s, 0.5, 1.5, 4.4, 3.2, "F2F8F6");
     txt(s, "What one family costs", { x: 0.75, y: 1.68, w: 4.0, h: 0.3, fontSize: 12, bold: true, color: TEAL });
-    const steps = [["Reading 3 photographed papers", "₹5.17"],
-      ["The AI Review, 3 claim routes", "₹14.82"],
+    const steps = [["Reading 3 photographed papers", "₹4.07"],
+      ["The AI Review, 3 claim routes", "₹28.96"],
       ["Tax statement, rules, claim packs", "free"],
-      ["One family, end to end", "₹19.99"]];
+      ["One family, end to end", "₹33.04 warm, ₹36.44 cold"]];
     steps.forEach(([k, v], i) => {
       const y = 2.05 + i * 0.5;
       const last = i === steps.length - 1;
@@ -307,7 +307,7 @@ const shadow = () => ({ type: "outer", color: "000000", blur: 8, offset: 2, angl
       txt(s, h, { x: 5.45, y: y + 0.16, w: 3.85, h: 0.3, fontSize: 13, bold: true, color: TEAL });
       txt(s, d, { x: 5.45, y: y + 0.5, w: 3.85, h: 0.85, fontSize: 9.5, color: INK });
     });
-    txt(s, "It goes down, not up, with scale: overnight work moves to the Batch API at half price, and a clear printed passbook does not need the largest model. About ₹4 a family at the lowest setting.",
+    txt(s, "It goes down, not up, with scale: overnight work moves to the Batch API at half price, and a clear printed passbook does not need the largest model. About ₹12 a family at the lowest measured setting.",
       { x: 5.2, y: 4.85, w: 4.3, h: 0.4, fontSize: 9, color: MUTED, italic: true });
     foot(s, "Published Anthropic prices, checked 21 Sep 2026, converted at 88 rupees to the dollar. Average of ₹38,700 returned per family: Gujarat camps, All India Radio.");
   }

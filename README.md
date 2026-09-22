@@ -2,161 +2,195 @@
 
 [![CI](https://github.com/usv240/virasat/actions/workflows/ci.yml/badge.svg)](https://github.com/usv240/virasat/actions/workflows/ci.yml)
 
-**Find forgotten family money. Know exactly how to claim it.** Take a photo of old papers. Virasat finds where the money is (bank, insurance, provident fund, shares), explains what to do in your language, and fills the forms.
+**Find forgotten family money. Know exactly how to claim it.**
 
-Built by Team USV for the Global Innovation Hackathon 2026: Build for a Better Future.
+Photograph a family's old papers. Virasat finds where the money is, uncovers
+accounts that were never in those papers, works out how to claim each one, and
+fills the forms in English and Hindi.
 
-**Source code:** https://github.com/usv240/virasat  
-**Live app: https://virasat-indol.vercel.app**  
-**Demo video: https://youtu.be/CMpV2y9Zoxk** (3 minutes)  
-Start at [/try](https://virasat-indol.vercel.app/try) for the one click walkthrough, or [/judges](https://virasat-indol.vercel.app/judges) for the scoring map.
+Built by **Team USV** for the Global Innovation Hackathon 2026: Build for a Better Future.
 
-## The problem in one line
+| | |
+|---|---|
+| **Try it** | https://virasat-indol.vercel.app/try (no sign up, sample family loaded) |
+| **Watch it** | https://youtu.be/CMpV2y9Zoxk (3 minutes) |
+| **For judges** | https://virasat-indol.vercel.app/judges (every criterion mapped to proof) |
+| **Source** | https://github.com/usv240/virasat |
 
-About ₹1.84 lakh crore of Indians' own money lies unclaimed (Finance Minister, October 2025). Families do not know it exists, it is spread across many portals, claiming is confusing, and agents charge 5 to 15 percent to help.
+---
+
+## The problem
+
+About **₹1.84 lakh crore** of Indians' own money is lying unclaimed in banks,
+insurance, provident fund and shares.[^1] It is not lost. Families simply do
+not know it is there, and claiming it is different at every institution.
+
+Three things make it stick:
+
+1. **Nobody knew it existed.** One family member held the account and never
+   told anyone. In many families bank details are never shared at all.[^2]
+2. **Searching is not claiming.** Every government portal finds the asset and
+   then hands the family back to the institution. The Supreme Court is hearing
+   a plea about exactly this, brought on behalf of legal heirs of deceased
+   depositors who cannot trace what they are owed.[^3]
+3. **The paperwork defeats people.** Without a nominee, heirs may need a
+   succession certificate from a civil court, which takes months. Recovery
+   agents charge 5 to 15 percent to help.[^4]
+
+The demand is proven, not assumed: Gujarat's claim camps returned **₹104 crore
+across 26,874 claims**, an average of **₹38,700 per family**.[^5]
 
 ## What Virasat does
 
+```mermaid
+flowchart LR
+    A["Old papers<br/>photographed"] --> B["AI reads them<br/>into fields"]
+    T["Income tax<br/>statement (AIS)"] --> C
+    B --> C["What the family owns"]
+    C --> D{"Rule engine<br/>picks the route"}
+    D --> E["AI Review<br/>looks for risks"]
+    E --> F["Claim pack<br/>English and Hindi"]
+    F --> G["Track, and escalate<br/>after 30 days"]
+    C -.-> V["Vault checks<br/>nominees, so it<br/>does not happen again"]
+
+    style D fill:#0f3d3e,color:#fff
+    style T fill:#e3a33b,color:#000
+```
+
+The two boxes that are coloured are the two that matter.
+
+**The tax statement (gold)** is the idea nobody else has built. A legal heir can
+obtain the account holder's Annual Information Statement, which lists every bank
+and company that ever paid them interest or a dividend. One PDF reveals accounts
+that never appeared in the papers the family found.
+
+**The rule engine (dark)** is where the AI is deliberately not allowed. The claim
+route is decided by versioned, tested rules, not by a model.
+
+### The boundary, in one line
+
+> **AI reads the documents. Deterministic, versioned rules decide the claim
+> route. An independent AI review looks for risks. The family acts.**
+
 | Step | What happens |
 |---|---|
-| Find | Photograph a passbook, policy bond, share certificate or PF slip, or upload the income tax statement (AIS). Virasat lists every place the family may have money, with a confidence per field. |
-| Claim | A rule engine (one tested rule file per institution) decides the route: nominee, legal heir, or court certificate. Virasat then challenges its own guidance: an independent AI review looks for risks and explains them before the family acts. Virasat fills the claim form and cover letter (English and Hindi) into a PDF claim pack. |
-| Track | Every claim has a status, a next action, and an escalation path to the ombudsman after 30 days. |
-| Prevent | The Parivaar Vault records every account and checks that each has a nominee. |
+| **Find** | Read a passbook, policy bond, share certificate or PF slip. Every field carries a confidence, so nothing is silently guessed. |
+| **Discover** | Parse the AIS by code, no AI call, and surface institutions the family never knew to search. |
+| **Claim** | One tested rule file per institution decides nominee, legal heir or court. The rule id is printed on the answer so a bank can audit it. |
+| **Review** | One AI looks for risks such as a name mismatch; another reviews the concern and can only add caution, never override the rules. |
+| **Act** | A PDF claim pack: the form, the checklist, and cover letters in both languages. |
+| **Track** | Status, next action, and a pre-written ombudsman complaint after 30 days. |
+| **Prevent** | The Parivaar Vault checks every account has a nominee, so the next generation does not repeat the search. |
 
-Everything works with no sign-up on sample data: open `/try`.
-
-## Run it in one minute
+## Run it
 
 ```bash
 npm install
-cp .env.example .env.local   # optional: ANTHROPIC_API_KEY=sk-ant-... for live AI
-npm run dev                  # http://localhost:3000
+npm run dev            # http://localhost:3000
 ```
 
-Without a key the app runs in Sample mode: AI steps replay pre-computed results for the sample family, and the whole demo still works end to end. With a key, your own photos are read live and the AI Review runs live. You can also paste your own key in the app's Help tab (Bring Your Own Key); it stays in your browser.
+No API key needed. Without one the app runs in **sample mode**: the AI steps
+replay pre-computed results and the whole journey still works end to end. With
+a key in `.env.local` (`ANTHROPIC_API_KEY=sk-ant-...`) your own photographs are
+read live. You can also paste your own key into the app's Help tab; it stays in
+your browser.
 
-## Checks
+## Test it
 
 ```bash
-npm run audit         # re-runs every claim on this page and writes docs/AUDIT-REPORT.md
-npm run verify        # lint, writing check (no emojis, no em dashes), tests, type check
-npm test              # 53 tests: rule engine, AIS parser, claim pack, dividends, cost model, corpus
-npm run eval          # measures the AI: document reading and the AI Review (needs an API key)
-npm run measure:cost  # measures what one family costs, using the app's own code (needs a key)
-npm run build         # production build
+npm test               # 57 tests: rules, AIS parser, claim pack, cost model, corpus, deck figures
+npm run verify         # lint, house style, tests, type check
+npm run audit          # the one that matters, see below
 ```
 
-`npm run audit` is the one that matters. It runs the lint, the writing rules, the
-types, the tests and a production build, then points axe at every page in both
-themes and Lighthouse at the live deployment three times on each profile, and
-writes the result to [docs/AUDIT-REPORT.md](docs/AUDIT-REPORT.md) including
-anything that failed. Every number below came from it, and every
-result is reproducible from this repository.
+`npm run audit` re-runs **every number published on the site** and writes
+[docs/AUDIT-REPORT.md](docs/AUDIT-REPORT.md), including anything that failed.
+It runs lint, the writing rules, types, tests and a production build, then
+points axe at all 11 pages in both themes and Lighthouse at the live
+deployment three times on each profile.
 
-Measured on the current build:
+Two more, both needing an API key:
+
+```bash
+npm run measure:cost   # what one family costs, using the app's own code
+npm run eval           # document reading accuracy, and the AI Review
+```
+
+`npm run measure:cost` refuses to run through a proxy, because measuring
+through a local cache once understated the cost by 9 percent.
+
+## What the measurements say
+
+Every figure here came from the commands above, not from an estimate.
 
 | Check | Result |
 |---|---|
-| Automated tests | 53 of 53 pass |
-| Accessibility (axe, WCAG 2.2 AA), 11 pages, light and dark | 0 serious or critical, 0 moderate |
-| Cost of serving one family | About ₹36 of AI, measured against the live API on 21 Sep 2026 with a cold prompt cache, against an average of ₹38,700 returned per family at Gujarat's camps. A warm cache measures ₹33; we publish the higher figure. Shown in full on [/proof](https://virasat-indol.vercel.app/proof), reproducible with `npm run measure:cost`. |
-| Lighthouse, landing page, live deployment | Desktop: 99 to 100 performance, LCP 0.8 s. Mobile, throttled: never below 90 performance, having ranged from 90 to 96 across runs, LCP 3.5 s. Both: 100 accessibility, 100 best practices, 100 SEO, and layout shift between 0 and 0.024 against a 0.1 threshold. Three runs each, range published rather than the best one. Reproduce with `npm run audit`. |
-| Writing check | no emojis, no em or en dashes |
+| Automated tests | 57 of 57 pass, on every push |
+| Accessibility (axe, WCAG 2.2 AA), 11 pages, light and dark | 0 serious, 0 critical, 0 moderate |
+| Lighthouse, live deployment, 3 runs each | Desktop 99 to 100. Mobile, throttled, never below 90. Both 100 accessibility, best practices and SEO |
+| Cost of serving one family | **₹36.44** of AI, measured against the live API with a cold cache. Against ₹38,700 returned per family, about **1,062 rupees recovered per rupee spent** |
+| Document reading | 12 of 12 fields across 3 sample documents |
+| The AI Review | Caught 3 of 3 planted problems. **So did a single reviewer.** We publish that; the case for the feature is transparency, not accuracy |
+| Dividend list parser | 46,282 rows across 1,263 pages of real lists companies must publish. Counts only, no name kept |
 
-## How it is put together
-
-The AI has bounded responsibilities, and the boundary is the point:
-
-**AI reads the documents. Deterministic, versioned rules decide the claim route.
-An independent AI review looks for risks. The family acts.**
-
-The route a family is told to take never comes from a model. And the step that
-makes Virasat different from a document reader is the tax statement: **the AIS
-can reveal banks and companies that never appeared in the papers the family
-found.**
-
-## Technology stack
+## Technology
 
 | Layer | Choice |
 |---|---|
-| App | Next.js 16 (App Router, TypeScript), React 19, Tailwind CSS 4 |
-| AI | Anthropic SDK, model `claude-opus-5`, structured outputs (Zod schemas), prompt caching |
-| Documents | pdf-parse (AIS tables), pdf-lib (claim pack PDFs) |
-| Voice | Browser Web Speech API (speech recognition and text to speech), Hindi and English |
-| Languages | English and Hindi across every screen, including the rule engine output and the AI Review |
-| Data | Family data in the browser (localStorage). Nothing personal is stored on the server. |
-| API | Route handlers under `/api/v1`, API keys (`vs_test_demo` sandbox), rate limit headers, RFC 9457 errors |
-| Offline | Network-first service worker and a web manifest, so it installs and keeps working on patchy signal |
-| Quality | ESLint, Vitest, TypeScript strict, writing check, axe via Playwright, Lighthouse, all behind one `npm run audit` |
-
-## Pages
-
-| Route | What it is |
-|---|---|
-| `/` | Landing page: problem, how it works, live demo, the AI Review, impact and savings calculator, trust, developers, technology, roadmap, FAQ, glossary, sources |
-| `/try` | The product with Sunita's sample papers loaded |
-| `/app` | The product, empty, for your own papers |
-| `/judges` | Judge Mode: criteria map, what is real and what is sample, deliverables |
-| `/developers` | API docs, playground, Bring Your Own Data, Key and Rules |
-| `/how-ai-works` | Transparency: what the AI does and never does, test results, limits |
-| `/proof` | Every claim we make, next to the command that would prove us wrong, plus the unit economics |
-| `/offline` | Shown when the phone has no signal, explaining what still works |
-| `/glossary`, `/references`, `/privacy`, `/accessibility` | Supporting pages |
-
-Top bar on every page: language (English, Hindi), theme (system, light, dark), and Simple or Technical mode. Info buttons explain every feature. The help button is in the same place on every page.
-
-## Public API
-
-```bash
-curl -X POST $HOST/api/v1/claims/route \
-  -H "Authorization: Bearer vs_test_demo" -H "Content-Type: application/json" \
-  -d '{"input":{"assetType":"bank","institution":"State Bank of India","amountInr":158420,"nomineePresent":true,"jointHolder":false,"claimantRelation":"spouse","otherHeirs":true}}'
-```
-
-Endpoints: `POST /extract`, `POST /ais/parse`, `POST /claims/route`, `POST /claims/pack`, `GET /dividends/search`, `GET|POST /rules`, `GET /rules/corpus`, `GET /rules/schema`, `GET /health`. Full docs and a playground at `/developers`.
+| App | Next.js 16 App Router, React 19, TypeScript strict, Tailwind CSS 4 |
+| AI | Anthropic SDK, `claude-opus-5`, structured outputs with Zod schemas, prompt caching |
+| Documents | pdf-parse for AIS tables, pdf-lib for claim packs |
+| Decisions | A versioned rule engine, one file per institution, unit tested |
+| Voice | Browser Web Speech API, in and out, Hindi and English |
+| Data | Stays in the browser. Nothing personal on a server |
+| API | `/api/v1`, API keys, shared rate limits, RFC 9457 errors |
+| Offline | Service worker and web manifest, so it installs and survives patchy signal |
 
 ## The open rule corpus
 
-Virasat's most reusable piece of infrastructure is its open rule corpus: each
-institution's claim procedure encoded as machine-readable, versioned rules.
-Today those procedures are fragmented across institutions and public guidance.
-The rules capture which documents are required, in which order, which
-thresholds apply, and where a family obtains each document. The app around
-them is the replaceable part.
+Virasat's most reusable piece is its rule corpus: each institution's claim
+procedure encoded as machine-readable, versioned rules. Today those procedures
+are fragmented across institutions and public guidance. The rules capture which
+documents are required, in which order, which thresholds apply, and where a
+family obtains each one.
 
-So it is open, MIT licensed, and served with no key and no permission:
+It is MIT licensed and served with no key:
 
 ```bash
-curl $HOST/api/v1/rules/corpus     # every rule set
-curl $HOST/api/v1/rules/schema     # the JSON Schema, generated from the code that enforces it
+curl https://virasat-indol.vercel.app/api/v1/rules/corpus
+curl https://virasat-indol.vercel.app/api/v1/rules/schema
 ```
 
-If a bank, a government portal or another team serves families better by taking
-it, that is the result we want. [Adding an institution](docs/CONTRIBUTING-RULES.md)
-is a new rule file, with no change to application code.
-
-## Repository layout
-
-```
-src/app/            pages and API route handlers
-src/components/     design system (ui.tsx), top bar, footer, help, landing sections, the app (find, claim, track, vault)
-src/lib/            rules engine, portals, AIS parser, extraction, debate, forms, sample data, store
-tests/              vitest tests
-scripts/            audit harness, cost measurement, AI evaluation, sample generator, writing check
-docs/               audit report, jury brief, video script, rule contribution guide
-public/samples/     synthetic sample documents (all names and numbers are made up)
-../projects/        the full plan, technical design and UX specification
-```
+If a bank or a government portal serves families better by taking it, that is
+the result we want. [Adding an institution](docs/CONTRIBUTING-RULES.md) is a
+new rule file, with no change to application code.
 
 ## Honesty
 
 - Sunita, Ramesh, their papers and amounts are made up.
-- The unpaid-dividend index is sample data in the same shape as companies' public lists.
-- Rule files exist for SBI, LIC, EPFO, IEPF and India Post. Other institutions get a "needs review" route.
-- Virasat never logs in to any portal, never asks for passwords, and never submits anything for you.
+- The unpaid-dividend index ships as sample data. Republishing real lists next
+  to real names would be a ready-made target list for fraud. The parser is real
+  and is tested against real published lists.
+- Rule files exist for SBI, LIC, EPFO, IEPF and India Post. Anything else routes
+  to "needs review" rather than a guess.
+- No family has used this yet. Every impact figure is potential, not achieved.
+- Virasat never logs in anywhere, never asks for a password, and never submits
+  anything for you.
 - This is guidance from public sources, not legal advice.
 
 ## Licence and credits
 
-MIT. Third-party resources are listed in `CREDITS.md`. Sources for every number are on `/references`.
+MIT. Third-party work is credited in [CREDITS.md](CREDITS.md), which is
+generated from source and checked by a test. Sources for every number are at
+[/references](https://virasat-indol.vercel.app/references).
+
+Built with Claude Code, by one developer, as the hackathon rules permit and
+require us to disclose.
+
+---
+
+[^1]: Union Finance Minister, October 2025, launching the Aapki Poonji Aapka Adhikar campaign. [Business Today](https://www.businesstoday.in/personal-finance/banking/story/finance-minister-launches-rs-1-84-lakh-crore-unclaimed-assets-campaign-496827-2025-10-04)
+[^2]: [Deccan Herald](https://www.deccanherald.com/amp/story/opinion%2Fmake-the-100-day-campaign-work-1229314.html): a pensioner's son was told at the branch that his father had never nominated anyone, and that prompting a nomination was not the bank's job.
+[^3]: RBI told the Supreme Court in April 2026 that UDGAM has 20 lakh users and 44 lakh searches, on a portal that searches but does not settle. The plea, by journalist Sucheta Dalal, seeks a mechanism to inform legal heirs of deceased depositors. [Drishti IAS summary](https://www.drishtiias.com/daily-updates/daily-news-analysis/rbis-udgam-portal)
+[^4]: [ShareSamadhan](https://sharesamadhan.com/blog-details/46/IEPF-CONSULTANT) on consultant fees; [Kanakkupillai](https://www.kanakkupillai.com/learn/cost-to-get-succession-certificate-in-india/) on the cost and time of a succession certificate.
+[^5]: [All India Radio](https://www.newsonair.gov.in/gujarat-rs-104-crore-returned-to-account-holders-under-aapki-punji-aapka-adhikar-campaign): Gujarat returned ₹104 crore on 26,874 claims.

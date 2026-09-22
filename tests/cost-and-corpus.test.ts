@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
-import { JOURNEY, LEVERS, PRICES, PUBLISHED_INR, journeyTotal, rupees, usd } from "../src/lib/cost";
+import { JOURNEY, LEVERS, PRICES, PUBLISHED_INR, USD_TO_INR, journeyTotal, rupees, usd } from "../src/lib/cost";
 import { CORPUS_VERSION, RULES, RuleSchema } from "../src/lib/rules";
 import { CLAIMS } from "../src/lib/proof";
 import { GLOSSARY } from "../src/lib/glossary";
@@ -243,5 +243,35 @@ describe("impact model", () => {
 
   it("keeps the success rate below what the camps saw, since camps started with a match in hand", () => {
     expect(INPUTS.find((i) => i.id === "success")!.value).toBeLessThan(1);
+  });
+});
+
+/**
+ * The deck is shown without the site beside it, so a stale figure on a slide
+ * is the one kind of error nobody catches in the room. The cost breakdown had
+ * drifted back to the estimates we published before measuring.
+ */
+describe("deck cost breakdown", () => {
+  const deck = readFileSync(new URL("../scripts/deck/build.js", import.meta.url), "utf8");
+  const inr = (id: string) => {
+    const step = JOURNEY.find((s) => s.id === id)!;
+    return usd(step.usage!, step.model) * step.times * USD_TO_INR.rate;
+  };
+
+  it("prints the measured cost of reading the papers", () => {
+    expect(deck).toContain(`"${rupees(inr("extract"))}"`);
+  });
+
+  it("prints the measured cost of the AI Review", () => {
+    expect(deck).toContain(`"${rupees(inr("debate"))}"`);
+  });
+
+  it("prints both the warm and the published cold total", () => {
+    expect(deck).toContain(rupees(journeyTotal().inr));
+    expect(deck).toContain(rupees(PUBLISHED_INR));
+  });
+
+  it("prints the same recovery ratio the Proof page derives", () => {
+    expect(deck).toContain(Math.round(38_700 / PUBLISHED_INR).toLocaleString("en-IN"));
   });
 });
